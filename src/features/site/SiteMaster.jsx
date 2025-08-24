@@ -2,14 +2,54 @@ import React from 'react'
 import { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSite } from '../../slice/AuthSlice';
-
-
-
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import { lightBlue } from '@mui/material/colors';
+import { StyledButton as StyledLoginButton } from "../auth/StyledLoginComponents/styledButton";
+import CustomH2 from '../../ui-component/Headings/CustomH2';
 const SiteMaster = () => {
+
+const columns = [
+  { id: 'id', label: 'ID', minWidth: 70 },
+  { id: 'name', label: 'Site Name', minWidth: 170 },
+  { id: 'business', label: 'Business', minWidth: 170 },
+  { id: 'address', label: 'Address', minWidth: 170 },
+  { id: 'spoc_name', label: 'SPOC Name', minWidth: 170 },
+  { id: 'spoc_email', label: 'SPOC Email', minWidth: 170 },
+  // {
+  //   id: 'population',
+  //   label: 'Population',
+  //   minWidth: 170,
+  //   align: 'right',
+  //   format: (value) => value.toLocaleString('en-US'),
+  // },
+
+];
+
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    const dispatch = useDispatch();
-   //const _Selector = useSelector((state) => state.practice);
-     const [data, setData] = useState([]);
-     const [headers, setHeaders] = useState([]);
+   const [rows, setRows] = useState([]);
+   const [headers, setHeaders] = useState([]);
 
 
       useEffect(() => {
@@ -17,7 +57,7 @@ const SiteMaster = () => {
 
         if(action.payload!=null && action.payload.data.length>0)
         {
-          setData(action.payload.data)
+          setRows(action.payload.data)
           setHeaders(Object.keys(action.payload.data[0]));
         }
       });
@@ -25,24 +65,64 @@ const SiteMaster = () => {
       
   return (
  <>
- <table>
-          <thead>
-            <tr>
-              {headers.map((header,idx) => (
-                <th key={idx}>{header}</th>
+<CustomH2 headingName='Site Master'></CustomH2>
+
+<Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <TableContainer sx={{ maxHeight: 440 }}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <TableRow sx={{ "& th": { backgroundColor: "lightBlue", color: "black" } }}>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth }}
+                >
+                  {column.label}
+                </TableCell>
               ))}
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row, rowIndex) => (
-              <tr key={rowIndex}> {/* Use a unique key for each row */}
-                {headers.map((header) => (
-                  <td key={`${rowIndex}-${header}`}>{row[header]}</td> // Unique key for each cell
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => {
+                return (
+                  <TableRow hover  tabIndex={-1} key={row.code} sx={{ height: '40px' }}>
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} align={column.align} sx={{paddingTop: 0.8, paddingBottom: 0}}>
+                          {/* {column.format && typeof value === 'number'
+                            ? column.format(value)
+                            : value} */}
+                            {value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {/* <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      /> */}
+</Paper>
+      <StyledLoginButton
+        size="large"
+        type="submit"
+        variant="outlined"
+      >
+        Create New Site
+      </StyledLoginButton>
  </>
   )
 }
