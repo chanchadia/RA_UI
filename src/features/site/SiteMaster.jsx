@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSite } from '../../slice/AuthSlice';
 import Paper from '@mui/material/Paper';
@@ -15,29 +15,31 @@ import { StyledButton as StyledLoginButton } from "../auth/StyledLoginComponents
 import CustomH2 from '../../ui-component/Headings/CustomH2';
 import Grid from '@mui/material/GridLegacy';
 import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 
 const SiteMaster = () => {
+  const navigate = useNavigate();
+  const columns = [
+    { id: 'id', label: 'ID', minWidth: 70 },
+    { id: 'name', label: 'Site Name', minWidth: 170 },
+    { id: 'business', label: 'Business', minWidth: 170 },
+    { id: 'address', label: 'Address', minWidth: 170 },
+    { id: 'spoc_name', label: 'SPOC Name', minWidth: 170 },
+    { id: 'spoc_email', label: 'SPOC Email', minWidth: 170 },
+    // {
+    //   id: 'population',
+    //   label: 'Population',
+    //   minWidth: 170,
+    //   align: 'right',
+    //   format: (value) => value.toLocaleString('en-US'),
+    // },
 
-const columns = [
-  { id: 'id', label: 'ID', minWidth: 70 },
-  { id: 'name', label: 'Site Name', minWidth: 170 },
-  { id: 'business', label: 'Business', minWidth: 170 },
-  { id: 'address', label: 'Address', minWidth: 170 },
-  { id: 'spoc_name', label: 'SPOC Name', minWidth: 170 },
-  { id: 'spoc_email', label: 'SPOC Email', minWidth: 170 },
-  // {
-  //   id: 'population',
-  //   label: 'Population',
-  //   minWidth: 170,
-  //   align: 'right',
-  //   format: (value) => value.toLocaleString('en-US'),
-  // },
-
-];
+  ];
 
 
   const [page, setPage] = useState(0);
@@ -54,74 +56,80 @@ const columns = [
 
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   const dispatch = useDispatch();
-   const [rows, setRows] = useState([]);
-   const [headers, setHeaders] = useState([]);
+  const dispatch = useDispatch();
+  const [rows, setRows] = useState([]);
+  const [headers, setHeaders] = useState([]);
 
 
-      useEffect(() => {
-      dispatch(getSite("")).then((action, state)=>{
+  useEffect(() => {
+    dispatch(getSite("")).then((action, state) => {
 
-        if(action.payload!=null && action.payload.data.length>0)
-        {
-          setRows(action.payload.data)
-          setHeaders(Object.keys(action.payload.data[0]));
-        }
-      });
-    }, []);
-      
+      if (action.payload != null && action.payload.data.length > 0) {
+        setRows(action.payload.data)
+        setHeaders(Object.keys(action.payload.data[0]));
+      }
+    });
+  }, []);
+
   return (
- <>
+    <>
 
-             <Grid container flexDirection={'column'}>
-                <Grid item flexGrow={1}>
-                    <CustomH2 headingName='Site Master'></CustomH2>
-                </Grid>
-                <Grid item flexGrow={1}>
-                    <CustomDashedBorder />
-                </Grid>
-            </Grid>
+      <Grid container flexDirection={'column'}>
+        <Grid item container display={'flex'} justifyContent={'space-between'}>
 
-<Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow sx={{ "& th": { backgroundColor: "lightBlue", color: "black" } }}>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover  tabIndex={-1} key={row.code} sx={{ height: '40px' }}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align} sx={{paddingTop: 0.8, paddingBottom: 0}}>
-                          {/* {column.format && typeof value === 'number'
+          <CustomH2 headingName='Site Master'></CustomH2>
+       <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
+       onClick={()=>{
+          navigate('/site/create/');
+       }}
+       >Create Site</Button>
+
+        </Grid>
+        <Grid item flexGrow={1}>
+          <CustomDashedBorder />
+        </Grid>
+      </Grid>
+
+      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow sx={{ "& th": { backgroundColor: "lightBlue", color: "black" } }}>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return (
+                    <TableRow hover tabIndex={-1} key={row.code} sx={{ height: '40px' }}>
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0 }}>
+                            {/* {column.format && typeof value === 'number'
                             ? column.format(value)
                             : value} */}
                             {value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {/* <TablePagination
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {/* <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
         count={rows.length}
@@ -130,15 +138,9 @@ const columns = [
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       /> */}
-</Paper>
-      <StyledLoginButton
-        size="large"
-        type="submit"
-        variant="outlined"
-      >
-        Create New Site
-      </StyledLoginButton>
- </>
+      </Paper>
+
+    </>
   )
 }
 
