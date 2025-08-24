@@ -12,9 +12,12 @@ import Grid from '@mui/material/GridLegacy';
 import CustomTextInput from "../../ui-component/CustomTextInputField/customTextInput";
 import Controls from "../../ui-component/Controls/Controls";
 import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
+import { createSite } from '../../slice/SiteSlice';
+import { useNavigate } from 'react-router-dom';
 
 const CreateSite = () => {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [successAlert, setsuccessAlert] = useState({
@@ -47,7 +50,14 @@ const CreateSite = () => {
     });
 
     const onSubmit = (values) => {
-        console.log(values)
+        dispatch(createSite(values)).unwrap()
+        .then((res)=>{
+            setsuccessAlert({ ...successAlert, open: true, message: res.message, isError: false });
+            navigate('/site');
+        })
+        .catch((err) => {
+            setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+        });
     };
 
     return (

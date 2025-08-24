@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSite } from '../../slice/AuthSlice';
+import { getSite } from '../../slice/SiteSlice';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -19,18 +19,20 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 
-
+import EditIcon from '@mui/icons-material/Edit';
+import { IconButton } from '@mui/material';
 
 
 const SiteMaster = () => {
   const navigate = useNavigate();
   const columns = [
-    { id: 'id', label: 'ID', minWidth: 70 },
     { id: 'name', label: 'Site Name', minWidth: 170 },
     { id: 'business', label: 'Business', minWidth: 170 },
     { id: 'address', label: 'Address', minWidth: 170 },
     { id: 'spoc_name', label: 'SPOC Name', minWidth: 170 },
     { id: 'spoc_email', label: 'SPOC Email', minWidth: 170 },
+    { id: 'EditIcon', label: 'Edit', minWidth: 70 },
+ 
     // {
     //   id: 'population',
     //   label: 'Population',
@@ -70,6 +72,10 @@ const SiteMaster = () => {
       }
     });
   }, []);
+
+  const handleEdit = (id) => {
+    alert("Edit site with ID: " + id);
+  };
 
   return (
     <>
@@ -119,7 +125,9 @@ const SiteMaster = () => {
                             {/* {column.format && typeof value === 'number'
                             ? column.format(value)
                             : value} */}
-                            {value}
+                            {column.id==='EditIcon' ? <IconButton aria-label="edit" size="small" onClick={() => handleEdit(row['id'] )}>
+                            <EditIcon fontSize="inherit" />
+                            </IconButton> : value}
                           </TableCell>
                         );
                       })}

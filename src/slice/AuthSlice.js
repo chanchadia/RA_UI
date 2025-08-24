@@ -29,38 +29,14 @@ export const loginUser = createAsyncThunk(
     }
   );
 
-  export const getSite = createAsyncThunk(
-    "getSite",
-    async(args, { rejectWithValue }) => {
-        try
-        {
-        const token = sessionStorage.getItem('token');
 
-          const requestOptions = {
-              method: 'GET',
-              headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
-          };
-          const response = await fetch(config.API_URL + 'Site' + args, requestOptions);
-          if (response.ok) {
-          return await response.json();
-          } else {
-          return rejectWithValue(response.json());
-          }
-        }
-        catch (error)
-        {
-            return rejectWithValue(error);
-        }
-    }
-);
 
 export const AuthSlice = createSlice({
   name: "AuthSlice",
   initialState: {
       userData: [],
       loading: false,
-      error: null,
-      siteData: [],
+      error: null
   },
 reducers:{},
     extraReducers: (builder) => {
