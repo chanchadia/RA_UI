@@ -1,0 +1,16 @@
+h4{
+    font-size:22px;
+    line-height:26px;
+    font-family:roboto;
+    color: #004E86;
+    font-weight:400;
+    margin:0;
+    
+}
+span h4:last-child{
+    font-weight:700;
+}
+
+.box{
+    font-size:44px;
+}

@@ -1,0 +1,53 @@
+.ProfileDropDownList::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.ProfileDropDownList .MuiList-root.MuiList-padding {
+  width: 155px;
+  max-width: 155px;
+  min-width: 155px;
+}
+
+header {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* css for header to be fixed(not movable with sidebar) */
+header
+  > .MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-regular
+  > .MuiBox-root:first-child {
+  position: fixed;
+  left: 15px;
+}
+
+/* to overwrite material UI Css */
+#prfileDropDownLists .MuiBox-root > .MuiBox-root {
+  border: 1px solid #a8b6bb;
+}
+
+/* to overwrite material UI Css */
+#prfileDropDownLists .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
+  transition: none;
+  box-shadow: none;
+}
+
+/* to overwrite material UI Css */
+#prfileDropDownLists .MuiList-root.MuiList-padding {
+  padding: 0;
+}
+
+.main span.downarrowicon {
+  position: absolute;
+  top: 25px;
+  right: 8px;
+  color: #555555;
+  z-index: 11;
+  cursor: pointer;
+}

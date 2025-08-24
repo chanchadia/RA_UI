@@ -1,0 +1,95 @@
+.CardContainer{
+    margin-bottom: 20px;
+    margin-top: 0;
+    border-radius:10px;
+}
+.Orange{
+    color:#E95C27  ;
+    text-transform: uppercase;
+}
+.Green{
+    color: #679639  ;
+    text-transform: uppercase;
+}
+.SkyBlue{
+    color:#43A0D7  ;
+    text-transform: uppercase;
+}
+.ImperialBlue{
+    color:#0B6679  ;
+    text-transform: uppercase;
+}
+.DarkBlue{
+    color:#384F8D  ;
+    text-transform: uppercase;
+}
+.Purple{
+    color:#7A54A5  ;
+    text-transform: uppercase;
+}
+.PurpleB2{
+    border: 2px solid #7A54A5  ;
+
+}  
+.PurpleB2 h4{
+    color:#7A54A5;
+}
+.ImperialBlueB2{
+    border: 2px solid #0B6679  ;
+}
+.ImperialBlueB2 h4{
+    color:#0B6679 ;
+}
+.DarkBlueB2{
+    border: 2px solid #384F8D  ;
+} 
+.DarkBlueB2 h4{
+    color: #384F8D;
+} 
+.OrangeB2{
+    border: 2px solid #E95C27  ;
+}
+.OrangeB2 h4{
+    color:#E95C27 ;
+}  
+.GreenB2{
+    border: 2px solid #679639  ;
+}
+.GreenB2 h4{
+color: #679639;
+}
+.SkyBlueB2{
+    border: 2px solid #43A0D7  ;
+   
+}
+.SkyBlueB2 h4{
+    color:#43A0D7 ;
+}
+.orangebg{
+    background-color:#FDEFE9  ;
+    padding: 10px;
+    
+}
+.greenbg{
+    background-color: #F0F5EB ;
+    padding: 10px;
+ 
+}
+.skybluebg{
+    background-color:#ECF6FB  ;
+    padding: 10px;
+    
+}
+.imperialbluebg{
+    background-color:#E7F0F2  ;
+    padding: 10px;
+}
+.darkbluebg{
+    background-color:#EBEDF4  ;
+    padding: 10px;
+    margin-bottom: 22px!important;
+}
+.purplebg{
+    background-color:#F2EEF6  ;
+    padding: 10px;
+}

@@ -1,0 +1,18 @@
+.Heading {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 47px;
+     padding-top: 80px;
+     margin-bottom: 30px;
+    color: #FFFFFF;
+}
+.PwdValidatorHeading {
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #000000;
+}
