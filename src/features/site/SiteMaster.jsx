@@ -13,6 +13,13 @@ import TableRow from '@mui/material/TableRow';
 import { lightBlue } from '@mui/material/colors';
 import { StyledButton as StyledLoginButton } from "../auth/StyledLoginComponents/styledButton";
 import CustomH2 from '../../ui-component/Headings/CustomH2';
+import Grid from '@mui/material/GridLegacy';
+import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
+
+
+
+
+
 const SiteMaster = () => {
 
 const columns = [
@@ -65,7 +72,15 @@ const columns = [
       
   return (
  <>
-<CustomH2 headingName='Site Master'></CustomH2>
+
+             <Grid container flexDirection={'column'}>
+                <Grid item flexGrow={1}>
+                    <CustomH2 headingName='Site Master'></CustomH2>
+                </Grid>
+                <Grid item flexGrow={1}>
+                    <CustomDashedBorder />
+                </Grid>
+            </Grid>
 
 <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>

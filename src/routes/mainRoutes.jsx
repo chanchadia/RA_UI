@@ -4,6 +4,7 @@ import LoginForm from '../features/auth/LoginForm'
 import MainLayout from '../features/main/MainLayout'
 import CustomH2 from '../ui-component/Headings/CustomH2'
 import SiteMaster from '../features/site/SiteMaster';
+import CreateSite from '../features/site/CreateSite';
 
 
 const mainRoutes = {
@@ -17,6 +18,10 @@ const mainRoutes = {
         {
             path: '/site',
             element: <SiteMaster></SiteMaster>
+        },
+        {
+            path: '/site/create',
+            element: <CreateSite></CreateSite>
         },
         {
             path: '/change_pwd',

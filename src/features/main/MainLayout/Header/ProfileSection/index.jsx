@@ -94,7 +94,7 @@ const ProfileSection = () => {
   return (
     <div className={HeaderCss.ProfileContainer}>
       {/* <span className={HeaderCss.UserName}>{user ? user.userName : "Anonymous User"}</span> */}
-      <span className={HeaderCss.UserName}>{userData.data.login_name}</span>
+      <span className={HeaderCss.UserName}>{userData.data?.login_name || "Anonymous User"}</span>
       <span className={HeaderCss.ProfileDropDown}>
         {/* <span className="downarrowicon">
           <KeyboardArrowDownIcon onClick={handleToggle} />
