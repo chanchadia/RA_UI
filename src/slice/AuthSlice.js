@@ -19,11 +19,7 @@ export const loginUser = createAsyncThunk(
         } 
         else 
         {
-          if (response.status === 400) {
-            // Return the known error for future handling
-            return await response.json();
-          }
-          return rejectWithValue(response.json());
+          return rejectWithValue(await response.json());
         }
       }
       catch (error)

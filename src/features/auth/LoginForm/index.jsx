@@ -125,8 +125,8 @@ function LoginForm(props) {
   const userList  = [];
   const onSubmitNow = (values) => {
      dispatch(loginUser({
-       login_id: "string",
-       login_pwd: "string" 
+       login_id: values.email,
+       login_pwd: values.password
     })).unwrap()
     .then((originalPromiseResult)=>{
       if(originalPromiseResult)
@@ -135,9 +135,10 @@ function LoginForm(props) {
         navigate('/site');
       } 
     })
-    .catch((rejectedValueOrSerializedError) => {
+    .catch((err) => {
       sessionStorage.setItem('token', "");
-      alert('Error occur while Processing.');
+        setLoginErrMsg(err.message);
+        setIsLoginError(true);
     });
   }
   const onSubmit = (values) => {
