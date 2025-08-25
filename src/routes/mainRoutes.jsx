@@ -7,7 +7,7 @@ import SiteMaster from '../features/site/SiteMaster';
 import CreateSite from '../features/site/CreateSite';
 import SiteTranList from '../features/siteTran/siteTranList';
 import CreateSiteTran from '../features/siteTran/CreateSiteTran';
-import RaEntry from '../features/ra/RaEntry';
+import SeverityRating from '../features/SeverityRating/SeverityRatingEntry';
 
 
 const mainRoutes = {
@@ -43,8 +43,8 @@ const mainRoutes = {
             element: <CreateSiteTran></CreateSiteTran>
         },
         {
-            path: '/ra/:tranid',
-            element: <RaEntry></RaEntry>
+            path: '/sa/:raid',
+            element: <SeverityRating></SeverityRating>
         },
         //------------------------------------------------------------------------
         {

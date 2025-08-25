@@ -120,7 +120,7 @@ useEffect(() => {
                                   </IconButton> 
                                   : 
                                   column.id === 'name' ? 
-                                   <Link to={`/ra/${row['id']}`} >{value}</Link> 
+                                   <Link to={`/sa/${row['id']}`} >{value}</Link> 
                                   //  <Link to='/change_pwd' state={{ ra_id: row['id']  }} >{value}</Link> 
                                   :
                                   value}
