@@ -23,18 +23,28 @@ import { IconButton } from '@mui/material';
 
 const SiteTranList = (props) => {
       const navigate = useNavigate();
+
+useEffect(() => {
+    // dispatch(getSite("")).then((action, state) => {
+
+    // if (action.payload != null && action.payload.data.length > 0) {
+    //     setRows(action.payload.data)
+    //     setHeaders(Object.keys(action.payload.data[0]));
+    // }
+    // });
+}, []);
     
   return (
     <>
         <Grid container flexDirection={'column'}>
         <Grid item container display={'flex'} justifyContent={'space-between'}>
 
-          <CustomH2 headingName='Create New Survey Assessment'></CustomH2>
+          <CustomH2 headingName='Survey Assessment (SA)'></CustomH2>
        <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
        onClick={()=>{
           navigate('/site/create/');
        }}
-       >Create New Survey Assessment</Button>
+       >Create New SA</Button>
 
         </Grid>
         <Grid item flexGrow={1}>
