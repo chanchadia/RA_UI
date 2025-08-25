@@ -16,9 +16,8 @@ import CustomH2 from '../../ui-component/Headings/CustomH2';
 import Grid from '@mui/material/GridLegacy';
 import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
 import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
 
@@ -74,7 +73,7 @@ const SiteMaster = () => {
   }, []);
 
   const handleEdit = (id) => {
-    alert("Edit site with ID: " + id);
+    navigate(`/site/${id}`);
   };
 
   return (
@@ -125,9 +124,16 @@ const SiteMaster = () => {
                             {/* {column.format && typeof value === 'number'
                             ? column.format(value)
                             : value} */}
-                            {column.id==='EditIcon' ? <IconButton aria-label="edit" size="small" onClick={() => handleEdit(row['id'] )}>
-                            <EditIcon fontSize="inherit" />
-                            </IconButton> : value}
+                            {column.id==='EditIcon' ? 
+                                  <IconButton aria-label="edit" size="small" onClick={() => handleEdit(row['id'] )}>
+                                  <EditIcon fontSize="inherit" />
+                                  </IconButton> 
+                                  : 
+                                  column.id === 'name' ? 
+                                   <Link to={`/site/${row['id']}/tran`} >{value}</Link> 
+                                  //  <Link to='/change_pwd' state={{ ra_id: row['id']  }} >{value}</Link> 
+                                  :
+                                  value}
                           </TableCell>
                         );
                       })}

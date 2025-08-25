@@ -5,6 +5,7 @@ import MainLayout from '../features/main/MainLayout'
 import CustomH2 from '../ui-component/Headings/CustomH2'
 import SiteMaster from '../features/site/SiteMaster';
 import CreateSite from '../features/site/CreateSite';
+import SiteTranList from '../features/siteTran/siteTranList';
 
 
 const mainRoutes = {
@@ -26,6 +27,10 @@ const mainRoutes = {
         {
             path: '/site/create',
             element: <CreateSite></CreateSite>
+        },
+        {
+            path: '/site/:id/tran',
+            element: <SiteTranList></SiteTranList>
         },
         {
             path: '/change_pwd',
