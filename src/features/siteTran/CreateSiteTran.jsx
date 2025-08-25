@@ -62,7 +62,7 @@ const CreateSiteTran = () => {
                 handleClose: () => {
                     //setTimeout(() => {
                     setIsDisabled(false);
-                        navigate('/site');
+                        navigate(`/site/${id}/tran`);
                     //}, 1000);
                 }
              });
