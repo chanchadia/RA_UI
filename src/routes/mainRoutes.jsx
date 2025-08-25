@@ -6,6 +6,7 @@ import CustomH2 from '../ui-component/Headings/CustomH2'
 import SiteMaster from '../features/site/SiteMaster';
 import CreateSite from '../features/site/CreateSite';
 import SiteTranList from '../features/siteTran/siteTranList';
+import CreateSiteTran from '../features/siteTran/CreateSiteTran';
 
 
 const mainRoutes = {
@@ -32,6 +33,16 @@ const mainRoutes = {
             path: '/site/:id/tran',
             element: <SiteTranList></SiteTranList>
         },
+                {
+            path: '/site/:id/tran/:tranid',
+            element: <CreateSiteTran></CreateSiteTran>
+        },
+        {
+            path: '/site/:id/tran/create',
+            element: <CreateSiteTran></CreateSiteTran>
+        },
+
+        //------------------------------------------------------------------------
         {
             path: '/change_pwd',
             element: <CustomH2 headingName='Change password screen'></CustomH2>

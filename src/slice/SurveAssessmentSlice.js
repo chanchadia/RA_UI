@@ -28,6 +28,88 @@ import config from '../config';
     }
 );
 
+export const createSiteTran = createAsyncThunk(
+    "createSiteTran",
+    async(args, { rejectWithValue }) => { 
+      try
+      {
+        const token = sessionStorage.getItem('token');
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
+            body: JSON.stringify(args)
+        };
+        const response = await fetch(config.API_URL + 'SiteTran/' + args.site_id, requestOptions);
+        if (response.ok) 
+        {
+          return await response.json();
+        } 
+        else 
+        {
+          return rejectWithValue(await response.json());
+        }
+      }
+      catch (error)
+      {
+        return rejectWithValue(error);
+      }
+    }
+  );
+
+  export const modifySiteTran = createAsyncThunk(
+    "modifySiteTran",
+    async(args, { rejectWithValue }) => { 
+      try
+      {
+        const token = sessionStorage.getItem('token');
+
+        const requestOptions = {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
+            body: JSON.stringify(args)
+        };
+        const response = await fetch(config.API_URL + 'SiteTran/' + args.site_id, requestOptions);
+        if (response.ok) 
+        {
+          return await response.json();
+        } 
+        else 
+        {
+          return rejectWithValue(await response.json());
+        }
+      }
+      catch (error)
+      {
+        return rejectWithValue(error);
+      }
+    }
+  );
+  export const getSingleSiteTran = createAsyncThunk(
+    "getSingleSiteTran",
+    async(args, { rejectWithValue }) => {
+        try
+        {
+        const token = sessionStorage.getItem('token');
+
+          const requestOptions = {
+              method: 'GET',
+              headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
+          };
+          const response = await fetch(config.API_URL + 'SiteTran/' + args.site_id + '/' + args.tranid, requestOptions);
+          if (response.ok) {
+          return await response.json();
+          } else {
+          return rejectWithValue(response.json());
+          }
+        }
+        catch (error)
+        {
+            return rejectWithValue(error);
+        }
+    }
+  );
+
 export const SurveAssessmentSlice = createSlice({
   name: "SurveAssessmentSlice",
   initialState: {
