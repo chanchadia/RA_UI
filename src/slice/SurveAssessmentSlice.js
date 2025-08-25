@@ -14,7 +14,7 @@ import config from '../config';
               method: 'GET',
               headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
           };
-          const response = await fetch(config.API_URL + 'SiteTran' + args, requestOptions);
+          const response = await fetch(config.API_URL + 'SiteTran/' + args, requestOptions);
           if (response.ok) {
           return await response.json();
           } else {
