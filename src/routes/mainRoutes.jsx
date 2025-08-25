@@ -7,6 +7,7 @@ import SiteMaster from '../features/site/SiteMaster';
 import CreateSite from '../features/site/CreateSite';
 import SiteTranList from '../features/siteTran/siteTranList';
 import CreateSiteTran from '../features/siteTran/CreateSiteTran';
+import RaEntry from '../features/ra/RaEntry';
 
 
 const mainRoutes = {
@@ -33,7 +34,7 @@ const mainRoutes = {
             path: '/site/:id/tran',
             element: <SiteTranList></SiteTranList>
         },
-                {
+        {
             path: '/site/:id/tran/:tranid',
             element: <CreateSiteTran></CreateSiteTran>
         },
@@ -41,7 +42,10 @@ const mainRoutes = {
             path: '/site/:id/tran/create',
             element: <CreateSiteTran></CreateSiteTran>
         },
-
+        {
+            path: '/ra/:tranid',
+            element: <RaEntry></RaEntry>
+        },
         //------------------------------------------------------------------------
         {
             path: '/change_pwd',
