@@ -15,6 +15,8 @@ import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
 import { createSite, getSingleSite, modifySite } from '../../slice/SiteSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createSiteTran, getSingleSiteTran, modifySiteTran } from '../../slice/SurveAssessmentSlice';
+import CustomDatePicker from '../../ui-component/CustomDueDatePicker';
+import dayjs from 'dayjs';
 
 const CreateSiteTran = () => {
 
@@ -48,7 +50,7 @@ const CreateSiteTran = () => {
     const validationSchema = Yup.object({
         name: Yup.string().max(255, "Must be 255 characters or less").required("Description is mandatory. *"),
         start_dt: Yup.string().max(255, "Must be 255 characters or less").required("Start date is mandatory. *"),
-        end_dt: Yup.string().max(255, "Must be 255 characters or less"),
+        end_dt: Yup.string().max(255, "Must be 255 characters or less").nullable(true),
     });
 
     const onSubmit = (values) => {
@@ -100,6 +102,7 @@ const CreateSiteTran = () => {
                 </Grid>
             </Grid>
 
+            
 
             <Formik enableReinitialize={true}
                 initialValues={singleSiteData || initialValues}
@@ -114,9 +117,33 @@ const CreateSiteTran = () => {
 
                         <Grid container spacing={2}>
                             <Grid item xs={12}>   <CustomTextInput label="Description *" name="name" type="text" /></Grid>
-                            <Grid item xs={3}>   <CustomTextInput label="Assessment Start Date *" name="start_dt" type="text" /></Grid>
+                            <Grid item xs={3}>   
+                                <CustomDatePicker
+                                    onChange={(date) => {
+                                        if (date === null) {
+                                          setFieldValue("start_dt", null);
+                                        } else {
+                                          dayjs(date).format('DD-MM-YYYY') !== 'Invalid Date' && setFieldValue("start_dt",dayjs(date).format('DD-MM-YYYY'));
+                                        }
+                                    }}
+                                    label="Assessment Start Date *"
+                                    valuedata={values.start_dt ? dayjs(values.start_dt, 'DD-MM-YYYY') : null}
+                                />
+                            </Grid>
                             <Grid item xs={9}></Grid>
-                            <Grid item xs={3}>   <CustomTextInput label="Assessment End Date" name="end_dt" type="text" /></Grid>
+                            <Grid item xs={3}>  
+                                 <CustomDatePicker
+                                    onChange={(date) => {
+                                        if (date === null) {
+                                          setFieldValue("end_dt", null);
+                                        } else {
+                                          dayjs(date).format('DD-MM-YYYY') !== 'Invalid Date' && setFieldValue("end_dt",dayjs(date).format('DD-MM-YYYY'));
+                                        }
+                                    }}
+                                    label="Assessment End Date"
+                                    valuedata={values.end_dt ? dayjs(values.end_dt, 'DD-MM-YYYY') : null}
+                                />
+                            </Grid>
                         </Grid>
 
                         {/* <Controls.Button
