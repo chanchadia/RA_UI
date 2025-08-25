@@ -30,6 +30,60 @@ export const createSite = createAsyncThunk(
     }
   );
 
+  export const modifySite = createAsyncThunk(
+    "modifySite",
+    async(args, { rejectWithValue }) => { 
+      try
+      {
+        const token = sessionStorage.getItem('token');
+
+        const requestOptions = {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
+            body: JSON.stringify(args)
+        };
+        const response = await fetch(config.API_URL + 'Site', requestOptions);
+        if (response.ok) 
+        {
+          return await response.json();
+        } 
+        else 
+        {
+          return rejectWithValue(await response.json());
+        }
+      }
+      catch (error)
+      {
+        return rejectWithValue(error);
+      }
+    }
+  );
+
+  export const getSingleSite = createAsyncThunk(
+    "getSite",
+    async(args, { rejectWithValue }) => {
+        try
+        {
+        const token = sessionStorage.getItem('token');
+
+          const requestOptions = {
+              method: 'GET',
+              headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
+          };
+          const response = await fetch(config.API_URL + 'Site/' + args, requestOptions);
+          if (response.ok) {
+          return await response.json();
+          } else {
+          return rejectWithValue(response.json());
+          }
+        }
+        catch (error)
+        {
+            return rejectWithValue(error);
+        }
+    }
+  );
+
   export const getSite = createAsyncThunk(
     "getSite",
     async(args, { rejectWithValue }) => {

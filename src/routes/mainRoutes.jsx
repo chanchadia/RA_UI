@@ -20,6 +20,10 @@ const mainRoutes = {
             element: <SiteMaster></SiteMaster>
         },
         {
+            path: '/site/:id',
+            element: <CreateSite></CreateSite>
+        },
+        {
             path: '/site/create',
             element: <CreateSite></CreateSite>
         },

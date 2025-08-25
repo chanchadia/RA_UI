@@ -12,14 +12,17 @@ import Grid from '@mui/material/GridLegacy';
 import CustomTextInput from "../../ui-component/CustomTextInputField/customTextInput";
 import Controls from "../../ui-component/Controls/Controls";
 import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
-import { createSite } from '../../slice/SiteSlice';
-import { useNavigate } from 'react-router-dom';
+import { createSite, getSingleSite, modifySite } from '../../slice/SiteSlice';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const CreateSite = () => {
+
+    const {id} = useParams();
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(false);
     const [successAlert, setsuccessAlert] = useState({
         open: false,
         vertical: "top",
@@ -30,6 +33,8 @@ const CreateSite = () => {
             setsuccessAlert({ ...successAlert, open: false, message: "", isError: false });
         }
     });
+
+    const [singleSiteData, setSingleSiteData] = useState(null);
 
     const initialValues = {
         id: "0",
@@ -50,21 +55,47 @@ const CreateSite = () => {
     });
 
     const onSubmit = (values) => {
-        dispatch(createSite(values)).unwrap()
+        setIsSubmitting(true)
+        dispatch(id ? modifySite(values) : createSite(values)).unwrap()
         .then((res)=>{
-            setsuccessAlert({ ...successAlert, open: true, message: res.message, isError: false });
-            navigate('/site');
+            setIsSubmitting(false)
+            setIsDisabled(true);
+            setsuccessAlert({ ...successAlert, open: true, message: res.message, isError: false,
+                handleClose: () => {
+                    //setTimeout(() => {
+                    setIsDisabled(false);
+                        navigate('/site');
+                    //}, 1000);
+                }
+             });
         })
         .catch((err) => {
             setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+            setIsSubmitting(false)
         });
     };
+
+    useEffect(()=>
+    {
+        id && dispatch(getSingleSite(id)).unwrap()
+            .then((resp)=>{
+              if(resp)
+              {
+                setSingleSiteData({...resp.data[0]});
+              } 
+            })
+            .catch((err) => {
+                setSingleSiteData(true); // to disable form
+                setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+            });
+
+    }, [id]);
 
     return (
         <>
             <Grid container flexDirection={'column'}>
                 <Grid item flexGrow={1}>
-                    <CustomH2 headingName='Create Site'></CustomH2>
+                    <CustomH2 headingName={id ? 'Modify Site' : 'Create Site'}></CustomH2>
                 </Grid>
                 <Grid item flexGrow={1}>
                     <CustomDashedBorder />
@@ -72,12 +103,12 @@ const CreateSite = () => {
             </Grid>
 
 
-            <Formik
-                initialValues={initialValues}
+            <Formik enableReinitialize={true}
+                initialValues={singleSiteData || initialValues}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
                 onReset={() => {
-                    setResetKey("true");
+                    //setResetKey("true");
                 }}
             >
                 {({ values, setFieldValue, onSubmit }) => (
@@ -86,7 +117,7 @@ const CreateSite = () => {
                         <Grid container spacing={2}>
                             <Grid item xs={6}>   <CustomTextInput label="Site Name *" name="name" type="text" /></Grid>
                             <Grid item xs={6}>   <CustomTextInput label="Nature Of Business *" name="business" type="text" /></Grid>
-                            <Grid item xs={6}>    <CustomTextInput label="SPOC Name *" name="spoc_name" type="text" /></Grid>
+                            <Grid item xs={6}>   <CustomTextInput label="SPOC Name *" name="spoc_name" type="text" /></Grid>
                             <Grid item xs={6}>   <CustomTextInput label="SPOC E-Mail ID *" name="spoc_email" type="text" /></Grid>
                             <Grid item xs={6}>   <CustomTextInput label="Address *" name="address" type="text" multiline /></Grid>
                         </Grid>
@@ -109,10 +140,17 @@ const CreateSite = () => {
                         <Backdrop
                             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
                             open={isSubmitting}
-                        //onClick={handleClose}
+                            //onClick={handleClose}
                         >
                             <CircularProgress sx={{ color: "white" }} />
                         </Backdrop>
+
+                        <Backdrop
+                            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+                            open={isDisabled}
+                            //onClick={handleClose}
+                        ></Backdrop>
+
                         {/* <AlertDialog
                         confirmDialog={confirmDialog}
                         setConfirmDialog={setConfirmDialog}
