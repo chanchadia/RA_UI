@@ -11,7 +11,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { lightBlue } from '@mui/material/colors';
 import Grid from '@mui/material/GridLegacy';
-import { Backdrop, Button, CircularProgress, TextField } from '@mui/material';
+import { Backdrop, Button, CircularProgress, InputAdornment, TextField } from '@mui/material';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Navigate,useParams } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
@@ -60,8 +60,24 @@ const Weightage = (props) => {
 
 
 const handleChange = (e, columnId,rowID) => {
+    let value = e.target.value;
+    if(columnId === 'weightage')
+    {
+        debugger;
+        value = value.replace(/[^0-9]/g, '');
+
+        // Convert to a number for range validation
+        const num = parseInt(value, 10);
+
+        // Validate if it's a number and within the range 1-100
+        if (value === '' || (!isNaN(num) && num >= 1 && num <= 100)) {
+        }
+        else {
+            return;
+        }
+    }
     const v_rows = [...rows];
-    v_rows[rowID][columnId] = e.target.value;
+    v_rows[rowID][columnId] = value;
     setRows(v_rows);
 }
 
@@ -141,6 +157,12 @@ const onSubmit = () =>{
                           >
                             {column.id==='weightage' ? 
                              <TextField
+                                    slotProps={{ input: { endAdornment: '%'}}}
+                                    sx={{
+                                            '& .MuiInputBase-input': {
+                                            textAlign: 'right',
+                                            },
+                                        }}
                                     variant="standard"
                                     fullWidth
                                     value={value}
