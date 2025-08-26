@@ -101,7 +101,7 @@ const onSubmit = () =>{
         dispatch(saveWeightage(rows)).unwrap()
         .then((res)=>{
             setIsSubmitting(false)
-            setIsDisabled(true);
+            //setIsDisabled(true);
             setsuccessAlert({ ...successAlert, open: true, message: res.message, isError: false
              });
         })
@@ -130,7 +130,7 @@ const onSubmit = () =>{
       </Grid>
 
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer sx={{ maxHeight: '70vh' }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow sx={{ "& th": { backgroundColor: "lightBlue", color: "black" } }}>
@@ -155,7 +155,7 @@ const onSubmit = () =>{
                         return (
                           <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, }}
                           >
-                            {column.id==='weightage' ? 
+                            {column.id==='weightage' && row.obs_score === 'Scoring' ?
                              <TextField
                                     slotProps={{ input: { endAdornment: '%'}}}
                                     sx={{
