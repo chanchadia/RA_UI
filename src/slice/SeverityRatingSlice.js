@@ -28,7 +28,37 @@ import config from '../config';
     }
 );
 
+export const saveSeverity = createAsyncThunk(
+    "saveSeverity",
+    async(args, { rejectWithValue }) => { 
+      try
+      {
+        const token = sessionStorage.getItem('token');
 
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
+            body: JSON.stringify(args)
+        };
+        debugger
+
+       // const response = await fetch(config.API_URL + 'Severity/' + args.site_id, requestOptions);
+        const response = await fetch(config.API_URL + 'Severity/'+ args[0].ra_id , requestOptions);
+        if (response.ok) 
+        {
+          return await response.json();
+        } 
+        else 
+        {
+          return rejectWithValue(await response.json());
+        }
+      }
+      catch (error)
+      {
+        return rejectWithValue(error);
+      }
+    }
+  );
 
 export const SeverityRatingSlice = createSlice({
   name: "SeverityRatingSlice",

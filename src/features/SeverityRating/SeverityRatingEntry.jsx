@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSeverity } from '../../slice/SeverityRatingSlice';
+import { getSeverity,saveSeverity } from '../../slice/SeverityRatingSlice';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -15,16 +15,30 @@ import { StyledButton as StyledLoginButton } from "../auth/StyledLoginComponents
 import CustomH2 from '../../ui-component/Headings/CustomH2';
 import Grid from '@mui/material/GridLegacy';
 import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
-import { Button, TextField } from '@mui/material';
+import { Backdrop, Button, CircularProgress, TextField } from '@mui/material';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Navigate,useParams } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
 import CustomTextInput from '../../ui-component/CustomTextInputField/customTextInput';
+import SuccessAlert from '../../ui-component/snackbar';
 
 const SeverityRatingEntry = (props) => {
 
      const navigate = useNavigate();
+         const [isSubmitting, setIsSubmitting] = useState(false);
+         const [isDisabled, setIsDisabled] = useState(false);
+         const [successAlert, setsuccessAlert] = useState({
+             open: false,
+             vertical: "top",
+             horizontal: "center",
+             message: "",
+             isError: false,
+             handleClose: () => {
+                 setsuccessAlert({ ...successAlert, open: false, message: "", isError: false });
+                 setIsDisabled(false);
+             }
+         });
      const {raid} = useParams();
       const columns = [
         { id: 'sr', label: 'Rating', minWidth: 50 },
@@ -47,6 +61,31 @@ const SeverityRatingEntry = (props) => {
     else return '';
     
   } 
+
+const handleSave = () => {
+    // const v_rows = [...rows];
+    // const updatedArray = v_rows.map(item => {
+    //   const newItem = {...item}; // Create a shallow copy
+    //   delete newItem.ra_id;
+    //  // newItem['site_id'] = site_id;
+    //   return newItem;
+    // });
+  //  const updatedArray = {...rows, site_id: raid}
+    const payload = [...rows]
+            setIsSubmitting(true)
+            dispatch(saveSeverity(payload)).unwrap()
+            .then((res)=>{
+                setIsSubmitting(false)
+                setIsDisabled(true);
+                setsuccessAlert({ ...successAlert, open: true, message: res.message, isError: false
+                 });
+            })
+            .catch((err) => {
+                setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+                setIsSubmitting(false)
+            });
+
+}
 const handleChange = (e, columnId,rowID) => {
     const v_rows = [...rows];
     v_rows[rowID][columnId] = e.target.value;
@@ -56,7 +95,6 @@ const handleChange = (e, columnId,rowID) => {
 useEffect(() => {
      dispatch(getSeverity(raid)).unwrap()
         .then((resp)=>{
-            debugger;
             if(resp && resp.data && resp.data.length>0)
             {
                     setRows(resp.data)
@@ -128,6 +166,31 @@ useEffect(() => {
           </Table>
         </TableContainer>
       </Paper>
+<br></br>
+       <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
+             onClick={handleSave}
+             >Save</Button>
+
+              <Backdrop
+                            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                            open={isSubmitting}
+                            //onClick={handleClose}
+                        >
+                            <CircularProgress sx={{ color: "white" }} />
+                        </Backdrop>
+
+                        <Backdrop
+                            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+                            open={isDisabled}
+                            //onClick={handleClose}
+                        ></Backdrop>
+
+                        {/* <AlertDialog
+                        confirmDialog={confirmDialog}
+                        setConfirmDialog={setConfirmDialog}
+                        /> */}
+                        
+                        <SuccessAlert successAlert={successAlert} />
     </>
   )
 }
