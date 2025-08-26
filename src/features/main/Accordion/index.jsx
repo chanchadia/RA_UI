@@ -31,6 +31,15 @@ export default function AppMenu()
                                 <ListItemText primary='Site' sx={{paddingLeft:1.5}} />
                             </ListItemButton>
                         </Link>
+
+                        <Link to='/site/1/weightage' style={{ textDecoration: 'none', color: 'black'}}>
+                            <ListItemButton sx={{ color: 'white' }}>
+                                <HomeRoundedIcon sx={{ color: 'white' }} />
+                                <ListItemText primary='Weightage' sx={{paddingLeft:1.5}} />
+                            </ListItemButton>
+                        </Link>
+
+                        
                     </>
                     :
                     <>

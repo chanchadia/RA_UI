@@ -8,6 +8,7 @@ import CreateSite from '../features/site/CreateSite';
 import SiteTranList from '../features/siteTran/siteTranList';
 import CreateSiteTran from '../features/siteTran/CreateSiteTran';
 import SeverityRating from '../features/SeverityRating/SeverityRatingEntry';
+import Weightage from '../features/ra/survey/Weightage';
 
 
 const mainRoutes = {
@@ -45,6 +46,10 @@ const mainRoutes = {
         {
             path: '/sa/:raid',
             element: <SeverityRating></SeverityRating>
+        },
+        {
+            path: '/site/:siteid/weightage',
+            element: <Weightage></Weightage>
         },
         //------------------------------------------------------------------------
         {
