@@ -70,7 +70,7 @@ const handleChange = (e, columnId,rowID) => {
         const num = parseInt(value, 10);
 
         // Validate if it's a number and within the range 1-100
-        if (value === '' || (!isNaN(num) && num >= 1 && num <= 100)) {
+        if (value === '' || (!isNaN(num) && num >= 1 && num <= 10)) {
         }
         else {
             return;
@@ -130,7 +130,7 @@ const onSubmit = () =>{
       </Grid>
 
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: '70vh' }}>
+        <TableContainer sx={{ maxHeight: '65vh' }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow sx={{ "& th": { backgroundColor: "lightBlue", color: "black" } }}>
@@ -156,13 +156,13 @@ const onSubmit = () =>{
                           <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, }}
                           >
                             {column.id==='weightage' && row.obs_score === 'Scoring' ?
-                             <TextField
-                                    slotProps={{ input: { endAdornment: '%'}}}
+                             <TextField placeholder='1 to 10'
+                                    /*slotProps={{ input: { endAdornment: '%'}}}
                                     sx={{
                                             '& .MuiInputBase-input': {
                                             textAlign: 'right',
                                             },
-                                        }}
+                                        }}*/
                                     variant="standard"
                                     fullWidth
                                     value={value}
