@@ -167,6 +167,59 @@ export const createSiteTran = createAsyncThunk(
     }
   );
 
+    export const getSurveyAssessment = createAsyncThunk(
+    "getSurveyAssessment",
+    async(args, { rejectWithValue }) => {
+        try
+        {
+        const token = sessionStorage.getItem('token');
+          const requestOptions = {
+              method: 'GET',
+              headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
+          };
+          const response = await fetch(config.API_URL + 'Survey/assess/' + args, requestOptions);
+          if (response.ok) {
+          return await response.json();
+          } else {
+          return rejectWithValue(response.json());
+          }
+        }
+        catch (error)
+        {
+            return rejectWithValue(error);
+        }
+    }
+);
+
+export const saveSurveyAssessment = createAsyncThunk(
+    "saveSurveyAssessment",
+    async(args, { rejectWithValue }) => { 
+      try
+      {
+        const token = sessionStorage.getItem('token');
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
+            body: JSON.stringify(args.data)
+        };
+        const response = await fetch(config.API_URL + 'Survey/assess/' + args.raid, requestOptions);
+        debugger;
+        if (response.ok) 
+        {
+          return await response.json();
+        } 
+        else 
+        {
+          return rejectWithValue(await response.json());
+        }
+      }
+      catch (error)
+      {
+        return rejectWithValue(error);
+      }
+    }
+  );
 //============================================================================================================================
 
 export const SurveAssessmentSlice = createSlice({
