@@ -9,6 +9,7 @@ import SiteTranList from '../features/siteTran/siteTranList';
 import CreateSiteTran from '../features/siteTran/CreateSiteTran';
 import SeverityRating from '../features/SeverityRating/SeverityRatingEntry';
 import Weightage from '../features/ra/survey/Weightage';
+import RiskAssessment from '../features/ra/main/RiskAssessment';
 
 
 const mainRoutes = {
@@ -50,6 +51,10 @@ const mainRoutes = {
         {
             path: '/site/:siteid/weightage',
             element: <Weightage></Weightage>
+        },
+        {
+            path: '/site/:siteid/ra/:raid',
+            element: <RiskAssessment></RiskAssessment>
         },
         //------------------------------------------------------------------------
         {
