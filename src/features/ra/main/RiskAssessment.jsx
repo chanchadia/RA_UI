@@ -11,7 +11,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { lightBlue } from '@mui/material/colors';
 import Grid from '@mui/material/GridLegacy';
-import { Backdrop, Button, CircularProgress, InputAdornment, TextField } from '@mui/material';
+import { Backdrop, Button, CircularProgress, Fab, InputAdornment, TextField } from '@mui/material';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Navigate, useParams } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
@@ -22,6 +22,8 @@ import CustomH2 from '../../../ui-component/Headings/CustomH2';
 import CustomDashedBorder from '../../../ui-component/CustomDashedBorder';
 import SuccessAlert from '../../../ui-component/snackbar';
 import { getRiskAssessment, saveRiskAssessment } from '../../../slice/RiskAssessmentSlice';
+
+import AddIcon from '@mui/icons-material/Add';
 
 const RiskAssessment = (props) => {
 
@@ -65,10 +67,10 @@ const RiskAssessment = (props) => {
   ];
 
   const columns1 = [
-    { label: 'People Loss', minWidth: 120, color: '#BF8F00' },
-    { label: 'Environment Loss', minWidth: 120, color: '#BF8F00' },
-    { label: 'Asset Loss', minWidth: 120, color: '#BF8F00' },
-    { label: 'Reputation Loss', minWidth: 120, color: '#BF8F00' },
+    { label: <>People<br/>Loss</>, minWidth: 120, color: '#BF8F00' },
+    { label: <>Environment<br/>Loss</>, minWidth: 120, color: '#BF8F00' },
+    { label: <>Asset<br/>Loss</>, minWidth: 120, color: '#BF8F00' },
+    { label: <>Reputation<br/>Loss</>, minWidth: 120, color: '#BF8F00' },
     { label: 'Severity', minWidth: 120, color: '#BF8F00' },
     { label: 'Threat Actor Capability', minWidth: 120, color: '#C9C9C9' },
     { label: 'Threat Actor Intent', minWidth: 120, color: '#C9C9C9' },
@@ -309,7 +311,8 @@ const RiskAssessment = (props) => {
 
   const onSubmit = () => {
     setIsSubmitting(true)
-    dispatch(saveRiskAssessment({ data: rows, raid })).unwrap()
+    const data = rows.filter(item => item.scenarios && item.scenarios.trim() !== '');
+    dispatch(saveRiskAssessment({ data, raid })).unwrap()
       .then((res) => {
         setIsSubmitting(false)
         //setIsDisabled(true);
@@ -321,6 +324,20 @@ const RiskAssessment = (props) => {
         setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
         setIsSubmitting(false)
       });
+  }
+
+  const getColor = (value) =>{
+    if(value === 1)
+      return '#00B050';
+    if(value === 2)
+      return '#00B0F0';
+    if(value === 3)
+      return '#FFFF00';
+    if(value === 4)
+      return '#FFC000';
+    if(value === 5)
+      return '#FF3B37';
+    return null;
   }
 
   return (
@@ -342,9 +359,13 @@ const RiskAssessment = (props) => {
       </Grid>
 
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: '65vh' }}>
-          <Table stickyHeader aria-label="sticky table" >
-            <TableHead>
+        <TableContainer sx={{ height: '65vh' }}>
+          <Table>
+            <TableHead sx={{
+                position: "sticky",
+                top: 0,
+                zIndex: 1,
+            }}>
               <TableRow sx={{ "& th": {color: "black", padding: 0,  textAlign: 'center'} }}>
                 {columns0.map((column) => (
                   column.label &&
@@ -389,7 +410,9 @@ const RiskAssessment = (props) => {
                       {columns.map((column) => {
                         const value = row[column.id];
                         return (
-                          <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, }}
+                          <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0,
+                            background : column.readonly && getColor(value)
+                           }}
                           >
                             {column.readonly ? <center>{value}</center>
                               :
@@ -412,6 +435,19 @@ const RiskAssessment = (props) => {
             </TableBody>
           </Table>
         </TableContainer>
+<Fab color="primary" size='small' aria-label="add" style={{    margin: 0,
+    top: 'auto',
+    right: 20, // Distance from the right edge
+    bottom: 40, // Distance from the bottom edge
+    left: 'auto',
+    position: 'fixed',}}
+    onClick={()=>{
+      const v_rows = [...rows, { active: 'Y' }]
+      setRows(v_rows);
+    }}
+    >
+  <AddIcon />
+</Fab>
       </Paper>
 
       <Backdrop
