@@ -44,6 +44,8 @@ export default function AppMenu()
                             <ListItemButton sx={{ color: 'white' }}>
                                 <HomeRoundedIcon sx={{ color: 'white' }} />
                                 <ListItemText primary='Risk Assessment' sx={{paddingLeft:1.5}} />
+                            </ListItemButton>
+                        </Link>
 
                          <Link to='/site/survey_assess/1' style={{ textDecoration: 'none', color: 'black'}}>
                             <ListItemButton sx={{ color: 'white' }}>
