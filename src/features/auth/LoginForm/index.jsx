@@ -132,6 +132,7 @@ function LoginForm(props) {
       if(originalPromiseResult)
       {
         sessionStorage.setItem('token', originalPromiseResult.detail);
+        sessionStorage.setItem('login_name', originalPromiseResult.data.login_name);
         navigate('/site');
       } 
     })

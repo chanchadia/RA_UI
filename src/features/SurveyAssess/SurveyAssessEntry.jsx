@@ -156,7 +156,7 @@ useEffect(() => {
         <TableContainer sx={{ maxHeight: '65vh' }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
-              <TableRow sx={{ "& th": { backgroundColor: "lightBlue", color: "black" } }}>
+              <TableRow sx={{ "& th": { backgroundColor: "lightBlue", color: "black", verticalAlign: 'top' } }}>
                 {columns.map((column) => (
                   <TableCell
                     key={column.id}

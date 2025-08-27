@@ -167,9 +167,9 @@ useEffect(() => {
         </TableContainer>
       </Paper>
 <br></br>
-       <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
+     <center>  <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
              onClick={handleSave}
-             >Save</Button>
+             >Save</Button></center>
 
               <Backdrop
                             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
