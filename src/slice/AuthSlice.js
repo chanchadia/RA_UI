@@ -36,9 +36,22 @@ export const AuthSlice = createSlice({
   initialState: {
       userData: [],
       loading: false,
-      error: null
+      error: null,
+
+      mySite: null,
+      myRa: null
+
   },
-reducers:{},
+reducers:{
+    setMySite: (state, { payload }) => {
+      state.mySite = payload;
+      sessionStorage.setItem("site", payload);
+    },
+    setMyRa: (state, { payload }) => {
+      state.myRa = payload;
+      sessionStorage.setItem("ra", payload);
+    },
+  },
     extraReducers: (builder) => {
         builder.addCase(loginUser.pending, (state) =>{
             state.loading = true;
@@ -55,5 +68,7 @@ reducers:{},
 });
 
 export const {
+  setMySite,
+  setMyRa
 } = AuthSlice.actions;
 export default AuthSlice.reducer;

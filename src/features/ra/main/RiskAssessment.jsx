@@ -27,8 +27,10 @@ import AddIcon from '@mui/icons-material/Add';
 
 const RiskAssessment = (props) => {
 
+    const { mySite, myRa: raid } = useSelector((state) => state.auth);
+  
   const navigate = useNavigate();
-  const { siteid, raid } = useParams();
+  //const { siteid, raid } = useParams();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);

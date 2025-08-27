@@ -16,10 +16,11 @@ import CustomH2 from '../../ui-component/Headings/CustomH2';
 import Grid from '@mui/material/GridLegacy';
 import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
 import { Button } from '@mui/material';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
-import { IconButton } from '@mui/material';
+import { IconButton, Link } from '@mui/material';
+import { setMyRa, setMySite } from '../../slice/AuthSlice';
 
 
 const SiteMaster = () => {
@@ -63,6 +64,9 @@ const SiteMaster = () => {
 
 
   useEffect(() => {
+    dispatch(setMySite(null));
+    dispatch(setMyRa(null));
+    
     dispatch(getSite("")).then((action, state) => {
 
       if (action.payload != null && action.payload.data.length > 0) {
@@ -130,7 +134,13 @@ const SiteMaster = () => {
                                   </IconButton> 
                                   : 
                                   column.id === 'name' ? 
-                                   <Link to={`/site/${row['id']}/tran`} >{value}</Link> 
+                                   <Link href='javascript:void' onClick={()=>
+                                   {
+                                      dispatch(setMySite(row.id));
+                                      dispatch(setMyRa(null));
+                                      navigate(`/site/tran`);
+                                   }
+                                   } >{value}</Link> 
                                   //  <Link to='/change_pwd' state={{ ra_id: row['id']  }} >{value}</Link> 
                                   :
                                   value}

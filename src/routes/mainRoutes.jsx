@@ -37,31 +37,31 @@ const mainRoutes = {
             element: <CreateSite></CreateSite>
         },
         {
-            path: '/site/:id/tran',
+            path: '/site/tran',
             element: <SiteTranList></SiteTranList>
         },
         {
-            path: '/site/:id/tran/:raid',
+            path: '/site/tran/:raid',
             element: <CreateSiteTran></CreateSiteTran>
         },
         {
-            path: '/site/:id/tran/create',
+            path: '/site/tran/create',
             element: <CreateSiteTran></CreateSiteTran>
         },
         {
-            path: '/sa/:raid',
+            path: '/sa',
             element: <SeverityRating></SeverityRating>
         },
         {
-            path: '/site/survey_assess/:raid',
+            path: '/site/survey_assess',
             element: <SurveyAssessEntry></SurveyAssessEntry>
         },
         {
-            path: '/site/:siteid/weightage',
+            path: '/site/weightage',
             element: <Weightage></Weightage>
         },
         {
-            path: '/site/:siteid/ra/:raid',
+            path: '/site/ra',
             element: <RiskAssessment></RiskAssessment>
         },
         //------------------------------------------------------------------------

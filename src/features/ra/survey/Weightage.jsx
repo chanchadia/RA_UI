@@ -23,9 +23,10 @@ import CustomDashedBorder from '../../../ui-component/CustomDashedBorder';
 import SuccessAlert from '../../../ui-component/snackbar';
 
 const Weightage = (props) => {
+  const { mySite: siteid, myRa } = useSelector((state) => state.auth);
 
      const navigate = useNavigate();
-     const {siteid} = useParams();
+     //const {siteid} = useParams();
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);

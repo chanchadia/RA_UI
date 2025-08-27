@@ -24,6 +24,7 @@ import CustomTextInput from '../../ui-component/CustomTextInputField/customTextI
 import SuccessAlert from '../../ui-component/snackbar';
 
 const SeverityRatingEntry = (props) => {
+  const { mySite, myRa: raid } = useSelector((state) => state.auth);
 
      const navigate = useNavigate();
          const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,7 +40,7 @@ const SeverityRatingEntry = (props) => {
                  setIsDisabled(false);
              }
          });
-     const {raid} = useParams();
+     //const {raid} = useParams();
       const columns = [
         { id: 'sr', label: 'Rating', minWidth: 50 },
         { id: 'p', label: 'P', minWidth: 170 },

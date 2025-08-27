@@ -16,16 +16,19 @@ import CustomH2 from '../../ui-component/Headings/CustomH2';
 import Grid from '@mui/material/GridLegacy';
 import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
 import { Button } from '@mui/material';
-import { Link, useLocation, useNavigate,useParams } from "react-router-dom";
+import { useLocation, useNavigate,useParams } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
-import { IconButton } from '@mui/material';
+import { IconButton, Link } from '@mui/material';
 import { getSiteWiseSA } from '../../slice/SurveAssessmentSlice';
+import { setMyRa, setMySite } from '../../slice/AuthSlice';
 
 const SiteTranList = (props) => {
+  const { mySite : id, myRa } = useSelector((state) => state.auth);
+
       const navigate = useNavigate();
       const dispatch = useDispatch();
-      const {id} = useParams();
+      //const {id} = useParams();
       const [rows, setRows] = useState([]);
       const [headers, setHeaders] = useState([]);
 const columns = [
@@ -49,9 +52,12 @@ const columns = [
     };
     
 const handleEdit = (rowid) => {
-    navigate(`/site/${id}/tran/${rowid}`);
+    navigate(`/site/tran/${rowid}`);
   };
 useEffect(() => {
+     dispatch(setMySite(id));
+     dispatch(setMyRa(null));
+
      dispatch(getSiteWiseSA(id)).unwrap()
         .then((resp)=>{
             debugger;
@@ -120,7 +126,12 @@ useEffect(() => {
                                   </IconButton> 
                                   : 
                                   column.id === 'name' ? 
-                                   <Link to={`/sa/${row['id']}`} >{value}</Link> 
+                                   <Link href='javascript:void' onClick={()=>
+                                   {
+                                      dispatch(setMyRa(row.id));
+                                      navigate(`/sa`);
+                                   }
+                                   } >{value}</Link> 
                                   //  <Link to='/change_pwd' state={{ ra_id: row['id']  }} >{value}</Link> 
                                   :
                                   value}

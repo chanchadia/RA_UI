@@ -20,7 +20,8 @@ import dayjs from 'dayjs';
 
 const CreateSiteTran = () => {
 
-    const {id, raid} = useParams();
+    //const {id, raid} = useParams();
+  const { mySite: id, myRa } = useSelector((state) => state.auth);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();

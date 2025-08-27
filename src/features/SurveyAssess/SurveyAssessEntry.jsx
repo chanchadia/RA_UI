@@ -24,7 +24,9 @@ import SuccessAlert from '../../ui-component/snackbar';
 
 const SurveyAssessEntry = (props) => {
 
-   const {raid} = useParams();
+    const { mySite, myRa: raid } = useSelector((state) => state.auth);
+  
+   //const {raid} = useParams();
   const dispatch = useDispatch();
   const [rows, setRows] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
