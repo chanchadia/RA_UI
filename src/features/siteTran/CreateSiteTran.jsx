@@ -20,9 +20,9 @@ import dayjs from 'dayjs';
 
 const CreateSiteTran = () => {
 
-    //const {id, raid} = useParams();
+    const { raid } = useParams();
   const { mySite: id, myRa } = useSelector((state) => state.auth);
-
+debugger;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -78,6 +78,8 @@ const CreateSiteTran = () => {
 
     useEffect(()=>
     {
+    debugger;
+
         raid && dispatch(getSingleSiteTran({site_id: id, raid})).unwrap()
             .then((resp)=>{
               if(resp)

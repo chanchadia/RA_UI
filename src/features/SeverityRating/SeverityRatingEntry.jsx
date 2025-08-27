@@ -43,10 +43,10 @@ const SeverityRatingEntry = (props) => {
      //const {raid} = useParams();
       const columns = [
         { id: 'sr', label: 'Rating', minWidth: 50 },
-        { id: 'p', label: 'P', minWidth: 170 },
-        { id: 'e', label: 'E', minWidth: 170 },
-        { id: 'a', label: 'A', minWidth: 170 },
-        { id: 'r', label: 'R', minWidth: 170 },
+        { id: 'p', label: 'People', minWidth: 170 },
+        { id: 'e', label: 'Environment', minWidth: 170 },
+        { id: 'a', label: 'Asset', minWidth: 170 },
+        { id: 'r', label: 'Reputation', minWidth: 170 },
     
       ];
   const dispatch = useDispatch();

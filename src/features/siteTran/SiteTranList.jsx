@@ -81,7 +81,7 @@ useEffect(() => {
           <CustomH2 headingName='Survey Assessment (SA)'></CustomH2>
        <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
        onClick={()=>{
-              navigate(`/site/${id}/tran/create`);
+              navigate(`/site/tran/create`);
        }}
        >Create New SA</Button>
 

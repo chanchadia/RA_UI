@@ -35,7 +35,7 @@ export default function AppMenu()
                 <Link to='/site' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <TocIcon sx={{ color: 'white' }} />
-                        <ListItemText primary='Site' sx={{paddingLeft:1.5}} />
+                        <ListItemText primary='Site List' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
             </>);
@@ -46,7 +46,7 @@ export default function AppMenu()
                 <Link to='/site' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <TocIcon sx={{ color: 'white' }} />
-                        <ListItemText primary='Site' sx={{paddingLeft:1.5}} />
+                        <ListItemText primary='Site List' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
                 <Link to='/site/weightage' style={{ textDecoration: 'none', color: 'black'}}>
@@ -58,7 +58,7 @@ export default function AppMenu()
                 <Link to='/site/tran' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <AssessmentOutlinedIcon sx={{ color: 'white' }} />
-                        <ListItemText primary='Assessment' sx={{paddingLeft:1.5}} />
+                        <ListItemText primary='Assessment List' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
             </>);
@@ -69,7 +69,7 @@ export default function AppMenu()
                 <Link to='/site' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <TocIcon sx={{ color: 'white' }} />
-                        <ListItemText primary='Site' sx={{paddingLeft:1.5}} />
+                        <ListItemText primary='Site List' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
                 <Link to='/site/weightage' style={{ textDecoration: 'none', color: 'black'}}>
@@ -81,7 +81,7 @@ export default function AppMenu()
                 <Link to='/site/tran' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <AssessmentOutlinedIcon sx={{ color: 'white' }} />
-                        <ListItemText primary='Assessment' sx={{paddingLeft:1.5}} />
+                        <ListItemText primary='Assessment List' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
 

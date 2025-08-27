@@ -96,7 +96,7 @@ export const createSiteTran = createAsyncThunk(
               method: 'GET',
               headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
           };
-          const response = await fetch(config.API_URL + 'SiteTran/' + args.site_id + '/' + args.tranid, requestOptions);
+          const response = await fetch(config.API_URL + 'SiteTran/' + args.site_id + '/' + args.raid, requestOptions);
           if (response.ok) {
           return await response.json();
           } else {
