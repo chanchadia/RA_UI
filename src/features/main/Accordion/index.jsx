@@ -38,10 +38,18 @@ export default function AppMenu()
                                 <ListItemText primary='Weightage' sx={{paddingLeft:1.5}} />
                             </ListItemButton>
                         </Link>
+
+
+                        <Link to='/site/1/ra/1' style={{ textDecoration: 'none', color: 'black'}}>
+                            <ListItemButton sx={{ color: 'white' }}>
+                                <HomeRoundedIcon sx={{ color: 'white' }} />
+                                <ListItemText primary='Risk Assessment' sx={{paddingLeft:1.5}} />
+
                          <Link to='/site/survey_assess/1' style={{ textDecoration: 'none', color: 'black'}}>
                             <ListItemButton sx={{ color: 'white' }}>
                                 <HomeRoundedIcon sx={{ color: 'white' }} />
                                 <ListItemText primary='Survey Assessment' sx={{paddingLeft:1.5}} />
+
                             </ListItemButton>
                         </Link>
                         
