@@ -20,7 +20,7 @@ import dayjs from 'dayjs';
 
 const CreateSiteTran = () => {
 
-    const {id, tranid} = useParams();
+    const {id, raid} = useParams();
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -56,7 +56,7 @@ const CreateSiteTran = () => {
     const onSubmit = (values) => {
         const payload = {...values, site_id: id}
         setIsSubmitting(true)
-        dispatch(tranid ? modifySiteTran(payload) : createSiteTran(payload)).unwrap()
+        dispatch(raid ? modifySiteTran(payload) : createSiteTran(payload)).unwrap()
         .then((res)=>{
             setIsSubmitting(false)
             setIsDisabled(true);
@@ -77,7 +77,7 @@ const CreateSiteTran = () => {
 
     useEffect(()=>
     {
-        tranid && dispatch(getSingleSiteTran({site_id: id, tranid})).unwrap()
+        raid && dispatch(getSingleSiteTran({site_id: id, raid})).unwrap()
             .then((resp)=>{
               if(resp)
               {
@@ -89,13 +89,13 @@ const CreateSiteTran = () => {
                 setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
             });
 
-    }, [tranid]);
+    }, [raid]);
 
     return (
         <>
             <Grid container flexDirection={'column'}>
                 <Grid item flexGrow={1}>
-                    <CustomH2 headingName={tranid ? 'Modify Assessment' : 'New Assessment'}></CustomH2>
+                    <CustomH2 headingName={raid ? 'Modify Assessment' : 'New Assessment'}></CustomH2>
                 </Grid>
                 <Grid item flexGrow={1}>
                     <CustomDashedBorder />

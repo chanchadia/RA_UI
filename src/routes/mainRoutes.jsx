@@ -9,7 +9,11 @@ import SiteTranList from '../features/siteTran/siteTranList';
 import CreateSiteTran from '../features/siteTran/CreateSiteTran';
 import SeverityRating from '../features/SeverityRating/SeverityRatingEntry';
 import Weightage from '../features/ra/survey/Weightage';
+
 import RiskAssessment from '../features/ra/main/RiskAssessment';
+
+import SurveyAssessEntry from '../features/SurveyAssess/SurveyAssessEntry';
+
 
 
 const mainRoutes = {
@@ -37,7 +41,7 @@ const mainRoutes = {
             element: <SiteTranList></SiteTranList>
         },
         {
-            path: '/site/:id/tran/:tranid',
+            path: '/site/:id/tran/:raid',
             element: <CreateSiteTran></CreateSiteTran>
         },
         {
@@ -47,6 +51,10 @@ const mainRoutes = {
         {
             path: '/sa/:raid',
             element: <SeverityRating></SeverityRating>
+        },
+        {
+            path: '/site/survey_assess/:raid',
+            element: <SurveyAssessEntry></SurveyAssessEntry>
         },
         {
             path: '/site/:siteid/weightage',
