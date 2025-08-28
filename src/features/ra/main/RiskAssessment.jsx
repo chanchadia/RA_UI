@@ -25,6 +25,7 @@ import { getRiskAssessment, saveRiskAssessment } from '../../../slice/RiskAssess
 
 import AddIcon from '@mui/icons-material/Add';
 import getColor from '../colorCodes';
+import MultipleSelect from '../../../ui-component/CustomMultiSelectDD/MultipleSelect';
 
 const RiskAssessment = (props) => {
 
@@ -32,7 +33,10 @@ const RiskAssessment = (props) => {
   
   const navigate = useNavigate();
   //const { siteid, raid } = useParams();
-
+const [am_infra, setAmInfra] = React.useState([]);
+const [am_auto, setAmAuto] = React.useState([]);
+const [am_proc, setAmProc] = React.useState([]);
+const [am_mp, setAmMP] = React.useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [successAlert, setsuccessAlert] = useState({
@@ -298,7 +302,89 @@ const RiskAssessment = (props) => {
     dispatch(getRiskAssessment(raid)).unwrap()
       .then((resp) => {
         if (resp && resp.data && resp.data.length > 0) {
-          setRows(resp.data)
+          
+           let v_rows = [...resp.data];
+          v_rows.forEach((row, index) => {
+            row.am_i_new = row.am_i || row.am_i.trim()!==""? row.am_i.split('|') : [];
+            row.am_a_new = row.am_a || row.am_a.trim()!==""? row.am_a.split('|') : [];
+            row.am_p_new = row.am_p || row.am_p.trim()!==""? row.am_p.split('|') : [];
+            row.am_m_new = row.am_m || row.am_m.trim()!==""? row.am_m.split('|') : [];
+          })
+          setRows(v_rows)
+
+          //////////////infrastructure
+          const var_infra = [];
+          resp.data.forEach(row => {
+            //row.am_i="hari|kumar";
+            if(row.am_i && row.am_i.trim()!=="")
+            {
+              const var_tmp = row.am_i.split('|');
+              var_tmp.forEach(e => {
+                if(!var_infra.map(x => x.toLowerCase()).includes(e.trim().toLowerCase()))
+                {
+                  var_infra.push(e.trim());
+                }
+              });
+            }
+            //row.am_i=null;
+          })
+          setAmInfra(var_infra);
+           
+          ///////////////infrastructure
+          //////////////automation
+          const var_auto = [];
+          resp.data.forEach(row => {
+            //row.am_i="hari|kumar";
+            if(row.am_a && row.am_a.trim()!=="")
+            {
+              const var_tmp = row.am_a.split('|');
+              var_tmp.forEach(e => {
+                if(!var_auto.map(x => x.toLowerCase()).includes(e.trim().toLowerCase()))
+                {
+                  var_auto.push(e.trim());
+                }
+              });
+            }
+            //row.am_i=null;
+          })
+          setAmAuto(var_auto);
+          ///////////////automation
+           /////////////process
+          const var_proc = [];
+          resp.data.forEach(row => {
+            //row.am_i="hari|kumar";
+            if(row.am_p && row.am_p.trim()!=="")
+            {
+              const var_tmp = row.am_p.split('|');
+              var_tmp.forEach(e => {
+                if(!var_proc.map(x => x.toLowerCase()).includes(e.trim().toLowerCase()))
+                {
+                  var_proc.push(e.trim());
+                }
+              });
+            }
+            //row.am_i=null;
+          })
+          setAmProc(var_proc);
+          ///////////////process
+             /////////////manpower
+          const var_man = [];
+          resp.data.forEach(row => {
+            //row.am_i="hari|kumar";
+            if(row.am_m && row.am_m.trim()!=="")
+            {
+              const var_tmp = row.am_m.split('|');
+              var_tmp.forEach(e => {
+                if(!var_man.map(x => x.toLowerCase()).includes(e.trim().toLowerCase()))
+                {
+                  var_man.push(e.trim());
+                }
+              });
+            }
+            //row.am_i=null;
+          })
+          setAmMP(var_man);
+          ///////////////manpower
         }
         else {
           //setRows([{},{},{},{},{},{},{},{},{},{}]);
@@ -313,6 +399,8 @@ const RiskAssessment = (props) => {
 
 
   const onSubmit = () => {
+    console.log("hari",rows);
+    return;
     setIsSubmitting(true)
     const data = rows.filter(item => item.scenarios && item.scenarios.trim() !== '');
     dispatch(saveRiskAssessment({ data, raid })).unwrap()
@@ -405,6 +493,56 @@ const RiskAssessment = (props) => {
                            }}
                           >
                             {column.readonly ? <center>{value}</center>
+                              :
+                              column.id==='am_i' ?//|| column.id==='am_a' || column.id==='am_p' || column.id==='am_m' ?
+                              <MultipleSelect
+                              names={am_infra}
+                              setNames = {(val) => {setAmInfra([...val])}}
+                             // setNames = {setAmInfra}
+                               selectedValue={row['am_i_new'] || []}
+                               setSelectedValue={(val) => {
+                                  let v_rows = [...rows];
+                                  v_rows[index].am_i_new = val;
+                                  setRows(v_rows);
+                                }}
+                              >
+                              </MultipleSelect>
+                              : column.id==='am_a' ?//|| column.id==='am_a' || column.id==='am_p' || column.id==='am_m' ?
+                              <MultipleSelect
+                              names={am_auto}
+                              setNames = {(val) => {setAmAuto([...val])}}
+                               selectedValue={row['am_a_new'] || []}
+                               setSelectedValue={(val) => {
+                                  let v_rows = [...rows];
+                                  v_rows[index].am_a_new = val;
+                                  setRows(v_rows);
+                                }}
+                              >
+                              </MultipleSelect>
+                              : column.id==='am_p' ?//|| column.id==='am_a' || column.id==='am_p' || column.id==='am_m' ?
+                              <MultipleSelect
+                              names={am_proc}
+                              setNames = {(val) => {setAmProc([...val])}}
+                               selectedValue={row['am_p_new'] || []}
+                               setSelectedValue={(val) => {
+                                  let v_rows = [...rows];
+                                  v_rows[index].am_p_new = val;
+                                  setRows(v_rows);
+                                }}
+                              >
+                              </MultipleSelect>
+                              : column.id==='am_m' ?//|| column.id==='am_a' || column.id==='am_p' || column.id==='am_m' ?
+                              <MultipleSelect
+                              names={am_mp}
+                              setNames = {(val) => {setAmMP([...val])}}
+                               selectedValue={row['am_m_new'] || []}
+                               setSelectedValue={(val) => {
+                                  let v_rows = [...rows];
+                                  v_rows[index].am_m_new = val;
+                                  setRows(v_rows);
+                                }}
+                              >
+                              </MultipleSelect>
                               :
                               <TextField placeholder={column.isString ? '' : '1 to 5'}
                                 sx={{'& .MuiInputBase-input': {
