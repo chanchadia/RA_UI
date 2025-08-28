@@ -42,7 +42,7 @@ const SeverityRatingEntry = (props) => {
          });
      //const {raid} = useParams();
       const columns = [
-        { id: 'sr', label: 'Rating', minWidth: 50 },
+        { id: 'sr', label: 'Rating', minWidth: 50, align: 'center' },
         { id: 'p', label: 'People', minWidth: 170 },
         { id: 'e', label: 'Environment', minWidth: 170 },
         { id: 'a', label: 'Asset', minWidth: 170 },
@@ -53,15 +53,19 @@ const SeverityRatingEntry = (props) => {
   const [rows, setRows] = useState([]);
   const [headers, setHeaders] = useState([]);
 
-  const colorCodes = (val) => {
-    if(val === 5) return '#f90606ff';
-    else if(val === 4) return '#fa7b04ff';
-    else if(val === 3) return '#dffc07ff';
-    else if(val === 2) return '#03cbfdff';
-    else if(val === 1) return '#05fd32ff';
-    else return '';
-    
-  } 
+  const getColor = (value) =>{
+    if(value === 1)
+      return '#00B050';
+    if(value === 2)
+      return '#00B0F0';
+    if(value === 3)
+      return '#FFFF00';
+    if(value === 4)
+      return '#FFC000';
+    if(value === 5)
+      return '#FF3B37';
+    return null;
+  }
 
 const handleSave = () => {
     // const v_rows = [...rows];
@@ -142,7 +146,7 @@ useEffect(() => {
                       {columns.map((column) => {
                         const value = row[column.id];
                         return (
-                          <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, backgroundColor: column.id==='sr' ? colorCodes(value): '' }}
+                          <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, backgroundColor: column.id==='sr' ? getColor(value): '' }}
                           >
                             {column.id==='sr' ? value
                             :
