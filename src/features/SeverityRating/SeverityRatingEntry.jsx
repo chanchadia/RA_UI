@@ -22,6 +22,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
 import CustomTextInput from '../../ui-component/CustomTextInputField/customTextInput';
 import SuccessAlert from '../../ui-component/snackbar';
+import getColor from '../ra/colorCodes';
 
 const SeverityRatingEntry = (props) => {
   const { mySite, myRa: raid } = useSelector((state) => state.auth);
@@ -53,19 +54,6 @@ const SeverityRatingEntry = (props) => {
   const [rows, setRows] = useState([]);
   const [headers, setHeaders] = useState([]);
 
-  const getColor = (value) =>{
-    if(value === 1)
-      return '#00B050';
-    if(value === 2)
-      return '#00B0F0';
-    if(value === 3)
-      return '#FFFF00';
-    if(value === 4)
-      return '#FFC000';
-    if(value === 5)
-      return '#FF3B37';
-    return null;
-  }
 
 const handleSave = () => {
     // const v_rows = [...rows];
