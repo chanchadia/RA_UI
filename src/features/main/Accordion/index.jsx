@@ -6,7 +6,7 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link as RawLink, Outlet, useNavigate } from 'react-router-dom';
 
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import LockResetIcon from '@mui/icons-material/LockReset';
@@ -22,6 +22,22 @@ import PermDataSettingOutlinedIcon from '@mui/icons-material/PermDataSettingOutl
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import AddModeratorOutlinedIcon from '@mui/icons-material/AddModeratorOutlined';
 
+import AddRoadOutlinedIcon from '@mui/icons-material/AddRoadOutlined';
+import AddToPhotosOutlinedIcon from '@mui/icons-material/AddToPhotosOutlined';
+import AirOutlinedIcon from '@mui/icons-material/AirOutlined';
+import BlurOnOutlinedIcon from '@mui/icons-material/BlurOnOutlined';
+import BrokenImageOutlinedIcon from '@mui/icons-material/BrokenImageOutlined';
+import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
+import CasinoOutlinedIcon from '@mui/icons-material/CasinoOutlined';
+import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
+
+
+    const Link = styled(RawLink)`
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    `;
 export default function AppMenu()
 {
   const { mySite, myRa } = useSelector((state) => state.auth);
@@ -103,6 +119,56 @@ export default function AppMenu()
                     <ListItemButton sx={{ color: 'white' }}>
                         <AddModeratorOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Risk Assessment' sx={{paddingLeft:1.5}} />
+                    </ListItemButton>
+                </Link>
+
+            {/* //-------------------------------------------------------------------------------------------- */}
+                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <AddRoadOutlinedIcon sx={{ color: 'white' }} />
+                        <ListItemText primary='Summary Components (%)' sx={{paddingLeft:1.5}} />
+                    </ListItemButton>
+                </Link>
+                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <AddToPhotosOutlinedIcon sx={{ color: 'white' }} />
+                        <ListItemText primary='Perimeter Profile' sx={{paddingLeft:1.5}} />
+                    </ListItemButton>
+                </Link>
+                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <AirOutlinedIcon sx={{ color: 'white' }} />
+                        <ListItemText primary='Gate Details' sx={{paddingLeft:1.5}} />
+                    </ListItemButton>
+                </Link>
+                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <BlurOnOutlinedIcon sx={{ color: 'white' }} />
+                        <ListItemText primary='Vital Points' sx={{paddingLeft:1.5}} />
+                    </ListItemButton>
+                </Link>
+                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <BrokenImageOutlinedIcon sx={{ color: 'white' }} />
+                        <ListItemText primary='Security Posts-Available' sx={{paddingLeft:1.5}} />
+                    </ListItemButton>
+                </Link>
+                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <BusinessCenterOutlinedIcon sx={{ color: 'white' }} />
+                        <ListItemText primary='Alarm Panel' sx={{paddingLeft:1.5}} />
+                    </ListItemButton>
+                </Link>
+                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <CasinoOutlinedIcon sx={{ color: 'white' }} />
+                        <ListItemText primary='RAG' sx={{paddingLeft:1.5}} />
+                    </ListItemButton>
+                </Link>
+                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <PendingActionsOutlinedIcon sx={{ color: 'white' }} />
+                        <ListItemText primary='Reports and KPI' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
             </>);

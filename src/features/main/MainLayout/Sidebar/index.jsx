@@ -15,7 +15,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 import MenuList from "./MenuList";
 import LogoSection from "../LogoSection";
 
-import { drawerWidth } from "../../../store/constant";
+import {  } from "../../../store/constant";
 import { DrawerBgColor, DrawerTextColor } from "../../../store/constant";
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
