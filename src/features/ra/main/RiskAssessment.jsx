@@ -152,11 +152,11 @@ const RiskAssessment = (props) => {
 
     let tr_t = 1;
 
-    if(tr_tac > tr_tai)
+    if((tr_tac * tr_tai) >= 15)
     {
       tr_t = 5;
     }
-    else if((tr_tac * tr_tai) > 15)
+    else if((tr_tac * tr_tai) >= 15)
     {
       tr_t = 4;
     }
