@@ -28,6 +28,7 @@ const SiteMaster = () => {
   const columns = [
     { id: 'name', label: 'Site Name', minWidth: 170 },
     { id: 'business', label: 'Business', minWidth: 170 },
+    { id: 'ra_cnt', label: 'Assessments', minWidth: 170, align: 'center' },
     { id: 'address', label: 'Address', minWidth: 170 },
     { id: 'spoc_name', label: 'SPOC Name', minWidth: 170 },
     { id: 'spoc_email', label: 'SPOC Email', minWidth: 170 },

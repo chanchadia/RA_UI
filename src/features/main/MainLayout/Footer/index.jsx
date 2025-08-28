@@ -21,11 +21,11 @@ const Footer = () => {
   };
   return (
     <>
-      <footer style={footstyle}>
+      {/* <footer style={footstyle}>
         <p style={FootContent}>
           Copyright SeRA Pvt. Ltd, All Rights Reserved. Registered in India.
         </p>
-      </footer>
+      </footer> */}
     </>
   );
 };

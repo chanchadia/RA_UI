@@ -51,7 +51,7 @@ const SurveyAssessEntry = (props) => {
         //{ id: 'obs_score', label: 'Observation Or Scoring', minWidth: 170 },
         { id: 'obs_score', label: 'Type', minWidth: 100 },
         { id: 'a_or_na', label: 'Applicable ?', minWidth: 200 },
-        { id: 'observation', label: 'Observation', minWidth: 100 },
+        { id: 'observation', label: 'Observation', minWidth: 200 },
         { id: 'weightage', label: 'Weightage', minWidth: 30 },
         { id: 'max_marks', label: 'Maximum Marks', minWidth: 30 },
         { id: 'scored_marks', label: 'Scored Marks', minWidth: 30 },
@@ -78,7 +78,10 @@ const DDOnChange = (event,newValue,row_index) => {
     const v_rows = [...rows];
     if(newValue.label==='Applicable')
     {
-         v_rows[row_index]['max_marks']=v_rows[row_index]['weightage'];
+        if(v_rows[row_index].obs_score === 'Scoring')
+        {
+          v_rows[row_index]['max_marks']=v_rows[row_index]['weightage'];
+        }
     }
     else
     {
@@ -94,7 +97,7 @@ const handleChange = (e, columnId,rowID) => {
     let value = e.target.value;
     const v_rows = [...rows];
 
-    if(columnId === 'observation')
+    if(columnId === 'observation' && v_rows[rowID].obs_score === 'Scoring')
     {
         value = value.replace(/[^0-9]/g, '');
 
@@ -180,11 +183,13 @@ useEffect(() => {
                         return (
                           <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, }}
                           >
-                            {column.id==='observation' //&& row.obs_score === 'Scoring' 
+                            {column.id==='observation' 
                             ?
-                             <TextField placeholder='1 to 100'
-                                    slotProps={{ input: { endAdornment: '%'}}}
-                                    sx={{
+                             row.a_or_na === 'Applicable' &&
+                             <TextField placeholder={row.obs_score === 'Scoring' && '1 to 100'}
+                                    slotProps={row.obs_score === 'Scoring' &&{ input: { endAdornment: '%'}}}
+                                    sx={row.obs_score === 'Scoring' &&
+                                        {
                                             '& .MuiInputBase-input': {
                                             textAlign: 'right',
                                             },
@@ -193,9 +198,8 @@ useEffect(() => {
                                     fullWidth
                                     value={value}
                                     onChange={(e) => handleChange(e, column.id,index)}
-                                    disabled={row.a_or_na === 'Not Applicable' || row.obs_score === 'Observation'}
+                                    
                                   />
-                            
                             : column.id==='a_or_na' ?
                             <Autocomplete
                                 disableClearable={true}

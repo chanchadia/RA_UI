@@ -22,7 +22,7 @@ const AuthFooter = () => {
   return (
   <> 
      <center> <font size="2" color="white">v {version}</font></center>
-  <CustomFooterGrid
+  {/* <CustomFooterGrid
     item
     xs={12}
     container
@@ -33,7 +33,7 @@ const AuthFooter = () => {
     <Typography sx={{ fontFamily: "Nunito" }}>
       Copyright SeRA Pvt. Ltd, All Rights Reserved. Registered in India.
     </Typography>
-  </CustomFooterGrid>
+  </CustomFooterGrid> */}
   </>
   );
 };

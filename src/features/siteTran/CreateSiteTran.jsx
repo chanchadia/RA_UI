@@ -22,7 +22,6 @@ const CreateSiteTran = () => {
 
     const { raid } = useParams();
   const { mySite: id, myRa } = useSelector((state) => state.auth);
-debugger;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,7 +44,8 @@ debugger;
         start_dt: '',
         end_dt: '',
         name: '',
-        active: 'Y'
+        active: 'Y',
+        team_members: ''
     };
 
     const validationSchema = Yup.object({
@@ -65,7 +65,7 @@ debugger;
                 handleClose: () => {
                     //setTimeout(() => {
                     setIsDisabled(false);
-                        navigate(`/site/${id}/tran`);
+                        navigate(`/site/tran`);
                     //}, 1000);
                 }
              });
@@ -78,7 +78,6 @@ debugger;
 
     useEffect(()=>
     {
-    debugger;
 
         raid && dispatch(getSingleSiteTran({site_id: id, raid})).unwrap()
             .then((resp)=>{
@@ -147,6 +146,9 @@ debugger;
                                     valuedata={values.end_dt ? dayjs(values.end_dt, 'DD-MM-YYYY') : null}
                                 />
                             </Grid>
+                            <Grid item xs={9}></Grid>
+                            <Grid item xs={12}>   <CustomTextInput label="Team Members *" name="team_members" type="text" /></Grid>
+
                         </Grid>
 
                         {/* <Controls.Button
