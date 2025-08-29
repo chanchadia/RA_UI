@@ -194,49 +194,10 @@ export default function AppMenu()
                 {
                     getMenu()
                 }
-
-
-                    {menuType == 'master' ?
-                    <>
-                     <Link to='/site' style={{ textDecoration: 'none', color: 'black'}}>
-                            <ListItemButton sx={{ color: 'white' }}>
-                                <HomeRoundedIcon sx={{ color: 'white' }} />
-                                <ListItemText primary='Site' sx={{paddingLeft:1.5}} />
-                            </ListItemButton>
-                        </Link>
-
-                        <Link to='/site/1/weightage' style={{ textDecoration: 'none', color: 'black'}}>
-                            <ListItemButton sx={{ color: 'white' }}>
-                                <HomeRoundedIcon sx={{ color: 'white' }} />
-                                <ListItemText primary='Weightage' sx={{paddingLeft:1.5}} />
-                            </ListItemButton>
-                        </Link>
-
-
-                        <Link to='/site/1/ra/1' style={{ textDecoration: 'none', color: 'black'}}>
-                            <ListItemButton sx={{ color: 'white' }}>
-                                <HomeRoundedIcon sx={{ color: 'white' }} />
-                                <ListItemText primary='Risk Assessment' sx={{paddingLeft:1.5}} />
-                            </ListItemButton>
-                        </Link>
-
-                         <Link to='/site/survey_assess/1' style={{ textDecoration: 'none', color: 'black'}}>
-                            <ListItemButton sx={{ color: 'white' }}>
-                                <HomeRoundedIcon sx={{ color: 'white' }} />
-                                <ListItemText primary='Survey Assessment' sx={{paddingLeft:1.5}} />
-
-                            </ListItemButton>
-                        </Link>
-                        
-                    </>
-                    :
-                    <>
-                    </>
-                    }
                     
                <div style={{width:'100%', borderTop: '1px solid grey'}}> </div>
 
-                    <Link to='/change_pwd' style={{ textDecoration: 'none', color: 'black' }}>
+                    <Link tooooo='/change_pwd' style={{ textDecoration: 'none', color: 'black' }}>
                         <ListItemButton sx={{ color: 'white' }}>
                                 <LockResetIcon sx={{ color: 'white' }}  />
                             <ListItemText primary='Change Password'  sx={{paddingLeft:1.5}} />
