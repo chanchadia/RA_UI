@@ -78,12 +78,12 @@ useEffect(() => {
       <Grid container flexDirection={'column'}>
         <Grid item container display={'flex'} justifyContent={'space-between'}>
 
-          <CustomH2 headingName='Survey Assessment (SA)'></CustomH2>
+          <CustomH2 headingName='Assessment'></CustomH2>
        <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
        onClick={()=>{
               navigate(`/site/tran/create`);
        }}
-       >Create New SA</Button>
+       >New Assessment</Button>
 
         </Grid>
         <Grid item flexGrow={1}>

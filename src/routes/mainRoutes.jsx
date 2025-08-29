@@ -13,6 +13,7 @@ import Weightage from '../features/ra/survey/Weightage';
 import RiskAssessment from '../features/ra/main/RiskAssessment';
 
 import SurveyAssessEntry from '../features/SurveyAssess/SurveyAssessEntry';
+import Logout from '../features/logout';
 
 
 
@@ -71,7 +72,7 @@ const mainRoutes = {
         },
         {
             path: '/logout',
-            element: <CustomH2 headingName='Logout screen'></CustomH2>
+            element: <Logout/>
         },
         // {
         //     path: '/login',

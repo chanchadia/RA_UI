@@ -92,7 +92,7 @@ const SiteMaster = () => {
        onClick={()=>{
           navigate('/site/create/');
        }}
-       >Create Site</Button>
+       >New Site</Button>
 
         </Grid>
         <Grid item flexGrow={1}>

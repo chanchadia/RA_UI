@@ -29,7 +29,35 @@ export const loginUser = createAsyncThunk(
     }
   );
 
+export const logoutUser = createAsyncThunk(
+    "logoutUser",
+    async(args, { rejectWithValue }) => { 
+      try
+      {
 
+        const token = sessionStorage.getItem('token');
+
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
+            //body: JSON.stringify(args)
+        };
+        const response = await fetch(config.API_URL + 'User/logout', requestOptions);
+        if (response.ok) 
+        {
+          return await response.json();
+        } 
+        else 
+        {
+          return rejectWithValue(await response.json());
+        }
+      }
+      catch (error)
+      {
+        return rejectWithValue(error);
+      }
+    }
+  );
 
 export const AuthSlice = createSlice({
   name: "AuthSlice",
