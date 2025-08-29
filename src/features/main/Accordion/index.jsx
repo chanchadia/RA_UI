@@ -1,7 +1,7 @@
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import RawListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -33,11 +33,20 @@ import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlin
 
 
     const Link = styled(RawLink)`
-      height: 40px;
+      height: 37px;
       display: flex;
       align-items: center;
       justify-content: center;
     `;
+
+    const ListItemText = styled(RawListItemText)({
+        '& .MuiListItemText-primary': {
+            fontSize:14,
+        },
+        // '& .MuiListItemText-secondary': {
+        //     color: 'gray',
+        // },
+    });
 export default function AppMenu()
 {
   const { mySite, myRa } = useSelector((state) => state.auth);
