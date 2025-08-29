@@ -40,7 +40,6 @@ export const saveSeverity = createAsyncThunk(
             headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
             body: JSON.stringify(args)
         };
-        debugger
 
        // const response = await fetch(config.API_URL + 'Severity/' + args.site_id, requestOptions);
         const response = await fetch(config.API_URL + 'Severity/'+ args[0].ra_id , requestOptions);

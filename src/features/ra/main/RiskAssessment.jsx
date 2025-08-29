@@ -399,10 +399,20 @@ const [am_mp, setAmMP] = React.useState([]);
 
 
   const onSubmit = () => {
-    console.log("hari",rows);
-    return;
     setIsSubmitting(true)
-    const data = rows.filter(item => item.scenarios && item.scenarios.trim() !== '');
+    const data = rows.filter(item => item.scenarios && item.scenarios.trim() !== '').map(
+      (item)=>{
+        item.am_i = item.am_i_new ? item.am_i_new.join('|') : null;
+        item.am_a = item.am_a_new ? item.am_a_new.join('|') : null;
+        item.am_p = item.am_p_new ? item.am_p_new.join('|') : null;
+        item.am_m = item.am_m_new ? item.am_m_new.join('|') : null;
+        delete item.am_i_new;
+        delete item.am_a_new;
+        delete item.am_p_new;
+        delete item.am_m_new;
+        return item;
+      }
+    );
     dispatch(saveRiskAssessment({ data, raid })).unwrap()
       .then((res) => {
         setIsSubmitting(false)

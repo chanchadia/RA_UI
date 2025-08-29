@@ -204,7 +204,6 @@ export const saveSurveyAssessment = createAsyncThunk(
             body: JSON.stringify(args.data)
         };
         const response = await fetch(config.API_URL + 'Survey/assess/' + args.raid, requestOptions);
-        debugger;
         if (response.ok) 
         {
           return await response.json();

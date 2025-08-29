@@ -64,7 +64,6 @@ const handleChange = (e, columnId,rowID) => {
     let value = e.target.value;
     if(columnId === 'weightage')
     {
-        debugger;
         value = value.replace(/[^0-9]/g, '');
 
         // Convert to a number for range validation

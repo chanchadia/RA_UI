@@ -60,7 +60,6 @@ useEffect(() => {
 
      dispatch(getSiteWiseSA(id)).unwrap()
         .then((resp)=>{
-            debugger;
             if(resp && resp.data && resp.data.length>0)
             {
                     setRows(resp.data)
