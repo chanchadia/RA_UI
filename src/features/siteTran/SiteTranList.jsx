@@ -10,18 +10,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { lightBlue } from '@mui/material/colors';
 import { StyledButton as StyledLoginButton } from "../auth/StyledLoginComponents/styledButton";
 import CustomH2 from '../../ui-component/Headings/CustomH2';
 import Grid from '@mui/material/GridLegacy';
 import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
-import { Button } from '@mui/material';
+
+import Button  from '../../ui-component/Controls/Button';
 import { useLocation, useNavigate,useParams } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton, Link } from '@mui/material';
 import { getSiteWiseSA } from '../../slice/SurveAssessmentSlice';
 import { setMyRa, setMySite } from '../../slice/AuthSlice';
+import { tableHeaderBgColor } from '../ra/colorCodes';
 
 const SiteTranList = (props) => {
   const { mySite : id, myRa } = useSelector((state) => state.auth);
@@ -94,7 +95,7 @@ useEffect(() => {
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
-              <TableRow sx={{ "& th": { backgroundColor: "lightBlue", color: "black" } }}>
+              <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black" } }}>
                 {columns.map((column) => (
                   <TableCell
                     key={column.id}

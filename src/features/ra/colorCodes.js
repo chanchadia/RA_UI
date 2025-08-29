@@ -12,3 +12,5 @@
       return '#FF3B37';
     return null;
   }
+
+  export const tableHeaderBgColor = '#eff0e9ff';

@@ -2,7 +2,8 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CustomH2 from '../../ui-component/Headings/CustomH2';
-import { Backdrop, Button, CircularProgress } from '@mui/material';
+import { Backdrop, CircularProgress } from '@mui/material';
+import Button  from '../../ui-component/Controls/Button';
 import SuccessAlert from '../../ui-component/snackbar';
 import { Form, Formik } from 'formik';
 import * as Yup from "yup";

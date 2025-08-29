@@ -9,9 +9,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { lightBlue } from '@mui/material/colors';
 import Grid from '@mui/material/GridLegacy';
-import { Backdrop, Button, CircularProgress, InputAdornment, TextField } from '@mui/material';
+import { Backdrop, CircularProgress, InputAdornment, TextField } from '@mui/material';
+import Button  from '../../ui-component/Controls/Button';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Navigate,useParams } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
@@ -21,6 +21,7 @@ import CustomH2 from '../../ui-component/Headings/CustomH2';
 import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
 import Autocomplete from '@mui/material/Autocomplete';
 import SuccessAlert from '../../ui-component/snackbar';
+import { tableHeaderBgColor } from '../ra/colorCodes';
 
 const SurveyAssessEntry = (props) => {
 
@@ -161,7 +162,7 @@ useEffect(() => {
         <TableContainer sx={{ maxHeight: '65vh' }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
-              <TableRow sx={{ "& th": { backgroundColor: "lightBlue", color: "black", verticalAlign: 'top' } }}>
+              <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black", verticalAlign: 'top' } }}>
                 {columns.map((column) => (
                   <TableCell
                     key={column.id}
