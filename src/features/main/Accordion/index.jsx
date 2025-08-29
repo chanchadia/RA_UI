@@ -33,7 +33,7 @@ import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlin
 
 
     const Link = styled(RawLink)`
-      height: 37px;
+      height: 35px;
       display: flex;
       align-items: center;
       justify-content: center;
