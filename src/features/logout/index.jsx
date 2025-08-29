@@ -40,6 +40,7 @@ const Logout = () => {
     })
     .catch((err) => {
         sessionStorage.setItem('token', "");
+        navigate('/login');
     });
   }
   const cancel = () =>{

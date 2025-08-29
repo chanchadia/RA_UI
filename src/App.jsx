@@ -3,10 +3,22 @@ import { useState } from 'react'
 import Routes from './routes'
 import { CssBaseline, StyledEngineProvider } from '@mui/material'
 import { ThemeProvider } from "@mui/material/styles";
+import { useDispatch } from 'react-redux';
+import { setMyRa, setMySite } from './slice/AuthSlice';
 
 function App() {
   const [count, setCount] = useState(0)
+      const dispatch = useDispatch();
 
+      
+      const site = sessionStorage.getItem("site") || '';
+      const ra = sessionStorage.getItem("ra") || '';
+
+      site !== '' && dispatch(setMySite(site));
+      ra !== '' && dispatch(setMyRa(ra));
+
+
+debugger;
   return (
       <StyledEngineProvider injectFirst>
         {/* <ThemeProvider theme={themes({customization:1})}> */}
