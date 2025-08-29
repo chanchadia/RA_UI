@@ -65,26 +65,33 @@ export default function MultipleSelect(props) {
 
   const onEnterPress = (e) => {
     const newNames = [...props.names];
-    const result = newNames.map(e => e.toLowerCase()).includes(e.target.value.trim().toLowerCase());
 
-    if(!result)
+    //const result = newNames.map(e => e.toLowerCase()).includes(e.target.value.trim().toLowerCase());
+    const result = newNames.filter(item => item.toLowerCase() === e.target.value.trim().toLowerCase());
+    //if(!result)
+    if(result.length === 0)
     {
-      props.setNames([...props.names, e.target.value.trim()]);
-      props.setSelectedValue([...props.selectedValue, e.target.value.trim()]);
+      const valueAdd = e.target.value.trim();
+      props.setNames([...props.names, valueAdd]);
+      props.setSelectedValue([...props.selectedValue, valueAdd]);
+    }
+    else
+    {
+      props.setSelectedValue([...props.selectedValue, result[0]]);
     }
     setMyVal('');
   }
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }} variant="standard" >
+      <FormControl sx={{ m: 1, width: 270 }} variant="standard" >
         <InputLabel>Details</InputLabel>
         <Select
           multiple
           value={props.selectedValue}
           onChange={handleChange}
           MenuProps={MenuProps}
-          
+          onClose={()=>setMyVal('')}
         >
           <ListSubheader>
             <TextField
@@ -94,7 +101,9 @@ export default function MultipleSelect(props) {
               placeholder="Type to add"
               fullWidth
               value={myVal}
-              onChange={(e)=>{setMyVal(e.target.value)}}
+              onChange={(e)=>{
+                !e.target.value.includes('|') && setMyVal(e.target.value)
+              }}
               //onChange={(e) => setSearchText(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key !== "Escape") {
