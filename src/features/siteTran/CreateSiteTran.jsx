@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CustomH2 from '../../ui-component/Headings/CustomH2';
 import { Backdrop, CircularProgress } from '@mui/material';
-import Button  from '../../ui-component/Controls/Button';
+import Button, {CancelButton}  from '../../ui-component/Controls/Button';
 import SuccessAlert from '../../ui-component/snackbar';
 import { Form, Formik } from 'formik';
 import * as Yup from "yup";
@@ -161,7 +161,10 @@ const CreateSiteTran = () => {
                         <center>
                             <br /> <br />
                             <Button variant="contained" type='submit' sx={{ m: 2, minWidth: 150 }}>Save</Button>
-
+                            <CancelButton sx={{ m: 2, minWidth: 150 }}
+                            onClick={()=>{
+                                navigate('/site/tran');
+                            }}>Cancel</CancelButton>
                         </center>
 
 

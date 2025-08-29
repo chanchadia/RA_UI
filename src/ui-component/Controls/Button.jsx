@@ -30,4 +30,23 @@ const StyledButton = styled(MuiButton)`
   text-transform: none;
 `;
 
+export const CancelButton = styled(MuiButton)`
+  background-color: #ffffff !important;
+  color: #1c87abff !important ;
+  border: 1px solid #1c87abff !important ;
+  font-family: "Roboto";
+  font-style: normal;
+  font-size: 16px;
+  line-height: 16px;
+  width: 165px;
+  height: 36px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-top: 50px;
+  gap: 10px;
+  text-transform: none;
+`;
+
 export default StyledButton;
