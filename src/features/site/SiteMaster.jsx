@@ -68,15 +68,15 @@ const SiteMaster = () => {
 
   const fetchList = () =>{
     setIsSubmitting(true);
-    dispatch(getSite("")).then((action, state) => {
-      if (action.payload != null && action.payload.data.length > 0) {
-        setRows(action.payload.data)
-        setHeaders(Object.keys(action.payload.data[0]));
-        setFetchError(false);
-        setIsSubmitting(false);
+    dispatch(getSite("")).unwrap().then((action) => {
+      if (action.data.length > 0) {
+        setRows(action.data)
+        setHeaders(Object.keys(action.data[0]));
       }
+      setFetchError(false);
+      setIsSubmitting(false);
     }).catch((err) => {
-        setFetchError(true);
+        setFetchError(err.message);
         setIsSubmitting(false);
     });
   }
@@ -177,7 +177,7 @@ const SiteMaster = () => {
       /> */}
       </Paper>
       }
-      {fetchError && <LoadingError onClick={fetchList} />}
+      {fetchError && <LoadingError err={fetchError} onClick={fetchList} />}
 
       <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

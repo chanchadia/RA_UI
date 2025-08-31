@@ -24,7 +24,7 @@ export default function SuccessAlert({successAlert}) {
             severity= {isError ? "error" : "success"}
             variant="filled"
             sx={{ width: '100%' }}>
-              {message}
+              {isError && message==='Failed to fetch' ? 'Please check your network connection.' : message}
           </Alert>
       </Snackbar>
     </div>
