@@ -18,9 +18,10 @@ import Button  from '../../ui-component/Controls/Button';
 import { useLocation, useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
-import { IconButton, Link } from '@mui/material';
+import { Backdrop, CircularProgress, IconButton, Link } from '@mui/material';
 import { setMyRa, setMySite } from '../../slice/AuthSlice';
 import { tableHeaderBgColor } from '../ra/colorCodes';
+import LoadingError from '../../ui-component/LoadingError';
 
 
 const SiteMaster = () => {
@@ -45,6 +46,8 @@ const SiteMaster = () => {
   ];
 
 
+  const [fetchError, setFetchError] = useState(false);    
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -63,18 +66,26 @@ const SiteMaster = () => {
   const [rows, setRows] = useState([]);
   const [headers, setHeaders] = useState([]);
 
+  const fetchList = () =>{
+    setIsSubmitting(true);
+    dispatch(getSite("")).then((action, state) => {
+      if (action.payload != null && action.payload.data.length > 0) {
+        setRows(action.payload.data)
+        setHeaders(Object.keys(action.payload.data[0]));
+        setFetchError(false);
+        setIsSubmitting(false);
+      }
+    }).catch((err) => {
+        setFetchError(true);
+        setIsSubmitting(false);
+    });
+  }
 
   useEffect(() => {
     dispatch(setMySite(null));
     dispatch(setMyRa(null));
     
-    dispatch(getSite("")).then((action, state) => {
-
-      if (action.payload != null && action.payload.data.length > 0) {
-        setRows(action.payload.data)
-        setHeaders(Object.keys(action.payload.data[0]));
-      }
-    });
+    fetchList();
   }, []);
 
   const handleEdit = (id) => {
@@ -100,6 +111,7 @@ const SiteMaster = () => {
         </Grid>
       </Grid>
 
+      {!fetchError && rows.length > 0 &&
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
@@ -164,7 +176,16 @@ const SiteMaster = () => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       /> */}
       </Paper>
+      }
+      {fetchError && <LoadingError onClick={fetchList} />}
 
+      <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={isSubmitting}
+          //onClick={handleClose}
+      >
+          <CircularProgress sx={{ color: "white" }} />
+      </Backdrop>
     </>
   )
 }
