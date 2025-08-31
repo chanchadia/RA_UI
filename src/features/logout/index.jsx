@@ -14,7 +14,7 @@ import { StyledButton as StyledLoginButton } from "../auth/StyledLoginComponents
 import CustomH2 from '../../ui-component/Headings/CustomH2';
 import Grid from '@mui/material/GridLegacy';
 import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
-import Button, { CancelButton }  from '../../ui-component/Controls/Button';
+import Button, { CancelButton } from '../../ui-component/Controls/Button';
 import { useLocation, useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
@@ -29,32 +29,29 @@ const Logout = () => {
 
   const { mySite, myRa } = useSelector((state) => state.auth);
 
-  const signOut = () =>{
+  const signOut = () => {
     dispatch(setMyRa(null));
     dispatch(setMySite(null));
 
     dispatch(logoutUser(null)).unwrap()
-    .then((res)=>{
+      .then((res) => {
         sessionStorage.setItem('token', "");
         navigate('/login');
-    })
-    .catch((err) => {
+      })
+      .catch((err) => {
         sessionStorage.setItem('token', "");
         navigate('/login');
-    });
+      });
   }
-  const cancel = () =>{
-    if(myRa)
-    {
-        navigate('/sa')
+  const cancel = () => {
+    if (myRa) {
+      navigate('/sa')
     }
-    else if(mySite)
-    {
-        navigate('/site/tran')
+    else if (mySite) {
+      navigate('/site/tran')
     }
-    else
-    {
-        navigate('/site')
+    else {
+      navigate('/site')
     }
   }
 
@@ -64,45 +61,45 @@ const Logout = () => {
 
       <Grid container flexDirection={'column'}>
         <Grid item>
-            <br/>
-            <br/>
-            
-            <br/>
-        </Grid>
-        <Grid item>
-            <center></center>
-        </Grid>
-        <Grid item>
-            <center>
-                <br />
-                
+          <br />
+          <br />
 
-            </center>
+          <br />
+        </Grid>
+        <Grid item>
+          <center></center>
+        </Grid>
+        <Grid item>
+          <center>
+            <br />
+
+
+          </center>
         </Grid>
       </Grid>
 
-              <div style={{display:'flex', justifyContent:'center', paddingTop: '60px'}}>
+      <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '60px' }}>
         <Card sx={{ minWidth: 400, maxWidth: 1000 }} elevation={3}>
-            <CardContent>
+          <CardContent>
 
-<Typography variant="h5"  sx={{mb: 3}}>
-                Log out
-                </Typography>
+            <Typography variant="h5" sx={{ mb: 3 }}>
+              Log out
+            </Typography>
 
-                <Typography>
-                  Are you sure to Logout ?
-                </Typography>
-                
-            </CardContent>
-            <CardActions sx={{display:'flex', justifyContent:'center'}}>
-                <Button variant="contained" sx={{ m: 2, minWidth: 150 }} onClick={signOut}>Logout</Button>
-                <CancelButton sx={{ m: 2, minWidth: 150 }}
-                onClick={cancel}>Cancel</CancelButton>
-            </CardActions>
+            <Typography>
+              Are you sure to Logout ?
+            </Typography>
+
+          </CardContent>
+          <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Button variant="contained" sx={{ m: 2, minWidth: 150 }} onClick={signOut}>Logout</Button>
+            <CancelButton sx={{ m: 2, minWidth: 150 }}
+              onClick={cancel}>Cancel</CancelButton>
+          </CardActions>
         </Card>
-        </div>
-            <br/>
-            <br/>
+      </div>
+      <br />
+      <br />
 
     </>
   )
