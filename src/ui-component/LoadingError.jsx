@@ -26,7 +26,9 @@ export default function LoadingError(props)
                 <Button size="large" onClick={props.onClick}>Try Now</Button>
             </CardActions>
         </Card>
-            
         </div>
+            <br/>
+            <br/>
+
     </>);
 }
