@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RiskGuard Pro - Advanced Security Risk Assessment Software</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .brochure {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #1a202c 100%);
+            color: #00ffff;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid #00ffff;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(-150px) translateY(-150px); }
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 20px rgba(0,255,255,0.5);
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section {
+            padding: 60px 40px;
+            text-align: center;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #6c757d;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 60px 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .feature-description {
+            color: #6c757d;
+            font-size: 1rem;
+        }
+
+        .benefits-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+        }
+
+        .benefits-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            font-weight: bold;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        @media (max-width: 992px) {
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .benefit-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .benefit-text {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .cta-section {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .compliance-badge {
+            background: #28a745;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .stats-section {
+            background: #f8f9fa;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                padding: 40px 20px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+        }
+    </style>
+
+<style>
+.signin:link {
+  color: #677BE6;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: larger;
+}
+
+/* Styling for links on hover */
+.signin:hover {
+  color: #28a745;
+  text-decoration: none; /* Removes underline on hover */
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="brochure">
+            <div class="header">
+                <div class="logo">🛡️ RiskGuard Pro</div>
+                <div class="tagline">Advanced Security Risk Assessment Software</div>
+            </div>
+            <div style="display: flex;justify-content: right; padding-right: 10px; background: linear-gradient(45deg, #f8f9fa, #e9ecef);">
+                <a class="signin" href="/login">Sign in</a>
+            </div>
+            <div class="hero-section">
+                <div class="compliance-badge">✓ Based on ANSI 780 Methodology</div>
+                <h1 class="hero-title">Transform Your Security Risk Management</h1>
+                <p class="hero-subtitle">Streamline risk assessments, quantify security investments, and make data-driven decisions with our comprehensive platform based on ANSI 780 methodology</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Structured Risk Assessment</h3>
+                    <p class="feature-description">Conduct comprehensive risk assessment exercises following ANSI 780 methodology with guided workflows and automated documentation</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3 class="feature-title">Recommendation Tracking</h3>
+                    <p class="feature-description">Track security recommendations from identification through implementation with real-time status updates and progress monitoring</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3 class="feature-title">Risk Quantification</h3>
+                    <p class="feature-description">Measure current risk levels and calculate risk reduction as security controls are implemented, providing clear ROI metrics</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Smart Prioritization</h3>
+                    <p class="feature-description">Automatically prioritize risk mitigation measures based on impact, likelihood, and organizational risk appetite</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">👔</div>
+                    <h3 class="feature-title">Executive Reporting</h3>
+                    <p class="feature-description">Generate compelling executive dashboards and reports that clearly communicate security posture and investment needs</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3 class="feature-title">Budget Justification</h3>
+                    <p class="feature-description">Build data-driven business cases for security investments with clear risk-to-cost analysis and projected outcomes</p>
+                </div>
+            </div>
+
+            <div class="benefits-section">
+                <h2 class="benefits-title">Expected Results</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-number">60%</div>
+                        <div class="benefit-text">Reduction in assessment time</div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-number">85%</div>
+                        <div class="benefit-text">Improvement in risk visibility</div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-number">3x</div>
+                        <div class="benefit-text">Faster budget approvals</div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-number">40%</div>
+                        <div class="benefit-text">Better risk mitigation tracking</div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="cta-section">
+                <h2 class="cta-title">Ready to Elevate Your Security Program?</h2>
+                <p class="cta-subtitle">Empowering organizations to make smarter security investments with data-driven risk insights</p>
+                <a href="mailto:your.risk.our.solution.yros@gmail.com?subject=RiskGuard Pro demo" class="cta-button">Schedule Your Demo Today</a>
+                
+                <div style="margin-top: 30px; font-size: 1.1rem; opacity: 0.9;">
+                    <p>📞 Call us at +91-9510167286</p>
+                    <p style="margin-top: 10px;">📧 your.risk.our.solution.yros@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

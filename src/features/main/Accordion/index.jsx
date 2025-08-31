@@ -30,7 +30,7 @@ import BrokenImageOutlinedIcon from '@mui/icons-material/BrokenImageOutlined';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
 import CasinoOutlinedIcon from '@mui/icons-material/CasinoOutlined';
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
-
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
     const Link = styled(RawLink)`
       height: 35px;
@@ -180,6 +180,14 @@ export default function AppMenu()
                         <ListItemText primary='Reports and KPI' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
+                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <AutoGraphIcon sx={{ color: 'white' }} />
+                        <ListItemText primary='Action Tracking' sx={{paddingLeft:1.5}} />
+                    </ListItemButton>
+                </Link>
+
+                
             </>);
         }
         

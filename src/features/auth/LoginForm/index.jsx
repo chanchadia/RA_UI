@@ -272,14 +272,15 @@ function LoginForm(props) {
                     </StyledLoginButton>
                   </Grid>
                   <Grid item>
-                    <StyledForgotPwdButton
+                    <div style={{marginTop:30, color:'white', cursor:'pointer'}}>Forgot Password?</div>
+                    {/* <StyledForgotPwdButton
                       variant="text"
                       component="button"
                       type="password"
                       onClick={() => navigate("/forgotpwd")}
                     >
                       Forgot Password?
-                    </StyledForgotPwdButton>
+                    </StyledForgotPwdButton> */}
                   </Grid>
                   <Grid item>
                     <ClickAwayListener onClickAway={handleTooltipClose}>
