@@ -140,7 +140,7 @@ function LoginForm(props) {
     })
     .catch((err) => {
       sessionStorage.setItem('token', "");
-        setLoginErrMsg(err.message);
+        setLoginErrMsg(err.message === 'Failed to fetch' ? 'Please check your network connection.' : err.message);
         setIsLoginError(true);
     });
   }
