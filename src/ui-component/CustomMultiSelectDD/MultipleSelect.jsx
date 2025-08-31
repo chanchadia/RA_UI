@@ -8,7 +8,8 @@ import Select from '@mui/material/Select';
 import ListSubheader from '@mui/material/ListSubheader';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
+import { Box, Chip } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -92,9 +93,19 @@ export default function MultipleSelect(props) {
           onChange={handleChange}
           MenuProps={MenuProps}
           onClose={()=>setMyVal('')}
+
+    renderValue={(selected) => (
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+        {props.selectedValue.map((name) => (
+        // <Chip key={name} label={props.names?.find(e => e === name).name} />
+        <Tooltip title={name} placement="top"><Chip variant='outlined' key={name} label={name} /></Tooltip>
+        ))}
+    </Box>
+    )}
         >
           <ListSubheader>
             <TextField
+             style={{ whiteSpace: 'normal' }}
               size="small"
               // Autofocus on textfield
               autoFocus
@@ -128,6 +139,7 @@ export default function MultipleSelect(props) {
             <MenuItem
               key={name}
               value={name}
+              style={{ whiteSpace: 'normal' }}
             >
               {name}
             </MenuItem>

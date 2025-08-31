@@ -406,10 +406,10 @@ const [am_mp, setAmMP] = React.useState([]);
         item.am_a = item.am_a_new ? item.am_a_new.join('|') : null;
         item.am_p = item.am_p_new ? item.am_p_new.join('|') : null;
         item.am_m = item.am_m_new ? item.am_m_new.join('|') : null;
-        delete item.am_i_new;
-        delete item.am_a_new;
-        delete item.am_p_new;
-        delete item.am_m_new;
+        // delete item.am_i_new;
+        // delete item.am_a_new;
+        // delete item.am_p_new;
+        // delete item.am_m_new;
         return item;
       }
     );
