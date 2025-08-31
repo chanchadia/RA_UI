@@ -18,7 +18,7 @@ import Button, { CancelButton }  from '../../ui-component/Controls/Button';
 import { useLocation, useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
-import { IconButton, Link } from '@mui/material';
+import { Card, CardActions, CardContent, IconButton, Link, Typography } from '@mui/material';
 import { logoutUser, setMyRa, setMySite } from '../../slice/AuthSlice';
 import { tableHeaderBgColor } from '../ra/colorCodes';
 
@@ -66,24 +66,43 @@ const Logout = () => {
         <Grid item>
             <br/>
             <br/>
-            <center><CustomH2 headingName='Log out'></CustomH2></center>
+            
             <br/>
         </Grid>
         <Grid item>
-            <center>Are you sure to Logout ?</center>
+            <center></center>
         </Grid>
         <Grid item>
             <center>
                 <br />
-                <Button variant="contained" sx={{ m: 2, minWidth: 150 }} onClick={signOut}>Logout</Button>
-                <CancelButton sx={{ m: 2, minWidth: 150 }}
-                onClick={cancel}>Cancel</CancelButton>
+                
 
             </center>
         </Grid>
       </Grid>
 
-      
+              <div style={{display:'flex', justifyContent:'center', paddingTop: '60px'}}>
+        <Card sx={{ minWidth: 400, maxWidth: 1000 }} elevation={3}>
+            <CardContent>
+
+<Typography variant="h5"  sx={{mb: 3}}>
+                Log out
+                </Typography>
+
+                <Typography>
+                  Are you sure to Logout ?
+                </Typography>
+                
+            </CardContent>
+            <CardActions sx={{display:'flex', justifyContent:'center'}}>
+                <Button variant="contained" sx={{ m: 2, minWidth: 150 }} onClick={signOut}>Logout</Button>
+                <CancelButton sx={{ m: 2, minWidth: 150 }}
+                onClick={cancel}>Cancel</CancelButton>
+            </CardActions>
+        </Card>
+        </div>
+            <br/>
+            <br/>
 
     </>
   )
