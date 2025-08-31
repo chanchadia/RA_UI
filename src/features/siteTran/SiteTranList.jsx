@@ -19,14 +19,16 @@ import Button  from '../../ui-component/Controls/Button';
 import { useLocation, useNavigate,useParams } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
-import { IconButton, Link } from '@mui/material';
+import { Backdrop, CircularProgress, IconButton, Link } from '@mui/material';
 import { getSiteWiseSA } from '../../slice/SurveAssessmentSlice';
 import { setMyRa, setMySite } from '../../slice/AuthSlice';
 import { tableHeaderBgColor } from '../ra/colorCodes';
+import LoadingError from '../../ui-component/LoadingError';
 
 const SiteTranList = (props) => {
   const { mySite : id, myRa } = useSelector((state) => state.auth);
-
+  const [fetchError, setFetchError] = useState(false);    
+  const [isSubmitting, setIsSubmitting] = useState(false);
       const navigate = useNavigate();
       const dispatch = useDispatch();
       //const {id} = useParams();
@@ -55,22 +57,30 @@ const columns = [
 const handleEdit = (rowid) => {
     navigate(`/site/tran/${rowid}`);
   };
-useEffect(() => {
-     dispatch(setMySite(id));
-     dispatch(setMyRa(null));
 
-     dispatch(getSiteWiseSA(id)).unwrap()
+  const fetchList = () =>{
+    setIsSubmitting(true);
+    dispatch(getSiteWiseSA(id)).unwrap()
         .then((resp)=>{
             if(resp && resp.data && resp.data.length>0)
             {
                     setRows(resp.data)
                     setHeaders(Object.keys(resp.data[0]));
             } 
+             setFetchError(false);
+             setIsSubmitting(false);
         })
         .catch((err) => {
-            //setSingleSiteData(true); // to disable form
-            //setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+                 setFetchError(err.message);
+                 setIsSubmitting(false);
         });
+}
+useEffect(() => {
+     dispatch(setMySite(id));
+     dispatch(setMyRa(null));
+    
+     fetchList();
+   
 }, []);
     
   return (
@@ -91,7 +101,8 @@ useEffect(() => {
         </Grid>
       </Grid>
 
-            <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      {!fetchError && 
+      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -154,6 +165,16 @@ useEffect(() => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       /> */}
       </Paper>
+  }
+  {fetchError && <LoadingError err={fetchError} onClick={fetchList} />}
+
+      <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={isSubmitting}
+          //onClick={handleClose}
+      >
+          <CircularProgress sx={{ color: "white" }} />
+      </Backdrop>
     </>
   )
 }

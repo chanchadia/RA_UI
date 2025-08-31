@@ -26,7 +26,7 @@ import { getRiskAssessment, saveRiskAssessment } from '../../../slice/RiskAssess
 import AddIcon from '@mui/icons-material/Add';
 import getColor from '../colorCodes';
 import MultipleSelect from '../../../ui-component/CustomMultiSelectDD/MultipleSelect';
-
+import LoadingError from '../../../ui-component/LoadingError';
 const RiskAssessment = (props) => {
 
     const { mySite, myRa: raid } = useSelector((state) => state.auth);
@@ -37,6 +37,7 @@ const [am_infra, setAmInfra] = React.useState([]);
 const [am_auto, setAmAuto] = React.useState([]);
 const [am_proc, setAmProc] = React.useState([]);
 const [am_mp, setAmMP] = React.useState([]);
+  const [fetchError, setFetchError] = useState(false);    
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [successAlert, setsuccessAlert] = useState({
@@ -298,8 +299,9 @@ const [am_mp, setAmMP] = React.useState([]);
     setRows(v_rows);
   }
 
-  useEffect(() => {
-    dispatch(getRiskAssessment(raid)).unwrap()
+    const fetchList = () =>{
+      setIsSubmitting(true);
+      dispatch(getRiskAssessment(raid)).unwrap()
       .then((resp) => {
         if (resp && resp.data && resp.data.length > 0) {
           
@@ -390,11 +392,17 @@ const [am_mp, setAmMP] = React.useState([]);
           //setRows([{},{},{},{},{},{},{},{},{},{}]);
           setRows([{ active: 'Y' }]);
         }
+         setFetchError(false);
+          setIsSubmitting(false);
       })
       .catch((err) => {
-        //setSingleSiteData(true); // to disable form
-        //setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+         setFetchError(err.message);
+        setIsSubmitting(false);
       });
+}
+
+  useEffect(() => {
+   fetchList();
   }, []);
 
 
@@ -446,6 +454,7 @@ const [am_mp, setAmMP] = React.useState([]);
         </Grid>
       </Grid>
 
+      {!fetchError && 
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ height: '65vh' }}>
           <Table>
@@ -587,6 +596,9 @@ const [am_mp, setAmMP] = React.useState([]);
   <AddIcon />
 </Fab>
       </Paper>
+      }
+
+      {fetchError && <LoadingError err={fetchError} onClick={fetchList} />}
 
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

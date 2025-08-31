@@ -23,12 +23,13 @@ import { IconButton } from '@mui/material';
 import CustomTextInput from '../../ui-component/CustomTextInputField/customTextInput';
 import SuccessAlert from '../../ui-component/snackbar';
 import getColor, { tableHeaderBgColor } from '../ra/colorCodes';
+import LoadingError from '../../ui-component/LoadingError';
 
 const SeverityRatingEntry = (props) => {
   const { mySite, myRa: raid } = useSelector((state) => state.auth);
-
+  const [fetchError, setFetchError] = useState(false);    
+  const [isSubmitting, setIsSubmitting] = useState(false);
      const navigate = useNavigate();
-         const [isSubmitting, setIsSubmitting] = useState(false);
          const [isDisabled, setIsDisabled] = useState(false);
          const [successAlert, setsuccessAlert] = useState({
              open: false,
@@ -85,7 +86,8 @@ const handleChange = (e, columnId,rowID) => {
     setRows(v_rows);
 }
 
-useEffect(() => {
+  const fetchList = () =>{
+    setIsSubmitting(true);
      dispatch(getSeverity(raid)).unwrap()
         .then((resp)=>{
             if(resp && resp.data && resp.data.length>0)
@@ -93,11 +95,16 @@ useEffect(() => {
                     setRows(resp.data)
                     setHeaders(Object.keys(resp.data[0]));
             } 
+            setFetchError(false);
+            setIsSubmitting(false);
         })
         .catch((err) => {
-            //setSingleSiteData(true); // to disable form
-            //setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+             setFetchError(err.message);
+             setIsSubmitting(false);
         });
+}
+useEffect(() => {
+    fetchList();
 }, []);
   return (
     <>
@@ -109,7 +116,8 @@ useEffect(() => {
           <CustomDashedBorder />
         </Grid>
       </Grid>
-
+      {!fetchError && 
+      <>
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
@@ -159,10 +167,14 @@ useEffect(() => {
           </Table>
         </TableContainer>
       </Paper>
-<br></br>
+    <br></br>
      <center>  <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
              onClick={handleSave}
-             >Save</Button></center>
+      >Save</Button></center>
+      </>
+    }
+
+    {fetchError && <LoadingError err={fetchError} onClick={fetchList} />}
 
               <Backdrop
                             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

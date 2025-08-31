@@ -22,6 +22,7 @@ import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
 import Autocomplete from '@mui/material/Autocomplete';
 import SuccessAlert from '../../ui-component/snackbar';
 import { tableHeaderBgColor } from '../ra/colorCodes';
+import LoadingError from '../../ui-component/LoadingError';
 
 const SurveyAssessEntry = (props) => {
 
@@ -30,6 +31,7 @@ const SurveyAssessEntry = (props) => {
    //const {raid} = useParams();
   const dispatch = useDispatch();
   const [rows, setRows] = useState([]);
+    const [fetchError, setFetchError] = useState(false);   
   const [isSubmitting, setIsSubmitting] = useState(false);
       const [isDisabled, setIsDisabled] = useState(false);
       const [successAlert, setsuccessAlert] = useState({
@@ -124,18 +126,25 @@ const handleChange = (e, columnId,rowID) => {
     v_rows[rowID][columnId] = value;
     setRows(v_rows);
 }
-useEffect(() => {
-     dispatch(getSurveyAssessment(raid)).unwrap()
+
+  const fetchList = () =>{
+      setIsSubmitting(true);
+    dispatch(getSurveyAssessment(raid)).unwrap()
         .then((resp)=>{
             if(resp && resp.data && resp.data.length>0)
             {
                 setRows(resp.data)
             } 
+            setFetchError(false);
+             setIsSubmitting(false);
         })
         .catch((err) => {
-            //setSingleSiteData(true); // to disable form
-            //setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+                 setFetchError(err.message);
+                 setIsSubmitting(false);
         });
+}
+useEffect(() => {
+     fetchList();
 }, []);
   const [value, setValue] = React.useState(null);
   const DDOption = [
@@ -157,7 +166,8 @@ useEffect(() => {
           <CustomDashedBorder />
         </Grid>
     </Grid>
-    
+
+      {!fetchError &&     
        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: '65vh' }}>
           <Table stickyHeader aria-label="sticky table">
@@ -226,7 +236,9 @@ useEffect(() => {
           </Table>
         </TableContainer>
       </Paper>
+    }
 
+    {fetchError && <LoadingError err={fetchError} onClick={fetchList} />}
                          <Backdrop
                                   sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
                                   open={isSubmitting}
