@@ -508,7 +508,8 @@ const [am_mp, setAmMP] = React.useState([]);
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0,
-                            background : column.readonly && getColor(value)
+                            background : column.readonly && getColor(value),
+                            verticalAlign:['am_a', 'am_i', 'am_p', 'am_m'].includes(column.id) ? 'bottom' : 'middle'
                            }}
                           >
                             {column.readonly ? <center>{value}</center>

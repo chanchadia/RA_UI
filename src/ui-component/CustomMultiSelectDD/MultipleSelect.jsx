@@ -86,7 +86,7 @@ export default function MultipleSelect(props) {
   return (
     <div>
       <FormControl sx={{ m: 1, width: 270 }} variant="standard" >
-        <InputLabel>Details</InputLabel>
+        {/* <InputLabel>Details</InputLabel> */}
         <Select
           multiple
           value={props.selectedValue}
