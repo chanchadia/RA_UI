@@ -11,9 +11,10 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { styled, useTheme } from "@mui/material/styles";
 import Tooltip from "@mui/material/Tooltip";
+import Button from '../../../ui-component/Controls/Button';
 
 // project imports CSS
 import Header from "./Header";
@@ -24,7 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 //import { SetEmailBodyCollapsed } from "../../store/customizationSlice";
 
 import AppMenu from '../Accordion';
-import { Typography } from "@mui/material";
+import { Card, CardActions, CardContent, GridLegacy as Grid, Typography } from "@mui/material";
 
 // New Layout
 const drawerWidth = 260;
@@ -99,6 +100,10 @@ const AppBar = styled(MuiAppBar, {
 const MainLayout = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
+  const { isLogout } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
 
   // const { isEmailBodyCollapsed } = useSelector((state) => state.customization);
   // const { jobStatusReportCalled } = useSelector(
@@ -420,6 +425,32 @@ const MainLayout = () => {
   };
   return (
     <div className="main">
+      {isLogout ?
+    <>
+      <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '60px' }}>
+        <Card sx={{ minWidth: 400, maxWidth: 1000 }} elevation={3}>
+          <CardContent>
+
+            <Typography variant="h5" sx={{ mb: 3, color: 'error.main' }}>
+              Error
+            </Typography>
+
+            <Typography>
+              Your login session expired, kindly re-login and try again.
+            </Typography>
+
+          </CardContent>
+          <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Button variant="contained" sx={{ m: 2, width: 100 }} onClick={()=>{
+              navigate('/login');
+            }}>Re-Login</Button>
+          </CardActions>
+        </Card>
+      </div>
+      <br />
+      <br />
+    </>
+      :
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>
@@ -477,6 +508,7 @@ const MainLayout = () => {
         </Box>
         <Footer />
       </Box>
+      }
     </div>
   );
 };

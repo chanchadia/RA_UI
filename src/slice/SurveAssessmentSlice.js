@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import config from '../config';
+import { checkLogin } from "./AuthSlice";
 
 
 
   export const getSiteWiseSA = createAsyncThunk(
     "getSiteWiseSA",
-    async(args, { rejectWithValue }) => {
+    async(args, { rejectWithValue, dispatch }) => {
         try
         {
         const token = sessionStorage.getItem('token');
@@ -18,7 +19,9 @@ import config from '../config';
           if (response.ok) {
           return await response.json();
           } else {
-          return rejectWithValue(response.json());
+            const errResp = await response.json();
+            dispatch(checkLogin(errResp));
+            return rejectWithValue(errResp);
           }
         }
         catch (error)
@@ -30,7 +33,7 @@ import config from '../config';
 
 export const createSiteTran = createAsyncThunk(
     "createSiteTran",
-    async(args, { rejectWithValue }) => { 
+    async(args, { rejectWithValue, dispatch }) => { 
       try
       {
         const token = sessionStorage.getItem('token');
@@ -47,7 +50,9 @@ export const createSiteTran = createAsyncThunk(
         } 
         else 
         {
-          return rejectWithValue(await response.json());
+            const errResp = await response.json();
+            dispatch(checkLogin(errResp));
+            return rejectWithValue(errResp);
         }
       }
       catch (error)
@@ -59,7 +64,7 @@ export const createSiteTran = createAsyncThunk(
 
   export const modifySiteTran = createAsyncThunk(
     "modifySiteTran",
-    async(args, { rejectWithValue }) => { 
+    async(args, { rejectWithValue, dispatch }) => { 
       try
       {
         const token = sessionStorage.getItem('token');
@@ -76,7 +81,9 @@ export const createSiteTran = createAsyncThunk(
         } 
         else 
         {
-          return rejectWithValue(await response.json());
+            const errResp = await response.json();
+            dispatch(checkLogin(errResp));
+            return rejectWithValue(errResp);
         }
       }
       catch (error)
@@ -87,7 +94,7 @@ export const createSiteTran = createAsyncThunk(
   );
   export const getSingleSiteTran = createAsyncThunk(
     "getSingleSiteTran",
-    async(args, { rejectWithValue }) => {
+    async(args, { rejectWithValue, dispatch }) => {
         try
         {
         const token = sessionStorage.getItem('token');
@@ -100,7 +107,9 @@ export const createSiteTran = createAsyncThunk(
           if (response.ok) {
           return await response.json();
           } else {
-          return rejectWithValue(response.json());
+            const errResp = await response.json();
+            dispatch(checkLogin(errResp));
+            return rejectWithValue(errResp);
           }
         }
         catch (error)
@@ -114,7 +123,7 @@ export const createSiteTran = createAsyncThunk(
 
   export const getWeightage = createAsyncThunk(
     "getWeightage",
-    async(args, { rejectWithValue }) => {
+    async(args, { rejectWithValue, dispatch }) => {
         try
         {
         const token = sessionStorage.getItem('token');
@@ -127,7 +136,9 @@ export const createSiteTran = createAsyncThunk(
           if (response.ok) {
           return await response.json();
           } else {
-          return rejectWithValue(response.json());
+            const errResp = await response.json();
+            dispatch(checkLogin(errResp));
+            return rejectWithValue(errResp);
           }
         }
         catch (error)
@@ -140,7 +151,7 @@ export const createSiteTran = createAsyncThunk(
 
   export const saveWeightage = createAsyncThunk(
     "saveWeightage",
-    async(args, { rejectWithValue }) => { 
+    async(args, { rejectWithValue, dispatch }) => { 
       try
       {
         const token = sessionStorage.getItem('token');
@@ -157,7 +168,9 @@ export const createSiteTran = createAsyncThunk(
         } 
         else 
         {
-          return rejectWithValue(await response.json());
+            const errResp = await response.json();
+            dispatch(checkLogin(errResp));
+            return rejectWithValue(errResp);
         }
       }
       catch (error)
@@ -169,7 +182,7 @@ export const createSiteTran = createAsyncThunk(
 
     export const getSurveyAssessment = createAsyncThunk(
     "getSurveyAssessment",
-    async(args, { rejectWithValue }) => {
+    async(args, { rejectWithValue, dispatch }) => {
         try
         {
         const token = sessionStorage.getItem('token');
@@ -181,7 +194,9 @@ export const createSiteTran = createAsyncThunk(
           if (response.ok) {
           return await response.json();
           } else {
-          return rejectWithValue(response.json());
+            const errResp = await response.json();
+            dispatch(checkLogin(errResp));
+            return rejectWithValue(errResp);
           }
         }
         catch (error)
@@ -193,7 +208,7 @@ export const createSiteTran = createAsyncThunk(
 
 export const saveSurveyAssessment = createAsyncThunk(
     "saveSurveyAssessment",
-    async(args, { rejectWithValue }) => { 
+    async(args, { rejectWithValue, dispatch }) => { 
       try
       {
         const token = sessionStorage.getItem('token');
@@ -210,7 +225,9 @@ export const saveSurveyAssessment = createAsyncThunk(
         } 
         else 
         {
-          return rejectWithValue(await response.json());
+            const errResp = await response.json();
+            dispatch(checkLogin(errResp));
+            return rejectWithValue(errResp);
         }
       }
       catch (error)

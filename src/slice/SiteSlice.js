@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import config from '../config';
+import { checkLogin } from "./AuthSlice";
 
 export const createSite = createAsyncThunk(
     "createSite",
-    async(args, { rejectWithValue }) => { 
+    async(args, { rejectWithValue, dispatch }) => { 
       try
       {
         const token = sessionStorage.getItem('token');
@@ -20,7 +21,9 @@ export const createSite = createAsyncThunk(
         } 
         else 
         {
-          return rejectWithValue(await response.json());
+            const errResp = await response.json();
+            dispatch(checkLogin(errResp));
+            return rejectWithValue(errResp);
         }
       }
       catch (error)
@@ -32,7 +35,7 @@ export const createSite = createAsyncThunk(
 
   export const modifySite = createAsyncThunk(
     "modifySite",
-    async(args, { rejectWithValue }) => { 
+    async(args, { rejectWithValue, dispatch }) => { 
       try
       {
         const token = sessionStorage.getItem('token');
@@ -49,7 +52,9 @@ export const createSite = createAsyncThunk(
         } 
         else 
         {
-          return rejectWithValue(await response.json());
+            const errResp = await response.json();
+            dispatch(checkLogin(errResp));
+            return rejectWithValue(errResp);
         }
       }
       catch (error)
@@ -60,8 +65,8 @@ export const createSite = createAsyncThunk(
   );
 
   export const getSingleSite = createAsyncThunk(
-    "getSite",
-    async(args, { rejectWithValue }) => {
+    "getSingleSite",
+    async(args, { rejectWithValue, dispatch }) => {
         try
         {
         const token = sessionStorage.getItem('token');
@@ -74,7 +79,9 @@ export const createSite = createAsyncThunk(
           if (response.ok) {
           return await response.json();
           } else {
-          return rejectWithValue(response.json());
+            const errResp = await response.json();
+            dispatch(checkLogin(errResp));
+            return rejectWithValue(errResp);
           }
         }
         catch (error)
@@ -86,7 +93,7 @@ export const createSite = createAsyncThunk(
 
   export const getSite = createAsyncThunk(
     "getSite",
-    async(args, { rejectWithValue }) => {
+    async(args, { rejectWithValue, dispatch }) => {
         try
         {
         const token = sessionStorage.getItem('token');
@@ -99,7 +106,9 @@ export const createSite = createAsyncThunk(
           if (response.ok) {
           return await response.json();
           } else {
-          return rejectWithValue(response.json());
+            const errResp = await response.json();
+            dispatch(checkLogin(errResp));
+            return rejectWithValue(errResp);
           }
         }
         catch (error)

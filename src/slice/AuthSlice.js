@@ -67,10 +67,22 @@ export const AuthSlice = createSlice({
       error: null,
 
       mySite: null,
-      myRa: null
+      myRa: null,
+
+      isLogout: true
 
   },
 reducers:{
+    checkLogin: (state, { payload }) => {
+      if(payload && payload.message && payload.message === 'NO_LOGIN')
+      {
+        state.isLogout = true;
+        sessionStorage.setItem("token", "");
+      }
+    },
+    setLogin: (state, { payload }) => {
+      state.isLogout = !payload;
+    },
     setMySite: (state, { payload }) => {
       state.mySite = payload;
       sessionStorage.setItem("site", payload);
@@ -96,6 +108,8 @@ reducers:{
 });
 
 export const {
+  checkLogin,
+  setLogin,
   setMySite,
   setMyRa
 } = AuthSlice.actions;

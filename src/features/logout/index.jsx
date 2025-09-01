@@ -92,8 +92,8 @@ const Logout = () => {
 
           </CardContent>
           <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button variant="contained" sx={{ m: 2, minWidth: 150 }} onClick={signOut}>Logout</Button>
-            <CancelButton sx={{ m: 2, minWidth: 150 }}
+            <Button variant="contained" sx={{ m: 2, width: 100 }} onClick={signOut}>Logout</Button>
+            <CancelButton sx={{ m: 2, width: 100 }}
               onClick={cancel}>Cancel</CancelButton>
           </CardActions>
         </Card>

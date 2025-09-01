@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import config from '../config';
+import { checkLogin } from "./AuthSlice";
 
 
 
   export const getRiskAssessment = createAsyncThunk(
     "getRiskAssessment",
-    async(args, { rejectWithValue }) => {
+    async(args, { rejectWithValue, dispatch }) => {
         try
         {
         const token = sessionStorage.getItem('token');
@@ -18,7 +19,9 @@ import config from '../config';
           if (response.ok) {
           return await response.json();
           } else {
-          return rejectWithValue(response.json());
+                      const errResp = await response.json();
+                      dispatch(checkLogin(errResp));
+                      return rejectWithValue(errResp);
           }
         }
         catch (error)
@@ -31,7 +34,7 @@ import config from '../config';
 
   export const saveRiskAssessment = createAsyncThunk(
     "saveRiskAssessment",
-    async(args, { rejectWithValue }) => { 
+    async(args, { rejectWithValue, dispatch }) => { 
       try
       {
         const token = sessionStorage.getItem('token');
@@ -48,7 +51,9 @@ import config from '../config';
         } 
         else 
         {
-          return rejectWithValue(await response.json());
+            const errResp = await response.json();
+            dispatch(checkLogin(errResp));
+            return rejectWithValue(errResp);
         }
       }
       catch (error)
