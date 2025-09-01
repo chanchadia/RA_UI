@@ -1,13 +1,13 @@
 const getVal = () => {
-  switch(import.meta.env.REACT_APP_API_ENVIRONMENT) {
+  switch(import.meta.env.VITE_APP_API_ENVIRONMENT) {
     case 'QA':
-      return import.meta.env.REACT_APP_API_URL_QA;
+      return import.meta.env.VITE_APP_API_URL_QA;
     case 'UAT':
-      return import.meta.env.REACT_APP_API_URL_UAT;
+      return import.meta.env.VITE_APP_API_URL_UAT;
     case 'Prod':
-      return import.meta.env.REACT_APP_API_URL_PROD;
+      return import.meta.env.VITE_APP_API_URL_PROD;
     default: //Dev
-    return "http://localhost:47031/api/";//process.env.REACT_APP_API_URL_DEV;
+    return import.meta.env.VITE_APP_API_URL_DEV;
   }
 }
 const config = {

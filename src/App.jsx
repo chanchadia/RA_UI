@@ -18,7 +18,6 @@ function App() {
       ra !== '' && dispatch(setMyRa(ra));
 
 
-debugger;
   return (
       <StyledEngineProvider injectFirst>
         {/* <ThemeProvider theme={themes({customization:1})}> */}
