@@ -22,13 +22,14 @@ import CustomH2 from '../../../ui-component/Headings/CustomH2';
 import CustomDashedBorder from '../../../ui-component/CustomDashedBorder';
 import SuccessAlert from '../../../ui-component/snackbar';
 import { tableHeaderBgColor } from '../colorCodes';
+import LoadingError from '../../../ui-component/LoadingError';
 
 const Weightage = (props) => {
   const { mySite: siteid, myRa } = useSelector((state) => state.auth);
 
      const navigate = useNavigate();
      //const {siteid} = useParams();
-
+    const [fetchError, setFetchError] = useState(false);    
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
     const [successAlert, setsuccessAlert] = useState({
@@ -82,18 +83,26 @@ const handleChange = (e, columnId,rowID) => {
     setRows(v_rows);
 }
 
-useEffect(() => {
-     dispatch(getWeightage(siteid)).unwrap()
+  const fetchList = () =>{
+    
+    setIsSubmitting(true);
+    dispatch(getWeightage(siteid)).unwrap()
         .then((resp)=>{
             if(resp && resp.data && resp.data.length>0)
             {
                 setRows(resp.data)
-            } 
+            }
+            setFetchError(false);
+            setIsSubmitting(false); 
         })
         .catch((err) => {
-            //setSingleSiteData(true); // to disable form
-            //setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+           setFetchError(err.message);
+           setIsSubmitting(false);
         });
+}
+
+useEffect(() => {
+     fetchList()
 }, []);
 
 
@@ -129,7 +138,7 @@ const onSubmit = () =>{
           <CustomDashedBorder />
         </Grid>
       </Grid>
-
+      {!fetchError && 
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: '65vh' }}>
           <Table stickyHeader aria-label="sticky table">
@@ -190,7 +199,9 @@ const onSubmit = () =>{
           </Table>
         </TableContainer>
       </Paper>
+    }
 
+    {fetchError && <LoadingError err={fetchError} onClick={fetchList} />}
                               <Backdrop
                             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
                             open={isSubmitting}
