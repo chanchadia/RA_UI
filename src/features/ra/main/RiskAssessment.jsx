@@ -428,6 +428,8 @@ const [am_mp, setAmMP] = React.useState([]);
         setsuccessAlert({
           ...successAlert, open: true, message: res.message, isError: false
         });
+        setRows([]);
+        fetchList();
       })
       .catch((err) => {
         setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
