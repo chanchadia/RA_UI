@@ -10,7 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Grid from '@mui/material/GridLegacy';
-import { Backdrop, CircularProgress, InputAdornment, TextField } from '@mui/material';
+import { Backdrop, Box, CircularProgress, InputAdornment, TextField } from '@mui/material';
 import Button  from '../../ui-component/Controls/Button';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Navigate,useParams } from "react-router-dom";
@@ -192,7 +192,7 @@ const createObservation=(row, rowIndex, column)=>{
   {
     return (
     <TextField placeholder='1 to 100'
-        slotProps={{ input: { endAdornment: '%'}}}
+        slotProps={{ input: { endAdornment: <Box pl={0.5}>%</Box>}}}
         sx={{
               '& .MuiInputBase-input': {
               textAlign: 'right',
@@ -270,12 +270,12 @@ const createObservation=(row, rowIndex, column)=>{
                                 fullWidth
                                 value={{label:row.a_or_na}}   
                                 getOptionLabel={(option) => option.label || ""}
-                                id="select-type"
                                 onChange={(event, newValue) => {DDOnChange(event,newValue,index)}}
                                 renderInput={(params) => (
                                 <TextField {...params}  variant="standard" />
                                 )}
                             />
+                            : ['max_marks','weightage','scored_marks'].includes(column.id) && row.obs_score === 'Observation' ? ' '
                             :value
                             }
                           </TableCell>
