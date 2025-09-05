@@ -102,25 +102,43 @@ const handleChange = (e, columnId,rowID) => {
 
     if(columnId === 'observation' && v_rows[rowID].obs_score === 'Scoring')
     {
+      if(v_rows[rowID].obs_type === 'PERC')
+      {
         value = value.replace(/[^0-9]/g, '');
 
         //Convert to a number for range validation
         const num = parseInt(value, 10);
 
         //Validate if it's a number and within the range 1-100
-        if (value === '' || (!isNaN(num) && num >= 1 && num <= 100)) {
+        if (value === '' || (!isNaN(num) && num >= 1 && num <= 100)) 
+        {
         }
-        else {
+        else 
+        {
             return;
         }
+
         try
         {
-         v_rows[rowID]['scored_marks'] =  (parseInt(v_rows[rowID]['weightage']) *  (isNaN(parseInt(value))?0:parseInt(value)) )/100;
+          v_rows[rowID]['scored_marks'] =  (parseInt(v_rows[rowID]['weightage']) *  (isNaN(parseInt(value))?0:parseInt(value)) )/100;
         }
         catch(ex)
         {
             
         }
+      }
+      else if(v_rows[rowID].obs_type === 'DD')
+      {
+        const obs_options = v_rows[rowID].obs_options.split('|');
+        const obs_opt_percentages = v_rows[rowID].obs_opt_percentages.split('|');
+        const obs_index = obs_options.indexOf(value);
+        if(obs_index === -1)
+        {
+          return;
+        }
+        v_rows[rowID]['scored_marks'] = parseInt(v_rows[rowID]['weightage']) * obs_opt_percentages[obs_index] / 100;
+      }
+
         //scored_marks = weightage * observation / 100
     }
     v_rows[rowID][columnId] = value;
@@ -151,6 +169,54 @@ useEffect(() => {
   {label:"Applicable"},
   {label:"Not Applicable"},
 ]
+
+
+const createObservation=(row, rowIndex, column)=>{
+  const value = row[column.id];
+  if(row.obs_type === 'DD')
+  {
+    return (
+    <Autocomplete
+      disableClearable={true}
+      options =  {row.obs_options.split('|')}
+      fullWidth
+      value={value}   
+      //getOptionLabel={(option) => option.label || ""}
+      onChange={(event, newValue) => {handleChange({target:{value: newValue}}, column.id,rowIndex)}}
+      renderInput={(params) => (
+      <TextField {...params}  variant="standard" />
+      )}
+    />);
+  }
+  else   if(row.obs_type === 'PERC')
+  {
+    return (
+    <TextField placeholder='1 to 100'
+        slotProps={{ input: { endAdornment: '%'}}}
+        sx={{
+              '& .MuiInputBase-input': {
+              textAlign: 'right',
+              },
+            }}
+        variant="standard"
+        fullWidth
+        value={value}
+        onChange={(e) => handleChange(e, column.id,rowIndex)}
+      />);
+  }
+  else // TEXT or ETC.
+  {
+    return (
+    <TextField 
+        variant="standard"
+        fullWidth
+        value={value}
+        onChange={(e) => handleChange(e, column.id,rowIndex)}
+      />);
+  }
+
+}
+
   return (
     <>
     <Grid container flexDirection={'column'}>
@@ -196,21 +262,7 @@ useEffect(() => {
                           >
                             {column.id==='observation' 
                             ?
-                             row.a_or_na === 'Applicable' &&
-                             <TextField placeholder={row.obs_score === 'Scoring' && '1 to 100'}
-                                    slotProps={row.obs_score === 'Scoring' &&{ input: { endAdornment: '%'}}}
-                                    sx={row.obs_score === 'Scoring' &&
-                                        {
-                                            '& .MuiInputBase-input': {
-                                            textAlign: 'right',
-                                            },
-                                        }}
-                                    variant="standard"
-                                    fullWidth
-                                    value={value}
-                                    onChange={(e) => handleChange(e, column.id,index)}
-                                    
-                                  />
+                             row.a_or_na === 'Applicable' && createObservation(row, index, column)
                             : column.id==='a_or_na' ?
                             <Autocomplete
                                 disableClearable={true}
