@@ -100,7 +100,7 @@ const [am_mp, setAmMP] = React.useState([]);
       { label: 'Scenarios which management considers as critical', minWidth: 350, rowSpan: 3, verticalAlign: 'middle', color: 'whitesmoke' },
       { label: 'Impact if attack is sucessful', minWidth: 120, colSpan: 5, verticalAlign: 'middle', color: '#FFD966'},
       { label: 'Threat Ranking of Threat Actor (TA)', minWidth: 120, colSpan: 3, verticalAlign: 'middle', color: '#DBDBDB' },
-      { label: 'Vulnerability - prepardness against scenario', minWidth: 120, verticalAlign: 'top', color: '#F8CBAD' },
+      { label: 'Vulnerability - preparedness against scenario', minWidth: 120, verticalAlign: 'top', color: '#F8CBAD' },
       { label: 'Auto calculated T and V', minWidth: 120, verticalAlign: 'top', color: '#B4C6E7' },
       { label: 'Risk Rating based on S and L', minWidth: 120, verticalAlign: 'top', color: '#ACB9CA' },
       { label: 'Additional measures', minWidth: 120, colSpan: 4, verticalAlign: 'middle', color: '#ADADAD' },
