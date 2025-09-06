@@ -24,7 +24,7 @@ import SuccessAlert from '../../../ui-component/snackbar';
 import { getRiskAssessment, saveRiskAssessment } from '../../../slice/RiskAssessmentSlice';
 
 import AddIcon from '@mui/icons-material/Add';
-import getColor from '../colorCodes';
+import getColor, { tableHeaderBgColor } from '../colorCodes';
 import MultipleSelect from '../../../ui-component/CustomMultiSelectDD/MultipleSelect';
 import LoadingError from '../../../ui-component/LoadingError';
 const RiskAssessment = (props) => {
@@ -97,8 +97,8 @@ const [am_mp, setAmMP] = React.useState([]);
   ];
 
     const columns0 = [
-      { label: 'Scenarios which management considers as critical', minWidth: 350, rowSpan: 3, verticalAlign: 'middle', color: 'whitesmoke' },
-      { label: 'Impact if attack is sucessful', minWidth: 120, colSpan: 5, verticalAlign: 'middle', color: '#FFD966'},
+      { label: 'Scenarios which management considers as critical', minWidth: 350, rowSpan: 3, verticalAlign: 'middle', color: tableHeaderBgColor },
+      { label: 'Impact if attack is successful', minWidth: 120, colSpan: 5, verticalAlign: 'middle', color: '#FFD966'},
       { label: 'Threat Ranking of Threat Actor (TA)', minWidth: 120, colSpan: 3, verticalAlign: 'middle', color: '#DBDBDB' },
       { label: 'Vulnerability - preparedness against scenario', minWidth: 120, verticalAlign: 'top', color: '#F8CBAD' },
       { label: 'Auto calculated T and V', minWidth: 120, verticalAlign: 'top', color: '#B4C6E7' },
