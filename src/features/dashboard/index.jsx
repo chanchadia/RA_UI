@@ -6,6 +6,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import SADashboard from './SADashboard/SADB';
+import RiskRating from './RADashboard/RiskRating';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,7 +57,7 @@ export default function Dashboard() {
         <SADashboard />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
+        <RiskRating/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Item Three
