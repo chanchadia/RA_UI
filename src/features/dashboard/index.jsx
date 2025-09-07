@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import SADashboard from './SADashboard/SADB';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,7 +53,7 @@ export default function Dashboard() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        Item One
+        <SADashboard />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Item Two
