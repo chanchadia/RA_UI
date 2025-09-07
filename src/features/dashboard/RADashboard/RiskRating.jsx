@@ -12,7 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import { useLocation, useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
-import { Backdrop, CircularProgress, IconButton, Link } from '@mui/material';
+import { Backdrop, Box, CircularProgress, IconButton, Link } from '@mui/material';
 import { setMyRa, setMySite } from '../../../slice/AuthSlice';
 import { getRiskRatingColor, tableHeaderBgColor } from '../../ra/colorCodes';
 import LoadingError from '../../../ui-component/LoadingError';
@@ -21,12 +21,14 @@ import { getRaSummary } from '../../../slice/RADashboardSlice';
 const circleStyle = {
  height: '30px',
  width: '30px',
- backgroundColor: 'blue',
+ backgroundColor: '#0a4f98ff',
  borderRadius: '50%',
  display: 'flex',
  justifyContent: 'center',
  alignItems: 'center',
- color: 'white'
+ color: 'white',
+ cursor: 'pointer',
+ fontSize: 12
 }
 
 const RiskRating = () => {
@@ -95,8 +97,8 @@ const RiskRating = () => {
           <Table stickyHeader aria-label="sticky table" >
             <TableHead>
               <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black", padding:0.5, } }}>
-                <TableCell align='center'>R</TableCell>
-                <TableCell align='center' colSpan={5}>Likelihood</TableCell>
+                <TableCell align='center' sx={{border: '1px solid white'}}>R</TableCell>
+                <TableCell align='center' colSpan={5} sx={{border: '1px solid white'}}>Likelihood</TableCell>
               </TableRow>
               <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black", padding:1, } }}>
                 {columns.map((column) => (
@@ -104,6 +106,7 @@ const RiskRating = () => {
                     key={column.id}
                     align='center'
                     style={{ minWidth: column.minWidth }}
+                    sx={{border: '1px solid white'}}
                   >
                     {column.label}
                   </TableCell>
@@ -115,19 +118,21 @@ const RiskRating = () => {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, r) => {
                   return (
-                    <TableRow hover tabIndex={-1} key={row.code} sx={{ height: '70px' }}>
+                    <TableRow tabIndex={-1} key={row.code} sx={{ height: '70px' }}>
                       {columns.map((column, c) => {
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} align='center' sx={{ paddingTop: 0.8, paddingBottom: 0,
-                            background: column.id !== 's' && getRiskRatingColor(r, c-1)
+                            background: column.id !== 's' ? getRiskRatingColor(r, c-1):tableHeaderBgColor, border: '1px solid white'
                            }}>
                             
                                   {
                                     column.id === 's' ?
                                     <>{row['txt']}<br/>({value})</>
                                     : !value || value === 0 ? '' 
-                                    : <div style={circleStyle}>{value}</div>
+                                    : <div style={{display:'flex', justifyContent:'center'}}>
+                                        <Box style={circleStyle} boxShadow={1}>{value}</Box>
+                                      </div>
                                   }
                           </TableCell>
                         );
