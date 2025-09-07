@@ -178,15 +178,15 @@ const onSubmit = () =>{
                                     value={value}
                                     onChange={(e) => handleChange(e, column.id,index)}
                                   />
-                            : column.id==='remarks' ?
-                             <TextField
-                                    //multiline
-                                    variant="standard"
-                                    fullWidth
-                                    rows={2}
-                                    //value={value}
-                                    onChange={(e) => handleChange(e, column.id,index)}
-                                  />
+                            // : column.id==='remarks' ?
+                            //  <TextField
+                            //         //multiline
+                            //         variant="standard"
+                            //         fullWidth
+                            //         rows={2}
+                            //         //value={value}
+                            //         onChange={(e) => handleChange(e, column.id,index)}
+                            //       />
                             : value
                             }
                           </TableCell>
