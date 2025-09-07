@@ -16,7 +16,8 @@ import { Backdrop, Box, CircularProgress, IconButton, Link } from '@mui/material
 import { setMyRa, setMySite } from '../../../slice/AuthSlice';
 import { getRiskRatingColor, tableHeaderBgColor } from '../../ra/colorCodes';
 import LoadingError from '../../../ui-component/LoadingError';
-import { getRaSummary } from '../../../slice/RADashboardSlice';
+import { getRaDetails, getRaSummary } from '../../../slice/RADashboardSlice';
+import RiskRatingDetails from './RiskRatingDetails';
 
 const circleStyle = {
  height: '30px',
@@ -28,10 +29,12 @@ const circleStyle = {
  alignItems: 'center',
  color: 'white',
  cursor: 'pointer',
- fontSize: 12
+ fontSize: 13
 }
 
 const RiskRating = () => {
+  const [isDetailView, setIsDetailView] = useState(false); 
+
   const { mySite, myRa } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const columns = [
@@ -45,7 +48,7 @@ const RiskRating = () => {
   ];
 
 
-  const [fetchError, setFetchError] = useState(false);    
+  const [fetchError, setFetchError] = useState(false); 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -63,6 +66,7 @@ const RiskRating = () => {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const dispatch = useDispatch();
   const [rows, setRows] = useState([]);
+  const [detailRows, setDetailRows] = useState([]);
   const [headers, setHeaders] = useState([]);
 
   const fetchList = () =>{
@@ -84,9 +88,22 @@ const RiskRating = () => {
     myRa && fetchList();
   }, [myRa]);
 
-  const handleEdit = (id) => {
-    navigate(`/site/${id}`);
+  const showDetails = (severity, risk) => {
+    setIsSubmitting(true);
+    dispatch(getRaDetails({ra_id: myRa, severity, risk})).unwrap().then((action) => {
+      setDetailRows(action.data)
+      setIsSubmitting(false);
+      setIsDetailView(true);
+    }).catch((err) => {
+        setIsSubmitting(false);
+    });
+    
   };
+
+  if(isDetailView)
+  {
+    return (<RiskRatingDetails onClose={()=>setIsDetailView(false)} rows={detailRows} />);
+  }
 
   return (
     <>
@@ -97,8 +114,8 @@ const RiskRating = () => {
           <Table stickyHeader aria-label="sticky table" >
             <TableHead>
               <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black", padding:0.5, } }}>
-                <TableCell align='center' sx={{border: '1px solid white'}}>R</TableCell>
-                <TableCell align='center' colSpan={5} sx={{border: '1px solid white'}}>Likelihood</TableCell>
+                <TableCell align='center' sx={{border: '1px solid silver'}}>R</TableCell>
+                <TableCell align='center' colSpan={5} sx={{border: '1px solid silver'}}>Likelihood</TableCell>
               </TableRow>
               <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black", padding:1, } }}>
                 {columns.map((column) => (
@@ -106,7 +123,7 @@ const RiskRating = () => {
                     key={column.id}
                     align='center'
                     style={{ minWidth: column.minWidth }}
-                    sx={{border: '1px solid white'}}
+                    sx={{border: '1px solid silver'}}
                   >
                     {column.label}
                   </TableCell>
@@ -123,7 +140,8 @@ const RiskRating = () => {
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} align='center' sx={{ paddingTop: 0.8, paddingBottom: 0,
-                            background: column.id !== 's' ? getRiskRatingColor(r, c-1):tableHeaderBgColor, border: '1px solid white'
+                            background: column.id !== 's' ? getRiskRatingColor(r, c-1):tableHeaderBgColor, 
+                            border: column.id === 's' ? '1px solid silver':'1px solid white'
                            }}>
                             
                                   {
@@ -131,7 +149,9 @@ const RiskRating = () => {
                                     <>{row['txt']}<br/>({value})</>
                                     : !value || value === 0 ? '' 
                                     : <div style={{display:'flex', justifyContent:'center'}}>
-                                        <Box style={circleStyle} boxShadow={1}>{value}</Box>
+                                        <Box style={circleStyle} boxShadow={1} onClick={()=>{
+                                          showDetails(row['s'], column.id.split('_')[1]);
+                                        }}>{value}</Box>
                                       </div>
                                   }
                           </TableCell>

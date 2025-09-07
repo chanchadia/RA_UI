@@ -136,7 +136,7 @@ const ProfileSection = () => {
           ref={anchorRef}
           aria-controls={open ? "menu-list-grow" : undefined}
           aria-haspopup="true"
-          onClickX={handleToggle}
+          // onClick={handleToggle}
         />
 
         {/* <Popper
