@@ -14,6 +14,7 @@ import RiskAssessment from '../features/ra/main/RiskAssessment';
 
 import SurveyAssessEntry from '../features/SurveyAssess/SurveyAssessEntry';
 import Logout from '../features/logout';
+import Dashboard from '../features/dashboard';
 
 
 
@@ -64,6 +65,10 @@ const mainRoutes = {
         {
             path: '/site/ra',
             element: <RiskAssessment></RiskAssessment>
+        },
+        {
+            path: '/site/ra/dashboard',
+            element: <Dashboard></Dashboard>
         },
         //------------------------------------------------------------------------
         {

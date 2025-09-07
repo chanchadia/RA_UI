@@ -31,6 +31,7 @@ import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlin
 import CasinoOutlinedIcon from '@mui/icons-material/CasinoOutlined';
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
     const Link = styled(RawLink)`
       height: 35px;
@@ -112,6 +113,15 @@ export default function AppMenu()
 
                <div style={{width:'100%', borderTop: '1px solid grey'}}> </div>
 
+                <Link to='/site/ra/dashboard' style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <DashboardIcon sx={{ color: 'white' }} />
+                        <ListItemText primary='Dashboard' sx={{paddingLeft:1.5}} />
+                    </ListItemButton>
+                </Link>
+
+               <div style={{width:'100%', borderTop: '1px solid grey'}}> </div>
+               
                 <Link to='/sa' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <PermDataSettingOutlinedIcon sx={{ color: 'white' }} />
