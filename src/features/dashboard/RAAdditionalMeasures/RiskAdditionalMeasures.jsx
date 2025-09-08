@@ -74,7 +74,6 @@ export default function RiskAdditionalMeasures()
          setIsSubmitting(true)
             dispatch(getRaAMSummary(raid)).unwrap()
             .then((res)=>{
-                debugger;
                 setIsSubmitting(false);
                  setFetchError(false);
                 setRows(res.data);
@@ -119,7 +118,7 @@ const onSubmit = () => {
           <div></div>
           <div>
             <CancelButton variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
-            variant='outlined'>Download</CancelButton>
+            >Download</CancelButton>
           <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
             onClick={onSubmit}>Save</Button>
 
@@ -166,7 +165,6 @@ const onSubmit = () => {
                                   
                                   if(!['layer', 'addlm', 'cnt', 'priority', 'priority_m'].includes(column.id))
                                   {
-                                    debugger;
                                     return (<TableCell align='center' sx={{verticalAlign: 'top', border: '1px solid silver', background: ['1','2','3','4','5'].includes(column.label) ? getColor(parseInt(column.label)):''}} key={column.id}>
                                                 {column.label}
                                            </TableCell>);
