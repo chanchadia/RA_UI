@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Grid from '@mui/material/GridLegacy';
-import { Backdrop, Box, CircularProgress, Fab, InputAdornment, TextField, Typography } from '@mui/material';
+import { Backdrop, Box, CircularProgress, Fab, InputAdornment, TextField, Tooltip, Typography } from '@mui/material';
 import Button  from '../../../ui-component/Controls/Button';
 import CustomDashedBorder from '../../../ui-component/CustomDashedBorder';
 
@@ -193,8 +193,6 @@ export default function RiskRatingDetails(props)
                            }}
                           >
                             {column.readonly ? <center>{value}</center>
-                              : column.id==='am_i' || column.id==='am_a' || column.id==='am_p' || column.id==='am_m' ?
-                                (value || '') .split('|').map((ele)=><>{ele}<hr/></>)
                               :
                               value
                             }
@@ -269,12 +267,21 @@ export default function RiskRatingDetails(props)
                         return (
                           <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0,
                             background : column.readonly && getColor(value),
-                            //verticalAlign:['am_a', 'am_i', 'am_p', 'am_m'].includes(column.id) ? 'bottom' : 'middle'
+                            verticalAlign:['am_a', 'am_i', 'am_p', 'am_m'].includes(column.id) ? 'top' : 'middle'
                            }}
                           >
                             {column.readonly ? <center>{value}</center>
                               : column.id==='am_i' || column.id==='am_a' || column.id==='am_p' || column.id==='am_m' ?
-                                (value || '') .split('|').map((ele)=><>{ele}<hr/></>)
+                                (value || '') .split('|').map((ele)=>{
+                                  return (<>
+                                  <Tooltip title={ele} placement="right">
+                                    <div style={{whiteSpace:'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: column.minWidth}}>
+                                      {ele}
+                                    </div>
+                                    </Tooltip>
+                                    <hr/>
+                                  </>);
+                                })
                               :
                               value
                             }
