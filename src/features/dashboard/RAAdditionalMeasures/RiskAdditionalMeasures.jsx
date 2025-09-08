@@ -17,7 +17,7 @@ import LoadingError from '../../../ui-component/LoadingError';
 import getColor,{ tableHeaderBgColor } from '../../ra/colorCodes';
 import CustomH2 from '../../../ui-component/Headings/CustomH2';
 import CustomDashedBorder from '../../../ui-component/CustomDashedBorder';
-import { getRaAMSummary } from '../../../slice/RADashboardSlice';
+import { getRaAMSummary,saveRaAMSummary } from '../../../slice/RADashboardSlice';
 import SuccessAlert from '../../../ui-component/snackbar';
 import { CancelButton } from '../../../ui-component/Controls/Button';
 
@@ -105,7 +105,19 @@ export default function RiskAdditionalMeasures()
 }
 
 const onSubmit = () => {
-
+            setIsSubmitting(true)
+            const payload = {rows, raid: raid}
+            dispatch(saveRaAMSummary(payload)).unwrap()
+            .then((res)=>{
+                setIsSubmitting(false)
+                setIsDisabled(true);
+                setsuccessAlert({ ...successAlert, open: true, message: res.message, isError: false
+                 });
+            })
+            .catch((err) => {
+                setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+                setIsSubmitting(false)
+            });
 }
     useEffect(() => {
         fetchList();
