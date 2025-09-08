@@ -1,15 +1,15 @@
   export default function getColor (value)
   {
     if(value === 1)
-      return '#00B050';
+      return '#00B050 !important';
     if(value === 2)
-      return '#00B0F0';
+      return '#00B0F0 !important';
     if(value === 3)
-      return '#FFFF00';
+      return '#FFFF00 !important';
     if(value === 4)
-      return '#FFC000';
+      return '#FFC000 !important';
     if(value === 5)
-      return '#FF3B37';
+      return '#FF3B37 !important';
     return null;
   }
 

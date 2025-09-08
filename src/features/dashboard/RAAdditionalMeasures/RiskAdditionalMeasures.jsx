@@ -19,6 +19,7 @@ import CustomH2 from '../../../ui-component/Headings/CustomH2';
 import CustomDashedBorder from '../../../ui-component/CustomDashedBorder';
 import { getRaAMSummary } from '../../../slice/RADashboardSlice';
 import SuccessAlert from '../../../ui-component/snackbar';
+import { CancelButton } from '../../../ui-component/Controls/Button';
 
 export default function RiskAdditionalMeasures()
 {
@@ -42,22 +43,22 @@ export default function RiskAdditionalMeasures()
 
       const columns = [
         { id: 'layer', label: 'Security layer', minWidth: 120 },
-        { id: 'addlm', label: 'Additional Measures', minWidth: 100  },
-        { id: 'cnt', label: 'Covered in # of Risks', minWidth: 100 },
-        { id: 'r_1', label: '1', minWidth: 100 },
-        { id: 'r_2', label: '2', minWidth: 100 },
-        { id: 'r_3', label: '3', minWidth: 100 },
-        { id: 'r_4', label: '4', minWidth: 100 },
-        { id: 'r_5', label: '5', minWidth: 100 },
-        { id: 'r', label: '', minWidth: 100 },
-        { id: 'rr_1', label: '1', minWidth: 100 },
-        { id: 'rr_2', label: '2', minWidth: 100 },
-        { id: 'rr_3', label: '3', minWidth: 100 },
-        { id: 'rr_4', label: '4', minWidth: 100 },
-        { id: 'rr_5', label: '5', minWidth: 100 },
-        { id: 'rr', label: '', minWidth: 100 },
-        { id: 'perc', label: '', minWidth: 100 },
-        { id: 'priority', label: 'Priority', minWidth: 100 },
+        { id: 'addlm', label: 'Additional Measures', minWidth: 200  },
+        { id: 'cnt', label: 'Covered in # of Risks', minWidth: 30 },
+        { id: 'r_1', label: '1', minWidth: 50 },
+        { id: 'r_2', label: '2', minWidth: 50 },
+        { id: 'r_3', label: '3', minWidth: 50 },
+        { id: 'r_4', label: '4', minWidth: 50 },
+        { id: 'r_5', label: '5', minWidth: 50 },
+        { id: 'r', label: '', minWidth: 50 },
+        { id: 'rr_1', label: '1', minWidth: 50 },
+        { id: 'rr_2', label: '2', minWidth: 50 },
+        { id: 'rr_3', label: '3', minWidth: 50 },
+        { id: 'rr_4', label: '4', minWidth: 50 },
+        { id: 'rr_5', label: '5', minWidth: 50 },
+        { id: 'rr', label: '', minWidth: 50 },
+        { id: 'perc', label: '%age', minWidth: 80 },
+        { id: 'priority', label: 'Priority', minWidth: 50 },
         { id: 'priority_m', label: 'Manual Priority', minWidth: 100 },
 
       ];
@@ -114,13 +115,15 @@ const onSubmit = () => {
     <>
     
       <Grid container flexDirection={'column'}>
-        <Grid item container display={'flex'} justifyContent={'space-between'}>
-
-          <CustomH2></CustomH2>
+        <Grid item container display={'flex'} justifyContent={'space-between'} sx={{pb:2}}>
+          <div></div>
+          <div>
+            <CancelButton variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
+            variant='outlined'>Download</CancelButton>
           <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
-            onClick={onSubmit}
-          >Save</Button>
+            onClick={onSubmit}>Save</Button>
 
+          </div>
         </Grid>
    
       </Grid>
@@ -130,22 +133,46 @@ const onSubmit = () => {
                         <TableContainer >
                         <Table stickyHeader aria-label="sticky table">
                             <TableHead>
-                            <TableRow>
-                            <TableCell align='center' colSpan={3} ></TableCell>
-                            <TableCell align='center' colSpan={5} sx={{border: '1px solid silver'}}>R</TableCell>
-                            <TableCell align='center' ></TableCell>
-                            <TableCell align='center' colSpan={5} sx={{border: '1px solid silver'}}>Rr</TableCell>
+                            <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black",height:30, padding: 1 } }}>
+                                {columns.map((column) => {
+                                  
+                                  if(['layer', 'addlm', 'cnt'].includes(column.id))
+                                  {
+                                    return (<TableCell rowSpan={2} sx={{verticalAlign: 'top', border: '1px solid silver'}} key={column.id}>
+                                                {column.label}
+                                           </TableCell>);
+                                  }
+                                }
+                                )}
+
+                              <TableCell sx={{border: '1px solid silver'}} align='center' colSpan={6} >R</TableCell>
+                              <TableCell sx={{border: '1px solid silver'}} align='center' colSpan={6} >Rr</TableCell>
+                              <TableCell sx={{border: '1px solid silver'}} align='center' ></TableCell>
+                                {columns.map((column) => {
+                                  
+                                  if(['priority', 'priority_m'].includes(column.id))
+                                  {
+                                    return (<TableCell rowSpan={2} sx={{verticalAlign: 'top', border: '1px solid silver'}} key={column.id}>
+                                                {column.label}
+                                           </TableCell>);
+                                  }
+                                }
+                                )}
 
                             </TableRow>
                         
-                            <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black",height:30 } }}>
-                                {columns.map((column) => (
-                                <TableCell sx={{verticalAlign: 'top'}}
-                                    key={column.id}
-                                >
-                                    {column.label}
-                                </TableCell>
-                                ))}
+                            <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black", padding: 1 } }}>
+                                {columns.map((column) => {
+                                  
+                                  if(!['layer', 'addlm', 'cnt', 'priority', 'priority_m'].includes(column.id))
+                                  {
+                                    debugger;
+                                    return (<TableCell align='center' sx={{verticalAlign: 'top', border: '1px solid silver', background: ['1','2','3','4','5'].includes(column.label) ? getColor(parseInt(column.label)):''}} key={column.id}>
+                                                {column.label}
+                                           </TableCell>);
+                                  }
+                                }
+                                )}
                             </TableRow>
                             </TableHead>
                             <TableBody>
@@ -156,11 +183,11 @@ const onSubmit = () => {
                                     {columns.map((column) => {
                                         const value = row[column.id];
                                         return (
-                                        <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0,
-                                            background : ['1', '2', '3', '4','5'].includes(column.label) ? getColor(parseInt(column.label)): ''
+                                        <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, border: '1px solid white',
+                                            width: column.minWidth, background : ['1', '2', '3', '4','5'].includes(column.label) ? getColor(parseInt(column.label)): ''
                                         }}>
                                             {column.id === 'priority_m' ? 
-                                            <TextField placeholder='Number Only'
+                                            <TextField
                                                 variant="standard"
                                                 fullWidth
                                                 value={value}
