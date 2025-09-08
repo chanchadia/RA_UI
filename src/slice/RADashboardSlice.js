@@ -31,6 +31,33 @@ import { checkLogin } from "./AuthSlice";
     }
 );
 
+  export const getRaAMSummary = createAsyncThunk(
+    "getRaAMSummary",
+    async(args, { rejectWithValue, dispatch }) => {
+        try
+        {
+        const token = sessionStorage.getItem('token');
+
+          const requestOptions = {
+              method: 'GET',
+              headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
+          };
+          const response = await fetch(config.API_URL + 'RiskAssessmentDashboard/am/' + args, requestOptions);
+          if (response.ok) {
+          return await response.json();
+          } else {
+                      const errResp = await response.json();
+                      dispatch(checkLogin(errResp));
+                      return rejectWithValue(errResp);
+          }
+        }
+        catch (error)
+        {
+            return rejectWithValue(error);
+        }
+    }
+);
+
   export const getRaDetails = createAsyncThunk(
     "getRaDetails",
     async(args, { rejectWithValue, dispatch }) => {
