@@ -245,7 +245,7 @@ export default function RiskRatingDetails(props)
               <TableRow sx={{ "& th": { color: "black", padding:0, textAlign: 'center' } }}>
                 {_columns.map((column, i) => (
                   column.label &&
-                  <TableCell sx={{background: columns1[i].color}}
+                  <TableCell sx={{background: _columns1[i].color}}
                     key={column.id}
                     style={{ 
                         minWidth: column.minWidth, 

@@ -132,11 +132,11 @@ const columnsCompWise = [
    <>
 
       <Grid container spacing={2} >
-      <Grid item sx={{ mb: 2 }} sm={12}>
+      <Grid item  sm={6}>
          <Autocomplete
                     disableClearable={true}
                     options =  {rowsDD}
-                    sx={{ width: 300, marginBottom:2 }}
+                    //sx={{ width: 300, marginBottom:2 }}
                     value={ddValue ? ddValue : "All"} 
                     getOptionLabel={(option) => option.security_comp || ""}
                     onChange={(event, newValue) => {DDOnChange(event,newValue)}}
@@ -145,6 +145,7 @@ const columnsCompWise = [
                     )}
                   />
       </Grid>
+      <Grid item  sm={6}></Grid>
         <Grid item  sm={6}>
               {!fetchError && 
                   <Paper sx={{ width: '100%', overflow: 'hidden' }}>
