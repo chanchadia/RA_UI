@@ -215,12 +215,12 @@ export default function AppMenu()
                     
                <div style={{width:'100%', borderTop: '1px solid grey'}}> </div>
 
-                    <Link tooooo='/change_pwd' style={{ textDecoration: 'none', color: 'black' }}>
+                    {/* <Link tooooo='/change_pwd' style={{ textDecoration: 'none', color: 'black' }}>
                         <ListItemButton sx={{ color: 'white' }}>
                                 <LockResetIcon sx={{ color: 'white' }}  />
                             <ListItemText primary='Change Password'  sx={{paddingLeft:1.5}} />
                         </ListItemButton>
-                    </Link>
+                    </Link> */}
                     <Link to='/logout' style={{ textDecoration: 'none', color: 'black' }}>
                         <ListItemButton sx={{ color: 'white' }}>
                                 <ExitToAppRoundedIcon sx={{ color: 'white' }} />

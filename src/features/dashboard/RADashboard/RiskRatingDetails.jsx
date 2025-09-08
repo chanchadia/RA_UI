@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Grid from '@mui/material/GridLegacy';
-import { Backdrop, CircularProgress, Fab, InputAdornment, TextField } from '@mui/material';
+import { Backdrop, Box, CircularProgress, Fab, InputAdornment, TextField, Typography } from '@mui/material';
 import Button  from '../../../ui-component/Controls/Button';
 import CustomDashedBorder from '../../../ui-component/CustomDashedBorder';
 
@@ -17,8 +17,17 @@ import MultipleSelect from '../../../ui-component/CustomMultiSelectDD/MultipleSe
 import getColor, { tableHeaderBgColor } from '../../ra/colorCodes';
 import CustomH2 from '../../../ui-component/Headings/CustomH2';
 
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+
+import CustomH5 from '../../../ui-component/Headings/CustomH5';
+
 export default function RiskRatingDetails(props)
 {
+  const [viewIndex, setViewIndex] = useState(0); 
+  const [rows, setRows] = useState([]);
+  
 
   const columns = [
    // { id: 'scenarios', label: null, minWidth: 120, isString: true },
@@ -33,13 +42,6 @@ export default function RiskRatingDetails(props)
     { id: 'vulnerability', label: 'V', minWidth: 120, readonly: true },
     { id: 'likelihood', label: 'L', minWidth: 120, readonly: true },
     { id: 'risk', label: 'R', minWidth: 120, readonly: true },
-    { id: 'am_i', label: 'Infrastructure', minWidth: 120, isString: true },
-    { id: 'am_a', label: 'Automation', minWidth: 120, isString: true },
-    { id: 'am_p', label: 'Process', minWidth: 120, isString: true },
-    { id: 'am_m', label: 'Manpower', minWidth: 120, isString: true },
-    { id: 'vulnerability_r', label: 'Vr', minWidth: 120, readonly: true },
-    { id: 'likelihood_r', label: 'Lr', minWidth: 120, readonly: true },
-    { id: 'risk_r', label: 'Rr', minWidth: 120, readonly: true },
   ];
 
   const columns1 = [
@@ -54,13 +56,7 @@ export default function RiskRatingDetails(props)
     { label: 'Vulnerability', minWidth: 120, color: '#F4B084' },
     { label: 'Likelihood', minWidth: 120, color: '#8EA9DB' },
     { label: 'Risk', minWidth: 120, color: '#8497B0' },
-    { label: ' ', minWidth: 120, color: '#8F8F8F' },
-    { label: ' ', minWidth: 120, color: '#8F8F8F' },
-    { label: ' ', minWidth: 120, color: '#8F8F8F' },
-    { label: ' ', minWidth: 120, color: '#8F8F8F' },
-    { label: 'Vulnerability', minWidth: 120, color: '#F4B084' },
-    { label: 'Revised Likelihood', minWidth: 120, color: '#8EA9DB' },
-    { label: 'Risk', minWidth: 120, color: '#8497B0' },
+
 
   ];
 
@@ -71,11 +67,42 @@ export default function RiskRatingDetails(props)
       { label: 'Vulnerability - preparedness against scenario', minWidth: 120, verticalAlign: 'top', color: '#F8CBAD' },
       { label: 'Auto calculated T and V', minWidth: 120, verticalAlign: 'top', color: '#B4C6E7' },
       { label: 'Risk Rating based on S and L', minWidth: 120, verticalAlign: 'top', color: '#ACB9CA' },
+
+    ];
+
+  const _columns = [
+    { id: 'am_i', label: 'Infrastructure', minWidth: 120, isString: true },
+    { id: 'am_a', label: 'Automation', minWidth: 120, isString: true },
+    { id: 'am_p', label: 'Process', minWidth: 120, isString: true },
+    { id: 'am_m', label: 'Manpower', minWidth: 120, isString: true },
+    { id: 'vulnerability_r', label: 'Vr', minWidth: 120, readonly: true },
+    { id: 'likelihood_r', label: 'Lr', minWidth: 120, readonly: true },
+    { id: 'risk_r', label: 'Rr', minWidth: 120, readonly: true },
+  ];
+
+  const _columns1 = [
+    { label: ' ', minWidth: 120, color: '#8F8F8F' },
+    { label: ' ', minWidth: 120, color: '#8F8F8F' },
+    { label: ' ', minWidth: 120, color: '#8F8F8F' },
+    { label: ' ', minWidth: 120, color: '#8F8F8F' },
+    { label: 'Vulnerability', minWidth: 120, color: '#F4B084' },
+    { label: 'Revised Likelihood', minWidth: 120, color: '#8EA9DB' },
+    { label: 'Risk', minWidth: 120, color: '#8497B0' },
+
+  ];
+
+    const _columns0 = [
       { label: 'Additional measures', minWidth: 120, colSpan: 4, verticalAlign: 'middle', color: '#ADADAD' },
       { label: 'Revised after measures', minWidth: 120, verticalAlign: 'top', color: '#F8CBAD' },
       { label: 'Auto calculated T and V', minWidth: 120, verticalAlign: 'top', color: '#B4C6E7' },
       { label: 'Revised Risk Rating based on S and L', minWidth: 120, verticalAlign: 'top', color: '#ACB9CA' },
     ];
+
+
+
+  useEffect(()=>{
+    setRows([{...props.rows[viewIndex]}]);
+  }, [viewIndex, props.rows]);
     
 
   return (
@@ -83,12 +110,19 @@ export default function RiskRatingDetails(props)
 
 
       <Grid container flexDirection={'column'}>
-        <Grid item container display={'flex'} justifyContent={'space-between'}>
+        <Grid container display={'flex'} justifyContent={'space-between'}>
+          <Grid item>
+          <CustomH5 headingName={`Risk ID: ${rows.length > 0 && rows[0].id}`} sx={{mt:0}}></CustomH5>
+          {rows.length > 0 && rows[0].scenarios}
+          <Typography fontFamily={'Roboto'} fontSize={12}>(Scenarios which management considers as critical)</Typography>
+          </Grid>
+          <Grid item>
 
-          <CustomH2 headingName='Risk'></CustomH2>
-          <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
-            onClick={props.onClose}
-          >Close</Button>
+              <CloseOutlinedIcon color='primary' onClick={props.onClose} sx={{cursor:'pointer', width: 40, height: 40}} />
+
+          </Grid>
+
+
 
         </Grid>
         <Grid item flexGrow={1}>
@@ -146,7 +180,7 @@ export default function RiskRatingDetails(props)
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.rows
+              {rows
                 .map((row, index) => {
                   return (
                     <TableRow hover tabIndex={-1} key={row.code} sx={{ height: '40px' }}>
@@ -175,6 +209,113 @@ export default function RiskRatingDetails(props)
         </TableContainer>
 
       </Paper>
+
+      <Paper sx={{ width: '100%', overflow: 'hidden', mt:5, mb:5 }}>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow sx={{ "& th": {color: "black", padding: 0,  textAlign: 'center'} }}>
+                {_columns0.map((column) => (
+                  column.label &&
+                  <TableCell colSpan={column.colSpan} rowSpan={column.rowSpan} sx={{verticalAlign: column.verticalAlign, background: column.color}}
+                    key={column.id}
+                    align={column.align}
+                    style={{ 
+                        //minWidth: column.minWidth, 
+                        border: '1px solid white' 
+                    }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+              <TableRow sx={{ "& th": { color: "black", padding: 0, textAlign: 'center', verticalAlign: 'top' } }}>
+                {_columns1.map((column) => (
+                  column.label &&
+                  <TableCell sx={{background: column.color}}
+                    key={column.id}
+                    align={column.align}
+                    style={{ 
+                        //minWidth: column.minWidth, 
+                        border: '1px solid white' 
+                    }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+              <TableRow sx={{ "& th": { color: "black", padding:0, textAlign: 'center' } }}>
+                {_columns.map((column, i) => (
+                  column.label &&
+                  <TableCell sx={{background: columns1[i].color}}
+                    key={column.id}
+                    style={{ 
+                        minWidth: column.minWidth, 
+                        border: '1px solid white' 
+                    }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows
+                .map((row, index) => {
+                  return (
+                    <TableRow hover tabIndex={-1} key={row.code} sx={{ height: '40px' }}>
+                      {_columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0,
+                            background : column.readonly && getColor(value),
+                            //verticalAlign:['am_a', 'am_i', 'am_p', 'am_m'].includes(column.id) ? 'bottom' : 'middle'
+                           }}
+                          >
+                            {column.readonly ? <center>{value}</center>
+                              : column.id==='am_i' || column.id==='am_a' || column.id==='am_p' || column.id==='am_m' ?
+                                (value || '') .split('|').map((ele)=><>{ele}<hr/></>)
+                              :
+                              value
+                            }
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+      </Paper>
+
+<Fab color="primary" size='small' aria-label="add" style={{    margin: 0,
+    top: 'auto',
+    right: 20, // Distance from the right edge
+    bottom: 40, // Distance from the bottom edge
+    left: 'auto',
+    position: 'fixed',}}
+    disabled={viewIndex >= props.rows.length - 1}
+    onClick={()=>{
+      viewIndex < props.rows.length - 1 && setViewIndex(viewIndex + 1);
+    }}
+    >
+  <ArrowForwardOutlinedIcon/>
+</Fab>
+<Fab color="primary" size='small' aria-label="add" style={{    margin: 0,
+    top: 'auto',
+    right: 'auto', // Distance from the right edge
+    bottom: 40, // Distance from the bottom edge
+    left: '20',
+    position: 'fixed',}}
+    disabled={viewIndex === 0}
+    onClick={()=>{
+      viewIndex > 0 && setViewIndex(viewIndex - 1);
+    }}
+    >
+  <ArrowBackOutlinedIcon/>
+</Fab>
     </>
   )
 }

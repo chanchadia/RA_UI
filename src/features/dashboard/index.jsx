@@ -7,6 +7,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import SADashboard from './SADashboard/SADB';
 import RiskRating from './RADashboard/RiskRating';
+import RiskAdditionalMeasures from './RAAdditionalMeasures/RiskAdditionalMeasures';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,19 +49,19 @@ export default function Dashboard() {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Survey Assessment" {...a11yProps(0)} />
-          <Tab label="Risk Assessment" {...a11yProps(1)} />
-          <Tab label="RA - Additional measures" {...a11yProps(2)} />
+          <Tab label="Risk Rating" {...a11yProps(0)} />
+          <Tab label="Additional Measures" {...a11yProps(2)} />
+          <Tab label="Survey Assessment" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <SADashboard />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
         <RiskRating/>
       </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <RiskAdditionalMeasures/>
+      </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Item Three
+        <SADashboard />
       </CustomTabPanel>
     </Box>
   );

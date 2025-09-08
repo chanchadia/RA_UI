@@ -32,16 +32,16 @@ const SADashboard = () => {
 
 const columns = [
         { id: 'security_layer', label: 'Security layer', minWidth: 120 },
-        { id: 'max_marks', label: 'Sum of Maximum Marks', minWidth: 100 },
-        { id: 'scored_marks', label: 'Sum of Scored Marks', minWidth: 100 },
+        { id: 'max_marks', label: <>Sum of<br/>Maximum Marks</>, minWidth: 100 },
+        { id: 'scored_marks', label: <>Sum of<br/>Scored Marks</>, minWidth: 100 },
         { id: 'perc', label: '%age', minWidth: 100}
       ];
 
   
 const columnsCompWise = [
         { id: 'security_comp', label: 'Security Component', minWidth: 170 },
-        { id: 'max_marks', label: 'Sum of Maximum Marks', minWidth: 100 },
-        { id: 'scored_marks', label: 'Sum of Scored Marks', minWidth: 100 },
+        { id: 'max_marks', label: <>Sum of<br/>Maximum Marks</>, minWidth: 100 },
+        { id: 'scored_marks', label: <>Sum of<br/>Scored Marks</>, minWidth: 100 },
         { id: 'perc', label: '%age', minWidth: 100}
       ];
 
@@ -194,7 +194,7 @@ const columnsCompWise = [
                 <TableContainer sx={{ maxHeight: 420 }}>
                   <Table stickyHeader aria-label="sticky table">
                     <TableHead>
-                      <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black",height:80  } }}>
+                      <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black",height:80 } }}>
                         {columnsCompWise.map((column) => (
                           <TableCell
                             key={column.id}
