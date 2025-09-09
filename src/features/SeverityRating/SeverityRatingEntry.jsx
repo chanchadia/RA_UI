@@ -111,6 +111,8 @@ useEffect(() => {
        <Grid container flexDirection={'column'}>
         <Grid item container display={'flex'} justifyContent={'space-between'}>
           <CustomH2 headingName='Severity Rating Matrix'></CustomH2>
+          <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
+             onClick={handleSave}>Save</Button>
         </Grid>
         <Grid item flexGrow={1}>
           <CustomDashedBorder />
@@ -168,9 +170,6 @@ useEffect(() => {
         </TableContainer>
       </Paper>
     <br></br>
-     <center>  <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
-             onClick={handleSave}
-      >Save</Button></center>
       </>
     }
 

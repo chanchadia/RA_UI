@@ -75,9 +75,9 @@ export default function RiskRatingDetails(props)
     { id: 'am_a', label: 'Automation', minWidth: 120, isString: true },
     { id: 'am_p', label: 'Process', minWidth: 120, isString: true },
     { id: 'am_m', label: 'Manpower', minWidth: 120, isString: true },
-    { id: 'vulnerability_r', label: 'Vr', minWidth: 120, readonly: true },
-    { id: 'likelihood_r', label: 'Lr', minWidth: 120, readonly: true },
-    { id: 'risk_r', label: 'Rr', minWidth: 120, readonly: true },
+    { id: 'vulnerability_r', label: 'Vr', minWidth: 80, readonly: true },
+    { id: 'likelihood_r', label: 'Lr', minWidth: 80, readonly: true },
+    { id: 'risk_r', label: 'Rr', minWidth: 80, readonly: true },
   ];
 
   const _columns1 = [
@@ -248,7 +248,7 @@ export default function RiskRatingDetails(props)
                   <TableCell sx={{background: _columns1[i].color}}
                     key={column.id}
                     style={{ 
-                        minWidth: column.minWidth, 
+                        width: column.minWidth, 
                         border: '1px solid white' 
                     }}
                   >
