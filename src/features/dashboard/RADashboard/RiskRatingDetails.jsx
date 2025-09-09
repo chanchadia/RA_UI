@@ -31,15 +31,15 @@ export default function RiskRatingDetails(props)
 
   const columns = [
    // { id: 'scenarios', label: null, minWidth: 120, isString: true },
-    { id: 'attack_p', label: 'P', minWidth: 60, readonly: true },
-    { id: 'attack_e', label: 'E', minWidth: 90, readonly: true },
-    { id: 'attack_a', label: 'A', minWidth: 60, readonly: true },
-    { id: 'attack_r', label: 'R', minWidth: 80, readonly: true },
+    { id: 'attack_p', label: 'P', minWidth: 60 },
+    { id: 'attack_e', label: 'E', minWidth: 90 },
+    { id: 'attack_a', label: 'A', minWidth: 60 },
+    { id: 'attack_r', label: 'R', minWidth: 80 },
     { id: 'attack_s', label: 'S', minWidth: 70, readonly: true },
-    { id: 'tr_tac', label: 'TAc', minWidth: 120, readonly: true },
-    { id: 'tr_tai', label: 'TAi', minWidth: 120, readonly: true },
+    { id: 'tr_tac', label: 'TAc', minWidth: 120 },
+    { id: 'tr_tai', label: 'TAi', minWidth: 120},
     { id: 'tr_t', label: 'T', minWidth: 120, readonly: true },
-    { id: 'vulnerability', label: 'V', minWidth: 120, readonly: true },
+    { id: 'vulnerability', label: 'V', minWidth: 120},
     { id: 'likelihood', label: 'L', minWidth: 120, readonly: true },
     { id: 'risk', label: 'R', minWidth: 120, readonly: true },
   ];
@@ -75,7 +75,7 @@ export default function RiskRatingDetails(props)
     { id: 'am_a', label: 'Automation', minWidth: 120, isString: true },
     { id: 'am_p', label: 'Process', minWidth: 120, isString: true },
     { id: 'am_m', label: 'Manpower', minWidth: 120, isString: true },
-    { id: 'vulnerability_r', label: 'Vr', minWidth: 80, readonly: true },
+    { id: 'vulnerability_r', label: 'Vr', minWidth: 80 },
     { id: 'likelihood_r', label: 'Lr', minWidth: 80, readonly: true },
     { id: 'risk_r', label: 'Rr', minWidth: 80, readonly: true },
   ];
@@ -187,15 +187,12 @@ export default function RiskRatingDetails(props)
                       {columns.map((column) => {
                         const value = row[column.id];
                         return (
-                          <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0,
+                          <TableCell key={column.id} align={'center'} sx={{ paddingTop: 0.8, paddingBottom: 0,
                             background : column.readonly && getColor(value),
                             //verticalAlign:['am_a', 'am_i', 'am_p', 'am_m'].includes(column.id) ? 'bottom' : 'middle'
                            }}
                           >
-                            {column.readonly ? <center>{value}</center>
-                              :
-                              value
-                            }
+                              {value}
                           </TableCell>
                         );
                       })}
@@ -270,8 +267,7 @@ export default function RiskRatingDetails(props)
                             verticalAlign:['am_a', 'am_i', 'am_p', 'am_m'].includes(column.id) ? 'top' : 'middle'
                            }}
                           >
-                            {column.readonly ? <center>{value}</center>
-                              : column.id==='am_i' || column.id==='am_a' || column.id==='am_p' || column.id==='am_m' ?
+                            {column.id==='am_i' || column.id==='am_a' || column.id==='am_p' || column.id==='am_m' ?
                                 (value || '') .split('|').map((ele)=>{
                                   return (<>
                                   <Tooltip title={ele} placement="right">
@@ -283,7 +279,7 @@ export default function RiskRatingDetails(props)
                                   </>);
                                 })
                               :
-                              value
+                              <center>{value}</center>
                             }
                           </TableCell>
                         );
