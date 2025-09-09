@@ -53,6 +53,7 @@ const [am_mp, setAmMP] = React.useState([]);
   });
 
   const columns = [
+    { id: 'id', label: null, minWidth: 120, readonly: true },
     { id: 'scenarios', label: null, minWidth: 120, isString: true },
     { id: 'attack_p', label: 'P', minWidth: 120 },
     { id: 'attack_e', label: 'E', minWidth: 120 },
@@ -97,6 +98,7 @@ const [am_mp, setAmMP] = React.useState([]);
   ];
 
     const columns0 = [
+      { label: 'ID', minWidth: 20, rowSpan: 3, verticalAlign: 'middle', color: tableHeaderBgColor },
       { label: 'Scenarios which management considers as critical', minWidth: 350, rowSpan: 3, verticalAlign: 'middle', color: tableHeaderBgColor },
       { label: 'Impact if attack is successful', minWidth: 120, colSpan: 5, verticalAlign: 'middle', color: '#FFD966'},
       { label: 'Threat Ranking of Threat Actor (TA)', minWidth: 120, colSpan: 3, verticalAlign: 'middle', color: '#DBDBDB' },
@@ -480,7 +482,7 @@ const [am_mp, setAmMP] = React.useState([]);
               <TableRow sx={{ "& th": { color: "black", padding: 0, textAlign: 'center', verticalAlign: 'top' } }}>
                 {columns1.map((column) => (
                   column.label &&
-                  <TableCell sx={{background: column.color}}
+                  <TableCell sx={{background: column.color || ''}}
                     key={column.id}
                     align={column.align}
                     style={{ minWidth: column.minWidth, border: '1px solid white' }}
@@ -492,7 +494,7 @@ const [am_mp, setAmMP] = React.useState([]);
               <TableRow sx={{ "& th": { color: "black", padding:0, textAlign: 'center' } }}>
                 {columns.map((column, i) => (
                   column.label &&
-                  <TableCell sx={{background: columns1[i-1].color}}
+                  <TableCell sx={{background: columns1[i-2].color}}
                     key={column.id}
                     style={{ minWidth: column.minWidth, border: '1px solid white' }}
                   >
@@ -510,7 +512,7 @@ const [am_mp, setAmMP] = React.useState([]);
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0,
-                            background : column.readonly && getColor(value),
+                            background : column.readonly && column.id !== 'id' && getColor(value),
                             verticalAlign:['am_a', 'am_i', 'am_p', 'am_m'].includes(column.id) ? 'bottom' : 'middle'
                            }}
                           >

@@ -152,7 +152,7 @@ const columnsCompWise = [
                     <TableContainer >
                       <Table stickyHeader aria-label="sticky table">
                         <TableHead>
-                          <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black",height:80 } }}>
+                          <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black", padding:1 } }}>
                             {columns.map((column) => (
                               <TableCell
                                 key={column.id}
@@ -195,7 +195,7 @@ const columnsCompWise = [
                 <TableContainer sx={{ maxHeight: 420 }}>
                   <Table stickyHeader aria-label="sticky table">
                     <TableHead>
-                      <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black",height:80 } }}>
+                      <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black", padding:1 } }}>
                         {columnsCompWise.map((column) => (
                           <TableCell
                             key={column.id}
