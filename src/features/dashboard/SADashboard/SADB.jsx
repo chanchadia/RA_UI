@@ -141,7 +141,7 @@ const columnsCompWise = [
                     getOptionLabel={(option) => option.security_comp || ""}
                     onChange={(event, newValue) => {DDOnChange(event,newValue)}}
                     renderInput={(params) => (
-                    <TextField {...params}  variant="standard" />
+                    <TextField {...params}  variant="standard" label="Security Component" />
                     )}
                   />
       </Grid>
