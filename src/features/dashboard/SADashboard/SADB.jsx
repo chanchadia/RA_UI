@@ -17,6 +17,7 @@ import LoadingError from '../../../ui-component/LoadingError';
 import { tableHeaderBgColor } from '../../ra/colorCodes';
 import CustomH2 from '../../../ui-component/Headings/CustomH2';
 import CustomDashedBorder from '../../../ui-component/CustomDashedBorder';
+import TableDataLoading from '../../../ui-component/TableDataLoading';
 
 //security_layer,scored_marks,perc,max_marks
 const SADashboard = () => {
@@ -165,7 +166,8 @@ const columnsCompWise = [
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {rows
+                          {isSubmitting ? <TableDataLoading cols={columns.length} />
+                            :rows
                             .map((row) => {
                               return (
                                 <TableRow hover tabIndex={-1} key={row.code} sx={{ height: '40px', backgroundColor: row.security_layer === 'Total' ? tableHeaderBgColor : ''  }}>
@@ -208,7 +210,8 @@ const columnsCompWise = [
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {rowsComponentWise
+                      {isSubmitting ? <TableDataLoading cols={columnsCompWise.length} />
+                        :rowsComponentWise
                         .map((row) => {
                           return (
                             <TableRow hover tabIndex={-1} key={row.code} sx={{ height: '40px', backgroundColor: row.security_comp === 'Total' ? tableHeaderBgColor : '' }}>
@@ -235,13 +238,13 @@ const columnsCompWise = [
 
 
          {fetchError && <LoadingError err={fetchError} onClick={fetchList} />}
-        <Backdrop
+        {/* <Backdrop
             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open={isSubmitting}
             //onClick={handleClose}
         >
             <CircularProgress sx={{ color: "white" }} />
-        </Backdrop>
+        </Backdrop> */}
    </>
   )
 }

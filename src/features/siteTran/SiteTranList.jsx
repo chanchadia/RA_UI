@@ -24,6 +24,7 @@ import { getSiteWiseSA } from '../../slice/SurveAssessmentSlice';
 import { setMyRa, setMySite } from '../../slice/AuthSlice';
 import { tableHeaderBgColor } from '../ra/colorCodes';
 import LoadingError from '../../ui-component/LoadingError';
+import TableDataLoading from '../../ui-component/TableDataLoading';
 
 const SiteTranList = (props) => {
   const { mySite : id, myRa } = useSelector((state) => state.auth);
@@ -119,7 +120,8 @@ useEffect(() => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
+              {isSubmitting ? <TableDataLoading cols={columns.length} rows={4} />
+                :rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
@@ -168,13 +170,13 @@ useEffect(() => {
   }
   {fetchError && <LoadingError err={fetchError} onClick={fetchList} />}
 
-      <Backdrop
+      {/* <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={isSubmitting}
           //onClick={handleClose}
       >
           <CircularProgress sx={{ color: "white" }} />
-      </Backdrop>
+      </Backdrop> */}
     </>
   )
 }

@@ -20,6 +20,7 @@ import CustomDashedBorder from '../../../ui-component/CustomDashedBorder';
 import { getRaAMSummary,saveRaAMSummary } from '../../../slice/RADashboardSlice';
 import SuccessAlert from '../../../ui-component/snackbar';
 import { CancelButton } from '../../../ui-component/Controls/Button';
+import TableDataLoading from '../../../ui-component/TableDataLoading';
 
 export default function RiskAdditionalMeasures()
 {
@@ -186,7 +187,8 @@ const onSubmit = () => {
                             </TableRow>
                             </TableHead>
                             <TableBody>
-                            {rows
+                            {isSubmitting ? <TableDataLoading cols={columns.length} />
+                              :rows
                                 .map((row,index) => {
                                 return (
                                     <TableRow hover tabIndex={-1} key={row.code} sx={{ height: '40px'}}>
@@ -226,13 +228,13 @@ const onSubmit = () => {
 
             {fetchError && <LoadingError err={fetchError} onClick={fetchList} />}
 
-            <Backdrop 
+            {/* <Backdrop 
                 sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 open={isSubmitting}
                 //onClick={handleClose}
             >
                 <CircularProgress sx={{ color: "white" }} />
-            </Backdrop>
+            </Backdrop> */}
              <SuccessAlert successAlert={successAlert} />
     </>
     );

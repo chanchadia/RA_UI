@@ -18,6 +18,7 @@ import { getRiskRatingColor, tableHeaderBgColor } from '../../ra/colorCodes';
 import LoadingError from '../../../ui-component/LoadingError';
 import { getRaDetails, getRaSummary } from '../../../slice/RADashboardSlice';
 import RiskRatingDetails from './RiskRatingDetails';
+import TableDataLoading from '../../../ui-component/TableDataLoading';
 
 const circleStyle = {
  height: '30px',
@@ -50,6 +51,7 @@ const RiskRating = () => {
 
   const [fetchError, setFetchError] = useState(false); 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFetchingDetails, setIsFetchingDetails] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -89,13 +91,13 @@ const RiskRating = () => {
   }, [myRa]);
 
   const showDetails = (severity, risk) => {
-    setIsSubmitting(true);
+    setIsFetchingDetails(true);
     dispatch(getRaDetails({ra_id: myRa, severity, risk})).unwrap().then((action) => {
       setDetailRows(action.data)
-      setIsSubmitting(false);
+      setIsFetchingDetails(false);
       setIsDetailView(true);
     }).catch((err) => {
-        setIsSubmitting(false);
+        setIsFetchingDetails(false);
     });
     
   };
@@ -131,7 +133,8 @@ const RiskRating = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
+              {isSubmitting ? <TableDataLoading cols={columns.length} rows={5} height={60} />
+                :rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, r) => {
                   return (
@@ -178,7 +181,7 @@ const RiskRating = () => {
 
       <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={isSubmitting}
+          open={isFetchingDetails}
           //onClick={handleClose}
       >
           <CircularProgress sx={{ color: "white" }} />
