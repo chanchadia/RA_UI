@@ -146,28 +146,28 @@ function LoginForm(props) {
     });
   }
   const onSubmit = (values) => {
-    //if(import.meta.env.REACT_APP_API_ENVIRONMENT === 'Dev')
+    if(import.meta.env.REACT_APP_API_ENVIRONMENT === 'Dev')
     {
       onSubmitNow(values);
       return;
     }
-    // chkVersion().then((resp)=>{
-    //   if(resp.error)
-    //   {
-    //     setLoginErrMsg(resp.error);
-    //     setIsLoginError(true);
-    //   }
-    //   else if(packageFile.version !== resp.version)
-    //   {
-    //     setLoginErrMsg("You are using old version of application. Kindly press Ctrl+F5 keys to download latest version.");
-    //     setIsLoginError(true);
-    //   }
-    //   else
-    //   {
-    //     onSubmitNow(values);
-    //   }
-    //   return;
-    // });
+    chkVersion().then((resp)=>{
+      if(resp.error)
+      {
+        setLoginErrMsg(resp.error);
+        setIsLoginError(true);
+      }
+      else if(packageFile.version !== resp.version)
+      {
+        setLoginErrMsg("You are using old version. Kindly press Ctrl+F5 keys to fetch latest version.");
+        setIsLoginError(true);
+      }
+      else
+      {
+        onSubmitNow(values);
+      }
+      return;
+    });
 
   };
 
