@@ -23,6 +23,7 @@ import CustomDashedBorder from '../../../ui-component/CustomDashedBorder';
 import SuccessAlert from '../../../ui-component/snackbar';
 import { tableHeaderBgColor } from '../colorCodes';
 import LoadingError from '../../../ui-component/LoadingError';
+import TableDataLoading from '../../../ui-component/TableDataLoading';
 
 const Weightage = (props) => {
   const { mySite: siteid, myRa } = useSelector((state) => state.auth);
@@ -31,6 +32,8 @@ const Weightage = (props) => {
      //const {siteid} = useParams();
     const [fetchError, setFetchError] = useState(false);    
     const [isSubmitting, setIsSubmitting] = useState(false);
+      const [isFetching, setIsFetching] = useState(false);
+    
     const [isDisabled, setIsDisabled] = useState(false);
     const [successAlert, setsuccessAlert] = useState({
         open: false,
@@ -85,7 +88,7 @@ const handleChange = (e, columnId,rowID) => {
 
   const fetchList = () =>{
     
-    setIsSubmitting(true);
+    setIsFetching(true);
     dispatch(getWeightage(siteid)).unwrap()
         .then((resp)=>{
             if(resp && resp.data && resp.data.length>0)
@@ -93,11 +96,11 @@ const handleChange = (e, columnId,rowID) => {
                 setRows(resp.data)
             }
             setFetchError(false);
-            setIsSubmitting(false); 
+            setIsFetching(false); 
         })
         .catch((err) => {
            setFetchError(err.message);
-           setIsSubmitting(false);
+           setIsFetching(false);
         });
 }
 
@@ -156,7 +159,8 @@ const onSubmit = () =>{
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
+              {isFetching ? <TableDataLoading cols={columns.length} />
+                :rows
                 .map((row,index) => {
                   return (
                     <TableRow hover tabIndex={-1} key={row.code} sx={{ height: '40px' }}>

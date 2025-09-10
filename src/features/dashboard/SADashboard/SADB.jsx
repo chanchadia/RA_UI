@@ -25,6 +25,7 @@ const SADashboard = () => {
   const { mySite, myRa: raid } = useSelector((state) => state.auth);
   const [fetchError, setFetchError] = useState(false);    
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting2, setIsSubmitting2] = useState(false);
   const [rows, setRows] = useState([]);
   const [rowsDD, setRowsDD] = useState([]);
   const [ddValue, setDDValue] = useState();
@@ -99,7 +100,7 @@ const columnsCompWise = [
         });
 
 
-    setIsSubmitting(true);
+    setIsSubmitting2(true);
     dispatch(getSAComponentWise(raid)).unwrap()
         .then((resp)=>{
             if(resp && resp.data && resp.data.length>0)
@@ -118,11 +119,11 @@ const columnsCompWise = [
                 setRowsComponentWise(dataWithTotal)
             } 
             setFetchError(false);
-            setIsSubmitting(false);
+            setIsSubmitting2(false);
         })
         .catch((err) => {
                  setFetchError(err.message);
-                 setIsSubmitting(false);
+                 setIsSubmitting2(false);
         });
 }
 
@@ -210,7 +211,7 @@ const columnsCompWise = [
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {isSubmitting ? <TableDataLoading cols={columnsCompWise.length} />
+                      {isSubmitting2 ? <TableDataLoading cols={columnsCompWise.length} />
                         :rowsComponentWise
                         .map((row) => {
                           return (

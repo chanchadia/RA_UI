@@ -34,6 +34,8 @@ const SurveyAssessEntry = (props) => {
   const [rows, setRows] = useState([]);
     const [fetchError, setFetchError] = useState(false);   
   const [isSubmitting, setIsSubmitting] = useState(false);
+        const [isFetching, setIsFetching] = useState(false);
+  
       const [isDisabled, setIsDisabled] = useState(false);
       const [successAlert, setsuccessAlert] = useState({
           open: false,
@@ -147,7 +149,7 @@ const handleChange = (e, columnId,rowID) => {
 }
 
   const fetchList = () =>{
-      setIsSubmitting(true);
+      setIsFetching(true);
     dispatch(getSurveyAssessment(raid)).unwrap()
         .then((resp)=>{
             if(resp && resp.data && resp.data.length>0)
@@ -155,11 +157,11 @@ const handleChange = (e, columnId,rowID) => {
                 setRows(resp.data)
             } 
             setFetchError(false);
-             setIsSubmitting(false);
+             setIsFetching(false);
         })
         .catch((err) => {
                  setFetchError(err.message);
-                 setIsSubmitting(false);
+                 setIsFetching(false);
         });
 }
 useEffect(() => {
@@ -252,7 +254,7 @@ const createObservation=(row, rowIndex, column)=>{
               </TableRow>
             </TableHead>
             <TableBody>
-              {isSubmitting ? <TableDataLoading cols={columns.length} />
+              {isFetching ? <TableDataLoading cols={columns.length} />
                 :rows
                 .map((row,index) => {
                   return (
@@ -293,13 +295,13 @@ const createObservation=(row, rowIndex, column)=>{
     }
 
     {fetchError && <LoadingError err={fetchError} onClick={fetchList} />}
-                         {/* <Backdrop
+                         <Backdrop
                                   sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
                                   open={isSubmitting}
                                   //onClick={handleClose}
                               >
                                   <CircularProgress sx={{ color: "white" }} />
-                              </Backdrop> */}
+                              </Backdrop>
       
                               <Backdrop
                                   sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}

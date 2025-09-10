@@ -30,6 +30,8 @@ const SeverityRatingEntry = (props) => {
   const { mySite, myRa: raid } = useSelector((state) => state.auth);
   const [fetchError, setFetchError] = useState(false);    
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+
      const navigate = useNavigate();
          const [isDisabled, setIsDisabled] = useState(false);
          const [successAlert, setsuccessAlert] = useState({
@@ -88,7 +90,7 @@ const handleChange = (e, columnId,rowID) => {
 }
 
   const fetchList = () =>{
-    setIsSubmitting(true);
+    setIsFetching(true);
      dispatch(getSeverity(raid)).unwrap()
         .then((resp)=>{
             if(resp && resp.data && resp.data.length>0)
@@ -97,11 +99,11 @@ const handleChange = (e, columnId,rowID) => {
                     setHeaders(Object.keys(resp.data[0]));
             } 
             setFetchError(false);
-            setIsSubmitting(false);
+            setIsFetching(false);
         })
         .catch((err) => {
              setFetchError(err.message);
-             setIsSubmitting(false);
+             setIsFetching(false);
         });
 }
 useEffect(() => {
@@ -138,7 +140,7 @@ useEffect(() => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {isSubmitting ? <TableDataLoading cols={columns.length} rows={5} height={50} />
+              {isFetching ? <TableDataLoading cols={columns.length} rows={5} height={50} />
                 :rows
                 .map((row,index) => {
                   return (
@@ -177,13 +179,13 @@ useEffect(() => {
 
     {fetchError && <LoadingError err={fetchError} onClick={fetchList} />}
 
-              {/* <Backdrop
+              <Backdrop
                             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
                             open={isSubmitting}
                             //onClick={handleClose}
                         >
                             <CircularProgress sx={{ color: "white" }} />
-                        </Backdrop> */}
+                        </Backdrop>
 
                         <Backdrop
                             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
