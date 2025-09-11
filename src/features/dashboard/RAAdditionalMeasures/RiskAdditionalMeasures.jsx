@@ -10,7 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Grid from '@mui/material/GridLegacy';
-import { Backdrop, Box, Button, CircularProgress, InputAdornment, TextField } from '@mui/material';
+import { Backdrop, Box, Button, CircularProgress, InputAdornment, TableSortLabel, TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import { getDashboardDD,getSAComponentALL,getSAComponentWise } from '../../../slice/SADashboardSlice';
 import LoadingError from '../../../ui-component/LoadingError';
@@ -21,9 +21,19 @@ import { getRaAMSummary,saveRaAMSummary } from '../../../slice/RADashboardSlice'
 import SuccessAlert from '../../../ui-component/snackbar';
 import { CancelButton } from '../../../ui-component/Controls/Button';
 import TableDataLoading from '../../../ui-component/TableDataLoading';
+    import { visuallyHidden } from '@mui/utils';
 
 export default function RiskAdditionalMeasures()
 {
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('');
+  const onRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+  const createSortHandler = (property) => (event) => { onRequestSort(event, property); };
+
       const { mySite, myRa: raid } = useSelector((state) => state.auth);
       const [fetchError, setFetchError] = useState(false);    
       const [isSubmitting, setIsSubmitting] = useState(false);
@@ -123,6 +133,50 @@ const onSubmit = () => {
     useEffect(() => {
         fetchList();
     }, []);
+
+
+function stableSort(array, comparator) {
+  const stabilizedThis = array.map((el, index) => [el, index]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) {
+      return order;
+    }
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
+}
+
+function getComparator(order, orderBy) {
+  return order === 'desc'
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+
+  if (b[orderBy] === null) {
+    return 1;
+  }
+
+  if (a[orderBy] === null) {
+    return -1;
+  }
+  return 0;
+}
+
+useEffect(()=>
+{
+  const sortedRows = stableSort([...rows], getComparator(order, orderBy));
+  setRows(sortedRows);
+}, [order, orderBy]);
+
     return (
     <>
     
@@ -150,8 +204,20 @@ const onSubmit = () => {
                                   
                                   if(['layer', 'addlm', 'cnt'].includes(column.id))
                                   {
-                                    return (<TableCell rowSpan={2} sx={{verticalAlign: 'top', border: '1px solid silver'}} key={column.id}>
-                                                {column.label}
+                                    return (<TableCell rowSpan={2} sx={{verticalAlign: 'top', border: '1px solid silver'}} key={column.id}
+                                            sortDirection={orderBy === column.id ? order : false}>
+                                                <TableSortLabel
+                                                  active={orderBy === column.id}
+                                                  direction={orderBy === column.id ? order : 'asc'}
+                                                  onClick={createSortHandler(column.id)}
+                                                >
+                                                  {column.label}
+                                                  {orderBy === column.id ? (
+                                                    <Box component="span" sx={visuallyHidden}>
+                                                      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                                                    </Box>
+                                                  ) : null}
+                                                </TableSortLabel>
                                            </TableCell>);
                                   }
                                 }
@@ -164,8 +230,20 @@ const onSubmit = () => {
                                   
                                   if(['priority', 'priority_m'].includes(column.id))
                                   {
-                                    return (<TableCell rowSpan={2} sx={{verticalAlign: 'top', border: '1px solid silver'}} key={column.id}>
-                                                {column.label}
+                                    return (<TableCell rowSpan={2} sx={{verticalAlign: 'top', border: '1px solid silver'}} key={column.id}
+                                            sortDirection={orderBy === column.id ? order : false}>
+                                                <TableSortLabel
+                                                  active={orderBy === column.id}
+                                                  direction={orderBy === column.id ? order : 'asc'}
+                                                  onClick={createSortHandler(column.id)}
+                                                >
+                                                  {column.label}
+                                                  {orderBy === column.id ? (
+                                                    <Box component="span" sx={visuallyHidden}>
+                                                      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                                                    </Box>
+                                                  ) : null}
+                                                </TableSortLabel>
                                            </TableCell>);
                                   }
                                 }
@@ -178,8 +256,21 @@ const onSubmit = () => {
                                   
                                   if(!['layer', 'addlm', 'cnt', 'priority', 'priority_m'].includes(column.id))
                                   {
-                                    return (<TableCell align='center' sx={{verticalAlign: 'top', border: '1px solid silver', background: ['1','2','3','4','5'].includes(column.label) ? getColor(parseInt(column.label)):''}} key={column.id}>
-                                                {column.label}
+                                    return (<TableCell align='center' sx={{verticalAlign: 'top', border: '1px solid silver', background: ['1','2','3','4','5'].includes(column.label) ? getColor(parseInt(column.label)):''}} key={column.id}
+                                            sortDirection={orderBy === column.id ? order : false}>
+                                                {/* {column.label} */}
+                                                <TableSortLabel
+                                                  active={orderBy === column.id}
+                                                  direction={orderBy === column.id ? order : 'asc'}
+                                                  onClick={createSortHandler(column.id)}
+                                                >
+                                                  {column.label}
+                                                  {orderBy === column.id ? (
+                                                    <Box component="span" sx={visuallyHidden}>
+                                                      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                                                    </Box>
+                                                  ) : null}
+                                                </TableSortLabel>
                                            </TableCell>);
                                   }
                                 }
