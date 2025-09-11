@@ -107,13 +107,18 @@ const handleChange = (e, columnId,rowID) => {
     {
       if(v_rows[rowID].obs_type === 'PERC')
       {
-        value = value.replace(/[^0-9]/g, '');
+        const matches = value.match(/\./g); // Global search for all dots
+        if(matches !== null && matches.length >= 2) //contains more than one dot
+        {
+          return;
+        }
+        value = value.replace(/[^0-9.]/g, '');
 
         //Convert to a number for range validation
         const num = parseInt(value, 10);
 
         //Validate if it's a number and within the range 1-100
-        if (value === '' || (!isNaN(num) && num >= 1 && num <= 100)) 
+        if (value === '' || (!isNaN(num) && num >= 0 && num <= 100)) 
         {
         }
         else 
