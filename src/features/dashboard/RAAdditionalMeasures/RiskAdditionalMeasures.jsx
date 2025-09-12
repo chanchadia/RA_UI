@@ -87,6 +87,12 @@ export default function RiskAdditionalMeasures()
             .then((res)=>{
                 setIsSubmitting(false);
                  setFetchError(false);
+
+                // const xx = res.data.map((e)=>{
+                //   return {...e, priority_m: 0}
+                // })
+                
+                // setRows(xx);
                 setRows(res.data);
 
             })
@@ -99,20 +105,26 @@ export default function RiskAdditionalMeasures()
     }
       const handleChange = (e, column, rowID) => {
     let value = e.target.value;
+
       value = value.replace(/[^0-9]/g, '');
 
       // Convert to a number for range validation
       const num = parseInt(value);
 
       // Validate if it's a number and within the range 1-100
-      if (value === '' || (!isNaN(num) && num >= 1 && num <= rows.length) ) {
+      if(value === '')
+      {
+        value = null;
+      }
+      else if (!isNaN(num) && num >= 1 && num <= rows.length) {
+        value = num;
       }
       else {
         return;
       }
     const v_rows = [...rows];
     v_rows[rowID][column.id] = value;
-    setRows(v_rows);
+    setRows([...v_rows]);
 }
 
 const onSubmit = () => {
@@ -173,8 +185,12 @@ function descendingComparator(a, b, orderBy) {
 
 useEffect(()=>
 {
-  const sortedRows = stableSort([...rows], getComparator(order, orderBy));
-  setRows(sortedRows);
+  if(rows.length > 0)
+  {
+
+    const sortedRows = stableSort([...rows], getComparator(order, orderBy));
+    setRows(sortedRows);
+  }
 }, [order, orderBy]);
 
     return (
@@ -293,7 +309,7 @@ useEffect(()=>
                                             <TextField
                                                 variant="standard"
                                                 fullWidth
-                                                value={value}
+                                                value={value || ''}
                                                 onChange={(e) => handleChange(e, column, index)}
                                                 />
                                             :
