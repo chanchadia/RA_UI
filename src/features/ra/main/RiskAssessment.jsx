@@ -312,10 +312,10 @@ const [am_mp, setAmMP] = React.useState([]);
           
            let v_rows = [...resp.data];
           v_rows.forEach((row, index) => {
-            row.am_i_new = row.am_i || row.am_i.trim()!==""? row.am_i.split('|') : [];
-            row.am_a_new = row.am_a || row.am_a.trim()!==""? row.am_a.split('|') : [];
-            row.am_p_new = row.am_p || row.am_p.trim()!==""? row.am_p.split('|') : [];
-            row.am_m_new = row.am_m || row.am_m.trim()!==""? row.am_m.split('|') : [];
+            row.am_i_new = row.am_i && row.am_i.trim()!==""? row.am_i.split('|') : [];
+            row.am_a_new = row.am_a && row.am_a.trim()!==""? row.am_a.split('|') : [];
+            row.am_p_new = row.am_p && row.am_p.trim()!==""? row.am_p.split('|') : [];
+            row.am_m_new = row.am_m && row.am_m.trim()!==""? row.am_m.split('|') : [];
           })
           setRows(v_rows)
 
@@ -401,6 +401,7 @@ const [am_mp, setAmMP] = React.useState([]);
           setIsFetching(false);
       })
       .catch((err) => {
+        console.error(err);
          setFetchError(err.message);
         setIsFetching(false);
       });
