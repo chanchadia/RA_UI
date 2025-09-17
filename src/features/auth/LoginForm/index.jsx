@@ -50,7 +50,13 @@ async function chkVersion()
     return {error: 'Please check your network connection'}; //resp.message
   }
 }
-
+const sxTxt={ width: "300px", 
+            "input:-webkit-autofill" : {
+                "-webkit-box-shadow": "0 0 0 1000px #06556F inset",
+                "-webkit-text-fill-color": "white",
+                "color": "white"
+              } 
+          };
 //Login Page screen
 
 function LoginForm(props) {
@@ -214,7 +220,7 @@ function LoginForm(props) {
                   </Grid>
                   <Grid item>
                     <CustomTextField
-                      sx={{ width: "300px" }}
+                      sx={sxTxt}
                       required
                       variant="standard"
                       type="email"
@@ -230,7 +236,7 @@ function LoginForm(props) {
                   </Grid>
                   <Grid item>
                     <CustomTextField
-                      sx={{ width: "300px" }}
+                      sx={sxTxt}
                       required
                       variant="standard"
                       type={showPassword ? "text" : "password"}
