@@ -32,9 +32,10 @@ import CasinoOutlinedIcon from '@mui/icons-material/CasinoOutlined';
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import SickOutlinedIcon from '@mui/icons-material/SickOutlined';
 
     const Link = styled(RawLink)`
-      height: 35px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -142,6 +143,12 @@ export default function AppMenu()
                 </Link>
 
             {/* //-------------------------------------------------------------------------------------------- */}
+                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <SickOutlinedIcon sx={{ color: 'white' }} />
+                        <ListItemText primary='Threat Actor' sx={{paddingLeft:1.5}} />
+                    </ListItemButton>
+                </Link>
                 <Link style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <AddRoadOutlinedIcon sx={{ color: 'white' }} />
