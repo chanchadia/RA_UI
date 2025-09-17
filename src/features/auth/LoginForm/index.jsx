@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 
 //MUI imports
 import {
+  Backdrop,
   Box,
+  CircularProgress,
   ClickAwayListener,
   Grid,
   IconButton,
@@ -60,6 +62,8 @@ const sxTxt={ width: "300px",
 //Login Page screen
 
 function LoginForm(props) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [TokenFlag, setTokenFlag] = useState(false);
@@ -130,11 +134,13 @@ function LoginForm(props) {
   //const { userList } = useSelector((state) => state.commonSlice);
   const userList  = [];
   const onSubmitNow = (values) => {
+    setIsSubmitting(true);
      dispatch(loginUser({
        login_id: values.email,
        login_pwd: values.password
     })).unwrap()
     .then((originalPromiseResult)=>{
+      setIsSubmitting(false);
       if(originalPromiseResult)
       {
         dispatch(setLogin(true));
@@ -146,6 +152,7 @@ function LoginForm(props) {
       } 
     })
     .catch((err) => {
+      setIsSubmitting(false);
       sessionStorage.setItem('token', "");
         setLoginErrMsg(err.message === 'Failed to fetch' ? 'Please check your network connection.' : err.message);
         setIsLoginError(true);
@@ -315,6 +322,14 @@ function LoginForm(props) {
               </Form>
             )}
           </Formik>
+
+          <Backdrop
+              sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+              open={isSubmitting}
+              //onClick={handleClose}
+          >
+              <CircularProgress sx={{ color: "white" }} />
+          </Backdrop>
         </>
       )}
     </>
