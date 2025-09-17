@@ -401,7 +401,6 @@ const [am_mp, setAmMP] = React.useState([]);
           setIsFetching(false);
       })
       .catch((err) => {
-        console.error(err);
          setFetchError(err.message);
         setIsFetching(false);
       });
@@ -580,6 +579,7 @@ const [am_mp, setAmMP] = React.useState([]);
                                 variant="standard"
                                 fullWidth
                                 value={value}
+                                multiline={column.isString}
                                 onChange={(e) => handleChange(e, column, index)}
                               />
                             }

@@ -268,7 +268,7 @@ export default function RiskRatingDetails(props)
                            }}
                           >
                             {column.id==='am_i' || column.id==='am_a' || column.id==='am_p' || column.id==='am_m' ?
-                                (value || '') .split('|').map((ele)=>{
+                                value && value .split('|').map((ele)=>{
                                   return (<>
                                   <Tooltip title={ele} placement="right">
                                     <div style={{whiteSpace:'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: column.minWidth}}>
