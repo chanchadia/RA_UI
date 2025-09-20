@@ -179,7 +179,7 @@ const onSubmit = () =>{
                                         }}*/
                                     variant="standard"
                                     fullWidth
-                                    value={value}
+                                    value={value || ''}
                                     onChange={(e) => handleChange(e, column.id,index)}
                                   />
                             // : column.id==='remarks' ?

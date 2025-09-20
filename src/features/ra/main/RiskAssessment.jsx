@@ -578,7 +578,7 @@ const [am_mp, setAmMP] = React.useState([]);
                                             }}}
                                 variant="standard"
                                 fullWidth
-                                value={value}
+                                value={value || ''}
                                 multiline={column.isString}
                                 onChange={(e) => handleChange(e, column, index)}
                               />

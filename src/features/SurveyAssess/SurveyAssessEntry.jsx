@@ -208,7 +208,7 @@ const createObservation=(row, rowIndex, column)=>{
             }}
         variant="standard"
         fullWidth
-        value={value}
+        value={value || ''}
         onChange={(e) => handleChange(e, column.id,rowIndex)}
       />);
   }
