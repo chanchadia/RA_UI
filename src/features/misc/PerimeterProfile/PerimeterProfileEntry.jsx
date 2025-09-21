@@ -43,7 +43,6 @@ const PerimeterProfileEntry = () => {
           isError: false,
           handleClose: () => {
               setsuccessAlert({ ...successAlert, open: false, message: "", isError: false });
-              setIsDisabled(false);
           }
       });
 
@@ -65,8 +64,26 @@ const PerimeterProfileEntry = () => {
         { id: 'ptz_cctv_mtr', label: 'ptz_cctv_mtr', minWidth: 30 },
     
       ];
+
+      //  const columns = [
+      //   { id: 'segment_from', label: 'Perimeter Segment From (ground marking)', minWidth: 170 },
+      //   { id: 'segment_to', label: 'Perimeter Segment To (ground marking)', minWidth: 170 },
+      //   { id: 'len_mtr', label: 'Length in Mtrs', minWidth: 30 },
+      //   { id: 'peri_type', label: 'Perimeter barrier type RR/Slab-wall / brick M./Chain link', minWidth: 170 },
+      //   { id: 'height_out_mtr_from', label: 'Height from outside in mtrs', minWidth: 30 },
+      //   { id: 'height_out_mtr_to', label: 'Height from inside in mtrs', minWidth: 30 },
+      //   { id: 'anti_climb_type', label: 'Anti-climb infra type Concertina coil / barbed wire etc.', minWidth: 170 },
+      //   { id: 'petrol_track', label: 'Patrol Track along the length available or not? (to respond)', minWidth: 30 },
+      //   { id: 'obs_posts_count', label: 'Only Standard Observation posts - count in this segment', minWidth: 30 },
+      //   { id: 'std_light_mtr', label: 'Standard light (5 to 10Lux) available along the wall? (In mtrs)', minWidth: 30 },
+      //   { id: 'veg_status_mtr', label: 'Vegetation status Length in mtrs along the segment where perimeter is not visible due to vegetation, hindrance to physical or electronic surveillance?', minWidth: 30 },
+      //   { id: 'proxi_mtr', label: 'Proximity of vital installation near the wall for the segment.(nearest point in mtrs)', minWidth: 30 },
+      //   { id: 'instruct_cnt', label: 'Number Instrusions in last 1 year', minWidth: 30 },
+      //   { id: 'fix_cctv_mtr', label: 'Fix CCTV coverage in meters How much length (in mtrs) is covered with fix cameras along the wall? In night', minWidth: 30 },
+      //   { id: 'ptz_cctv_mtr', label: 'PTZ CCTV coverage in meters How much length (in mtrs) is covered with PTZ cameras along the wall? In night', minWidth: 30 },
+    
+      // ];
   const DDOnChange = (event,newValue,row_index) => {
-    debugger;
       let v_rows = [...rows];
       v_rows[row_index].petrol_track = newValue;
       setRows(v_rows); 
@@ -80,7 +97,6 @@ const handleChange = (e, columnId,rowID) => {
 
         // Convert to a number for range validation
         const num = parseInt(value, 10);
-      debugger
         if (value === '' || (!isNaN(num) && num >= 1 && num.toString().length <= 7)) {
         }
         else {
@@ -98,7 +114,6 @@ const handleChange = (e, columnId,rowID) => {
 
         // Convert to a number for range validation
         const num = parseFloat(value, 10);
-debugger
         if (value === '' || (!isNaN(num) && num >= 1 && num.toString().length <= 9)) {
         }
         else {
@@ -108,8 +123,63 @@ debugger
     const v_rows = [...rows];
     v_rows[rowID][columnId] = value;
     setRows(v_rows);
+
+
 }
   const handleSave = () => {
+    //validation
+    let varValidation=false;
+    rows.forEach((row, index) => {
+      if(!varValidation && parseFloat(row.std_light_mtr)>parseFloat(row.len_mtr))
+      {
+        setsuccessAlert({
+          ...successAlert, open: true, message: `Row ${index+1}: Standard light (5 to 10Lux) available along the wall cannot be more than Length in Mtrs`, isError: true
+        });
+        varValidation=true;
+      }
+      if(!varValidation && parseFloat(row.veg_status_mtr)>parseFloat(row.len_mtr))
+      {
+        setsuccessAlert({
+          ...successAlert, open: true, message: `Row ${index+1}: Vegetation status Length in mtrs along the segment where perimeter is not visible due to vegetation, hindrance to physical or electronic surveillance cannot be more than Length in Mtrs`, isError: true
+        });
+        varValidation=true;
+      }
+      if(!varValidation && parseFloat(row.fix_cctv_mtr)>parseFloat(row.len_mtr))
+      {
+        setsuccessAlert({
+          ...successAlert, open: true, message: `Row ${index+1}: Fix CCTV coverage in meters How much length (in mtrs) is covered with fix cameras along the wall? In night cannot be more than Length in Mtrs`, isError: true
+        });
+        varValidation=true;
+      }
+      if(!varValidation && parseFloat(row.ptz_cctv_mtr)>parseFloat(row.len_mtr))
+      {
+        setsuccessAlert({
+          ...successAlert, open: true, message: `Row ${index+1}: PTZ CCTV coverage in meters How much length (in mtrs) is covered with PTZ cameras along the wall? In night cannot be more than Length in Mtrs`, isError: true
+        });
+        varValidation=true;
+      }
+    })
+    if(varValidation) return;
+
+
+    //duplicate check from and to should not be same for entire table
+    const arr = rows.map((row, index) => {
+      return row.segment_from + '|'+ row.segment_to ;
+    })
+    const dupArr = arr.filter((e, i, a) => a.indexOf(e) !== i) // [2, 4]
+    if(dupArr.length>0)
+    {
+      const dupstr = dupArr[0].split('|');
+      setsuccessAlert({
+          ...successAlert, open: true, message: `Duplicate Perimeter Segment From and To found - ${dupstr[0]}`, isError: true
+        });
+        return;
+    }
+    //duplicate check from and to should not be same for entire table
+
+    //validation
+
+
      dispatch(savePerimeterProfile({ rows, raid })).unwrap()
           .then((res) => {
             setIsSubmitting(false)
@@ -134,6 +204,9 @@ debugger
               {
                 setRows(resp.data)
               } 
+              else{
+                 setRows([{ active: 'Y' }]);
+              }
               setFetchError(false);
               setIsFetching(false);
           })
@@ -142,6 +215,14 @@ debugger
                setIsFetching(false);
           });
   }
+   const percCal = (columnId) =>{
+debugger
+    let total = (rows.reduce((acc, obj) => acc + (parseFloat(obj[columnId]) || 0), 0) );
+    let len_total = (rows.reduce((acc, obj) => acc + (parseFloat(obj.len_mtr) || 0), 0) );
+    if(len_total===0) len_total=1;
+    let perc = (total*100)/len_total;
+    return perc.toFixed(2) + '%';
+   }
   useEffect(() => {
       fetchList();
   }, []);
@@ -216,6 +297,42 @@ debugger
                         </TableRow>
                       );
                     })}
+                    {rows.length>0 && rows[0].segment_from &&
+                    <>
+                      <TableRow hover tabIndex={-1} key='99998' sx={{ height: '40px', backgroundColor: tableHeaderBgColor }}>
+                          {columns.map((column) => {
+                            return (
+                              <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, }}>
+                                {column.id==='segment_from' ? 'Total' : 
+                                column.id==='len_mtr' ? rows.reduce((acc, obj) => acc + (parseFloat(obj.len_mtr) || 0), 0) :
+                                column.id==='std_light_mtr' ? rows.reduce((acc, obj) => acc + (parseFloat(obj.std_light_mtr) || 0), 0) :
+                                column.id==='veg_status_mtr' ? rows.reduce((acc, obj) => acc + (parseFloat(obj.veg_status_mtr) || 0), 0) :
+                                column.id==='instruct_cnt' ? rows.reduce((acc, obj) => acc + (parseFloat(obj.instruct_cnt) || 0), 0) :
+                                column.id==='fix_cctv_mtr' ? rows.reduce((acc, obj) => acc + (parseFloat(obj.fix_cctv_mtr) || 0), 0) :
+                                column.id==='ptz_cctv_mtr' ? rows.reduce((acc, obj) => acc + (parseFloat(obj.ptz_cctv_mtr) || 0), 0)
+                                :''
+                              }
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                        <TableRow hover tabIndex={-1} key='99999' sx={{ height: '40px', backgroundColor: tableHeaderBgColor }}>
+                          {columns.map((column) => {
+                            return (
+                              <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, }}>
+                                {column.id==='segment_from' ? '%age' : 
+                                column.id==='std_light_mtr' ? percCal(column.id) :
+                               column.id==='veg_status_mtr' ? percCal(column.id) :
+                               column.id==='fix_cctv_mtr' ? percCal(column.id) :
+                               column.id==='ptz_cctv_mtr' ? percCal(column.id) 
+                                :''
+                              }
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                        </>
+          }
                 </TableBody>
               </Table>
             </TableContainer>
