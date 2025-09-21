@@ -15,6 +15,7 @@ import RiskAssessment from '../features/ra/main/RiskAssessment';
 import SurveyAssessEntry from '../features/SurveyAssess/SurveyAssessEntry';
 import Logout from '../features/logout';
 import Dashboard from '../features/dashboard';
+import PerimeterProfile from '../features/misc/PerimeterProfile/PerimeterProfileEntry';
 
 
 
@@ -69,6 +70,10 @@ const mainRoutes = {
         {
             path: '/site/ra/dashboard',
             element: <Dashboard></Dashboard>
+        },
+        {
+            path: '/site/ra/misc/perimeter_profile',
+            element: <PerimeterProfile></PerimeterProfile>
         },
         //------------------------------------------------------------------------
         {

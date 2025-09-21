@@ -155,9 +155,9 @@ export default function AppMenu()
                         <ListItemText primary='Summary Components (%)' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
-                    <ListItemButton sx={{ color: 'silver' }}>
-                        <AddToPhotosOutlinedIcon sx={{ color: 'silver' }} />
+                <Link to='/site/ra/misc/perimeter_profile' style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <AddToPhotosOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Perimeter Profile' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
