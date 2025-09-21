@@ -16,6 +16,7 @@ import SurveyAssessEntry from '../features/SurveyAssess/SurveyAssessEntry';
 import Logout from '../features/logout';
 import Dashboard from '../features/dashboard';
 import PerimeterProfile from '../features/misc/PerimeterProfile/PerimeterProfileEntry';
+import VitalPoints from '../features/misc/VitalPoints';
 
 
 
@@ -74,6 +75,10 @@ const mainRoutes = {
         {
             path: '/site/ra/misc/perimeter_profile',
             element: <PerimeterProfile></PerimeterProfile>
+        },
+        {
+            path: '/site/ra/misc/vital_points',
+            element: <VitalPoints></VitalPoints>
         },
         //------------------------------------------------------------------------
         {

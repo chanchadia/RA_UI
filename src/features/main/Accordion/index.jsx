@@ -167,9 +167,9 @@ export default function AppMenu()
                         <ListItemText primary='Gate Details' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
-                    <ListItemButton sx={{ color: 'silver' }}>
-                        <BlurOnOutlinedIcon sx={{ color: 'silver' }} />
+                <Link to='/site/ra/misc/vital_points' style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <BlurOnOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Vital Points' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
