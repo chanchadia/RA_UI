@@ -19,8 +19,10 @@ import PerimeterProfile from '../features/misc/PerimeterProfile/PerimeterProfile
 import VitalPoints from '../features/misc/VitalPoints';
 import AlarmPanel from '../features/misc/AlarmPanel';
 import RAG from '../features/misc/RAG';
-
-
+import ThreatActor from '../features/misc/ThreatActor';
+import ReportsKPI from '../features/misc/ReportsKPI';
+import GateDetails from '../features/misc/GateDetails';
+import SecurityPosts from '../features/misc/SecurityPosts';
 
 const mainRoutes = {
     path: '/',
@@ -90,6 +92,40 @@ const mainRoutes = {
             path: '/site/ra/misc/rag',
             element: <RAG></RAG>
         },
+
+
+
+
+
+
+
+
+
+
+
+        
+        {
+            path: '/site/ra/misc/threat_actor',
+            element: <ThreatActor></ThreatActor>
+        },
+        
+        {
+            path: '/site/ra/misc/gate_details',
+            element: <GateDetails></GateDetails>
+        },
+        
+        {
+            path: '/site/ra/misc/security_posts',
+            element: <SecurityPosts></SecurityPosts>
+        },
+        
+        {
+            path: '/site/ra/misc/reports_kpi',
+            element: <ReportsKPI></ReportsKPI>
+        },
+        
+        
+
         //------------------------------------------------------------------------
         {
             path: '/change_pwd',

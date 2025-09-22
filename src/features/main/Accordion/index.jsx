@@ -143,27 +143,22 @@ export default function AppMenu()
                 </Link>
 
             {/* //-------------------------------------------------------------------------------------------- */}
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
-                    <ListItemButton sx={{ color: 'silver' }}>
-                        <SickOutlinedIcon sx={{ color: 'silver' }} />
+                <Link to='/site/ra/misc/threat_actor' style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <SickOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Threat Actor' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
-                    <ListItemButton sx={{ color: 'silver' }}>
-                        <AddRoadOutlinedIcon sx={{ color: 'silver' }} />
-                        <ListItemText primary='Summary Components (%)' sx={{paddingLeft:1.5}} />
-                    </ListItemButton>
-                </Link>
+               
                 <Link to='/site/ra/misc/perimeter_profile' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <AddToPhotosOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Perimeter Profile' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
-                    <ListItemButton sx={{ color: 'silver' }}>
-                        <AirOutlinedIcon sx={{ color: 'silver' }} />
+                <Link to='/site/ra/misc/gate_details' style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <AirOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Gate Details' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
@@ -173,9 +168,9 @@ export default function AppMenu()
                         <ListItemText primary='Vital Points' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
-                    <ListItemButton sx={{ color: 'silver' }}>
-                        <BrokenImageOutlinedIcon sx={{ color: 'silver' }} />
+                <Link to='/site/ra/misc/security_posts' style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <BrokenImageOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Security Posts-Available' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
@@ -191,15 +186,15 @@ export default function AppMenu()
                         <ListItemText primary='RAG' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
-                    <ListItemButton sx={{ color: 'silver' }}>
-                        <PendingActionsOutlinedIcon sx={{ color: 'silver' }} />
+                <Link to='/site/ra/misc/reports_kpi' style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <PendingActionsOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Reports and KPI' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
                 <Link style={{ textDecoration: 'none', color: 'black'}}>
-                    <ListItemButton sx={{ color: 'silver' }}>
-                        <AutoGraphIcon sx={{ color: 'silver' }} />
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <AutoGraphIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Action Tracking' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
