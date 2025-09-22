@@ -42,9 +42,10 @@ const columns = [
   
 const columnsCompWise = [
         { id: 'security_comp', label: 'Security Component', minWidth: 170 },
+        { id: 'perc_max', label: <>%age<br/>Max</>, minWidth: 100},
         { id: 'max_marks', label: <>Sum of<br/>Maximum Marks</>, minWidth: 100 },
         { id: 'scored_marks', label: <>Sum of<br/>Scored Marks</>, minWidth: 100 },
-        { id: 'perc', label: '%age', minWidth: 100}
+        { id: 'perc', label: <>%age<br/>Scored</>, minWidth: 100}
       ];
 
 
@@ -134,7 +135,7 @@ const columnsCompWise = [
    <>
 
       <Grid container spacing={2} >
-      <Grid item  sm={6}>
+      <Grid item  sm={5}>
          <Autocomplete
                     disableClearable={true}
                     options =  {rowsDD}
@@ -147,8 +148,8 @@ const columnsCompWise = [
                     )}
                   />
       </Grid>
-      <Grid item  sm={6}></Grid>
-        <Grid item  sm={6}>
+      <Grid item  sm={7}></Grid>
+        <Grid item  sm={5}>
               {!fetchError && 
                   <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                     <TableContainer >
@@ -191,7 +192,7 @@ const columnsCompWise = [
               }
         
           </Grid>
-          <Grid item  sm={6}>
+          <Grid item  sm={7}>
           <> 
             {!fetchError && 
               <Paper sx={{ width: '100%', overflow: 'hidden' }}>
