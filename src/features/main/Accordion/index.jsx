@@ -179,9 +179,9 @@ export default function AppMenu()
                         <ListItemText primary='Security Posts-Available' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
-                    <ListItemButton sx={{ color: 'silver' }}>
-                        <BusinessCenterOutlinedIcon sx={{ color: 'silver' }} />
+                <Link to='/site/ra/misc/alarm_panel' style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <BusinessCenterOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Alarm Panel' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
