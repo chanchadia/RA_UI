@@ -109,8 +109,17 @@ const VitalPoints = (props) => {
 
 
   const onSubmit = () => {
-    setIsSubmitting(true)
     const data = rows.filter(item => item.vital_point && item.vital_point.trim() !== '');
+
+    const arr1 = data.map((row, index) => {return row.vital_point.trim() ;})
+    const dupArr1 = arr1.filter((e, i, a) => a.indexOf(e) !== i) // [2, 4]
+    if(dupArr1.length>0)
+    {
+      setsuccessAlert({...successAlert, open: true, message: `Duplicate Vital point found - ${dupArr1[0]}`, isError: true});
+      return;
+    }
+    
+    setIsSubmitting(true)
 
     dispatch(saveVitalPoints({ data, raid })).unwrap()
       .then((res) => {

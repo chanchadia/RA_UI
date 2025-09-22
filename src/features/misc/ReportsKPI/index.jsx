@@ -180,6 +180,22 @@ const ReportsKPI = (props) => {
         return;
     }
 
+    const arr1 = v_rows1.map((row, index) => {return row.rpt_name.trim() ;})
+    const dupArr1 = arr1.filter((e, i, a) => a.indexOf(e) !== i) // [2, 4]
+    if(dupArr1.length>0)
+    {
+      setsuccessAlert({...successAlert, open: true, message: `Duplicate Report name found - ${dupArr1[0]}`, isError: true});
+      return;
+    }
+
+    const arr2 = v_rows2.map((row, index) => {return row.kpi_name.trim() ;})
+    const dupArr2 = arr2.filter((e, i, a) => a.indexOf(e) !== i) // [2, 4]
+    if(dupArr2.length>0)
+    {
+      setsuccessAlert({...successAlert, open: true, message: `Duplicate KPI found - ${dupArr2[0]}`, isError: true});
+      return;
+    }
+
     const data = [...v_rows1];
 
     setIsSubmitting(true)

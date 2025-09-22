@@ -169,12 +169,37 @@ const ThreatActor = (props) => {
 
 
   const onSubmit = () => {
-    setIsSubmitting(true)
     const v_rows1 = rows1.filter(item => item.person && item.person.trim() !== '');
     const v_rows2 = rows2.filter(item => item.person && item.person.trim() !== '');
     const v_rows3 = rows3.filter(item => item.person && item.person.trim() !== '');
+
+    const arr1 = v_rows1.map((row, index) => {return row.person.trim() ;})
+    const dupArr1 = arr1.filter((e, i, a) => a.indexOf(e) !== i) // [2, 4]
+    if(dupArr1.length>0)
+    {
+      setsuccessAlert({...successAlert, open: true, message: `Duplicate Person found - ${dupArr1[0]}`, isError: true});
+      return;
+    }
+
+    const arr2 = v_rows2.map((row, index) => {return row.person.trim() ;})
+    const dupArr2 = arr2.filter((e, i, a) => a.indexOf(e) !== i) // [2, 4]
+    if(dupArr2.length>0)
+    {
+      setsuccessAlert({...successAlert, open: true, message: `Duplicate Person found - ${dupArr2[0]}`, isError: true});
+      return;
+    }
+
+    const arr3 = v_rows3.map((row, index) => {return row.person.trim() ;})
+    const dupArr3 = arr3.filter((e, i, a) => a.indexOf(e) !== i) // [2, 4]
+    if(dupArr3.length>0)
+    {
+      setsuccessAlert({...successAlert, open: true, message: `Duplicate Person found - ${dupArr3[0]}`, isError: true});
+      return;
+    }
+
     const data = [...v_rows1, ...v_rows2, ...v_rows3];
 
+    setIsSubmitting(true)
     dispatch(saveThreatActor({ data, raid })).unwrap()
       .then((res) => {
         setIsSubmitting(false)
