@@ -15,8 +15,14 @@ import RiskAssessment from '../features/ra/main/RiskAssessment';
 import SurveyAssessEntry from '../features/SurveyAssess/SurveyAssessEntry';
 import Logout from '../features/logout';
 import Dashboard from '../features/dashboard';
-
-
+import PerimeterProfile from '../features/misc/PerimeterProfile/PerimeterProfileEntry';
+import VitalPoints from '../features/misc/VitalPoints';
+import AlarmPanel from '../features/misc/AlarmPanel';
+import RAG from '../features/misc/RAG';
+import ThreatActor from '../features/misc/ThreatActor';
+import ReportsKPI from '../features/misc/ReportsKPI';
+import GateDetails from '../features/misc/GateDetails';
+import SecurityPosts from '../features/misc/SecurityPosts';
 
 const mainRoutes = {
     path: '/',
@@ -70,6 +76,56 @@ const mainRoutes = {
             path: '/site/ra/dashboard',
             element: <Dashboard></Dashboard>
         },
+        {
+            path: '/site/ra/misc/perimeter_profile',
+            element: <PerimeterProfile></PerimeterProfile>
+        },
+        {
+            path: '/site/ra/misc/vital_points',
+            element: <VitalPoints></VitalPoints>
+        },
+        {
+            path: '/site/ra/misc/alarm_panel',
+            element: <AlarmPanel></AlarmPanel>
+        },
+        {
+            path: '/site/ra/misc/rag',
+            element: <RAG></RAG>
+        },
+
+
+
+
+
+
+
+
+
+
+
+        
+        {
+            path: '/site/ra/misc/threat_actor',
+            element: <ThreatActor></ThreatActor>
+        },
+        
+        {
+            path: '/site/ra/misc/gate_details',
+            element: <GateDetails></GateDetails>
+        },
+        
+        {
+            path: '/site/ra/misc/security_posts',
+            element: <SecurityPosts></SecurityPosts>
+        },
+        
+        {
+            path: '/site/ra/misc/reports_kpi',
+            element: <ReportsKPI></ReportsKPI>
+        },
+        
+        
+
         //------------------------------------------------------------------------
         {
             path: '/change_pwd',

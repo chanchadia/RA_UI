@@ -143,55 +143,50 @@ export default function AppMenu()
                 </Link>
 
             {/* //-------------------------------------------------------------------------------------------- */}
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                <Link to='/site/ra/misc/threat_actor' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <SickOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Threat Actor' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
-                    <ListItemButton sx={{ color: 'white' }}>
-                        <AddRoadOutlinedIcon sx={{ color: 'white' }} />
-                        <ListItemText primary='Summary Components (%)' sx={{paddingLeft:1.5}} />
-                    </ListItemButton>
-                </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
+               
+                <Link to='/site/ra/misc/perimeter_profile' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <AddToPhotosOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Perimeter Profile' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                <Link to='/site/ra/misc/gate_details' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <AirOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Gate Details' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                <Link to='/site/ra/misc/vital_points' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <BlurOnOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Vital Points' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                <Link to='/site/ra/misc/security_posts' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <BrokenImageOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Security Posts-Available' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                <Link to='/site/ra/misc/alarm_panel' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <BusinessCenterOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Alarm Panel' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                <Link to='/site/ra/misc/rag' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <CasinoOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='RAG' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                <Link to='/site/ra/misc/reports_kpi' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <PendingActionsOutlinedIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Reports and KPI' sx={{paddingLeft:1.5}} />
