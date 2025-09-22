@@ -109,7 +109,7 @@ const ReportsKPI = (props) => {
         const num = parseFloat(value, 10);
 
         //Validate if it's a number and within the range 1-100
-        if (value === '' || (!isNaN(num) && num >= 0 && num <= 100)) 
+        if (value === '' || (!isNaN(num) && num > 0 && num <= 100)) 
         {
         }
         else 
@@ -121,7 +121,6 @@ const ReportsKPI = (props) => {
 
     const v_rows = [...rows2];
     v_rows[rowID][column.id] = value;
-
     setRows2(v_rows);
   }
 
@@ -171,12 +170,19 @@ const ReportsKPI = (props) => {
 
 
   const onSubmit = () => {
-    setIsSubmitting(true)
     const v_rows1 = rows1.filter(item => item.rpt_name && item.rpt_name.trim() !== '');
     const v_rows2 = rows2.filter(item => item.kpi_name && item.kpi_name.trim() !== '');
 
+    const chk = [...v_rows2].filter(item => !item.measure || item.measure.trim() === '' || !item.target_perc || item.target_perc === 0);
+    if(chk.length > 0)
+    {
+        setsuccessAlert({ ...successAlert, open: true, message: 'Please input Measurement and Target', isError: true });
+        return;
+    }
+
     const data = [...v_rows1];
 
+    setIsSubmitting(true)
     dispatch(saveReports({ data, raid })).unwrap()
       .then((res) => {
 
