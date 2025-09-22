@@ -18,6 +18,7 @@ import Dashboard from '../features/dashboard';
 import PerimeterProfile from '../features/misc/PerimeterProfile/PerimeterProfileEntry';
 import VitalPoints from '../features/misc/VitalPoints';
 import AlarmPanel from '../features/misc/AlarmPanel';
+import RAG from '../features/misc/RAG';
 
 
 
@@ -84,6 +85,10 @@ const mainRoutes = {
         {
             path: '/site/ra/misc/alarm_panel',
             element: <AlarmPanel></AlarmPanel>
+        },
+        {
+            path: '/site/ra/misc/rag',
+            element: <RAG></RAG>
         },
         //------------------------------------------------------------------------
         {
