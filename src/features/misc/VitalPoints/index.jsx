@@ -11,7 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Grid from '@mui/material/GridLegacy';
-import { Backdrop, CircularProgress, Fab, InputAdornment, TextField } from '@mui/material';
+import { Autocomplete, Backdrop, CircularProgress, Fab, InputAdornment, TextField } from '@mui/material';
 import Button  from '../../../ui-component/Controls/Button';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import CustomH2 from '../../../ui-component/Headings/CustomH2';
@@ -23,6 +23,7 @@ import getColor, { tableHeaderBgColor } from '../../ra/colorCodes';
 import AddIcon from '@mui/icons-material/Add';
 import LoadingError from '../../../ui-component/LoadingError';
 import TableDataLoading from '../../../ui-component/TableDataLoading';
+import { getVitalPoints, saveVitalPoints } from '../../../slice/VitalPointsSlice';
 
 const VitalPoints = (props) => {
 
@@ -48,11 +49,11 @@ const VitalPoints = (props) => {
   });
 
   const columns = [
-    { id: 'vital_point', label: 'Vital Points', minWidth: 120,  },
-    { id: 'cctv_ap', label: 'CCTV Coverage of access point', minWidth: 120},
-    { id: 'cctv_ip', label: 'CCTV coverage of important point', minWidth: 120, options: ['Yes', 'No']  },
+    { id: 'vital_point', label: 'Vital Point', minWidth: 120,  },
+    { id: 'cctv_ap', label: <>CCTV Coverage of<br/>access point</>, minWidth: 50},
+    { id: 'cctv_ip', label: <>CCTV coverage of<br/>important point</>, minWidth: 50, options: ['Yes', 'No']  },
     { id: 'access_ctl', label: 'Access control', minWidth: 120, options: ['Smart Card/Magnetic Strip','No Access Control','Biometric','Bar code' ]  },
-    { id: 'alerts', label: 'Analytics or sensor based alert', minWidth: 120, options: ['Yes', 'No']  },
+    { id: 'alerts', label: <>Analytics or sensor<br/>based alert</>, minWidth: 50, options: ['Yes', 'No']  },
   ];
 
   const dispatch = useDispatch();
@@ -61,6 +62,7 @@ const VitalPoints = (props) => {
 
   const handleChange = (e, column, rowID) => {
     let value = e.target.value;
+    /*
     if (!column.isString) {
       value = value.replace(/[^0-9]/g, '');
 
@@ -74,7 +76,7 @@ const VitalPoints = (props) => {
         return;
       }
     }
-
+    */
 
     const v_rows = [...rows];
     v_rows[rowID][column.id] = value;
@@ -84,10 +86,10 @@ const VitalPoints = (props) => {
 
     const fetchList = () =>{
       setIsFetching(true);
-      dispatch(getRiskAssessment(raid)).unwrap()
+      dispatch(getVitalPoints(raid)).unwrap()
       .then((resp) => {
         if (resp && resp.data && resp.data.length > 0) {
-          setRows(v_rows)
+          setRows([...resp.data])
         }
         else {
           setRows([{ active: 'Y' }]);
@@ -108,9 +110,9 @@ const VitalPoints = (props) => {
 
   const onSubmit = () => {
     setIsSubmitting(true)
-    const data = [...rows];
+    const data = rows.filter(item => item.vital_point && item.vital_point.trim() !== '');
 
-    dispatch(saveRiskAssessment({ data, raid })).unwrap()
+    dispatch(saveVitalPoints({ data, raid })).unwrap()
       .then((res) => {
         setIsSubmitting(false)
         //setIsDisabled(true);
@@ -134,7 +136,7 @@ const VitalPoints = (props) => {
       <Grid container flexDirection={'column'}>
         <Grid item container display={'flex'} justifyContent={'space-between'}>
 
-          <CustomH2 headingName='Risk Assessment'></CustomH2>
+          <CustomH2 headingName='Vital Points'></CustomH2>
           <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
             onClick={onSubmit}
           >Save</Button>
@@ -157,7 +159,7 @@ const VitalPoints = (props) => {
               <TableRow sx={{ "& th": { color: "black", padding:0, textAlign: 'center' } }}>
                 {columns.map((column, i) => (
                   column.label &&
-                  <TableCell sx={{background: tableHeaderBgColor}}
+                  <TableCell sx={{background: tableHeaderBgColor, verticalAlign:'top'}}
                     key={column.id}
                     style={{ minWidth: column.minWidth, border: '1px solid white' }}
                   >
@@ -175,15 +177,31 @@ const VitalPoints = (props) => {
                       {columns.map((column) => {
                         const value = row[column.id];
                         return (
-                          <TableCell key={column.id} align={column.align}
-                          >
-                              <TextField 
-                                variant="standard"
-                                fullWidth
-                                value={value || ''}
-                                onChange={(e) => handleChange(e, column, index)}
-                              />
-                          </TableCell>
+                              <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, width: column.minWidth }}
+                              >
+                                {column.options ?
+                              <Autocomplete 
+                                      disableClearable={true}
+                                      options =  {column.options}
+                                      fullWidth
+                                      value={value || ''}   
+                                      //getOptionLabel={(option) => option || ""}
+                                      onChange={(event, newValue) => {handleChange({target:{value:newValue}},column,index)}}
+                                      renderInput={(params) => (
+                                      <TextField {...params}  variant="standard" />
+                                      )}
+                                  />
+                                :
+                                <TextField 
+                                        variant="standard"
+                                        fullWidth
+                                        // multiline={true}
+                                        value={value || ''}
+                                        onChange={(e) => handleChange(e, column,index)}
+                                      />
+                                
+                                }
+                              </TableCell>
                         );
                       })}
                     </TableRow>
