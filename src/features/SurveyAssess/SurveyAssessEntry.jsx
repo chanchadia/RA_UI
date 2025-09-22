@@ -115,7 +115,7 @@ const handleChange = (e, columnId,rowID) => {
         value = value.replace(/[^0-9.]/g, '');
 
         //Convert to a number for range validation
-        const num = parseInt(value, 10);
+        const num = parseFloat(value, 10);
 
         //Validate if it's a number and within the range 1-100
         if (value === '' || (!isNaN(num) && num >= 0 && num <= 100)) 
