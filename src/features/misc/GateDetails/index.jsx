@@ -178,7 +178,7 @@ const GateDetails = (props) => {
       <Grid container flexDirection={'column'}>
         <Grid item container display={'flex'} justifyContent={'space-between'}>
 
-          <CustomH2 headingName='Security Posts - Available'></CustomH2>
+          <CustomH2 headingName='Gate Details'></CustomH2>
           <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
             onClick={onSubmit}
           >Save</Button>

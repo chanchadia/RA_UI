@@ -42,7 +42,7 @@ const columns = [
   
 const columnsCompWise = [
         { id: 'security_comp', label: 'Security Component', minWidth: 170 },
-        { id: 'perc_max', label: <>%age<br/>Max</>, minWidth: 100},
+        { id: 'perc_max', label: <>%age<br/>Weightage</>, minWidth: 100},
         { id: 'max_marks', label: <>Sum of<br/>Maximum Marks</>, minWidth: 100 },
         { id: 'scored_marks', label: <>Sum of<br/>Scored Marks</>, minWidth: 100 },
         { id: 'perc', label: <>%age<br/>Scored</>, minWidth: 100}
