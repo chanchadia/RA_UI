@@ -243,7 +243,7 @@ debugger
       
       {!fetchError && 
           <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <TableContainer sx={{ maxHeight: '65vh' }}>
+            <TableContainer sx={{ height: '65vh' }}>
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                   <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black" } }}>
