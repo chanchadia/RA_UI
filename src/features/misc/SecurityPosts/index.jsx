@@ -77,6 +77,16 @@ const SecurityPosts = (props) => {
     // { id: 'alerts', label: <>Analytics or sensor<br/>based alert</>, minWidth: 50, options: ['Yes', 'No']  },
   ];
 
+  const columns0 = [
+    { label: ' ', colspan: 3},
+    { label: 'Manpower deployment shift wise count', colspan: 3},
+    { label: ' ', colspan: 1},
+    { label: 'Process', colspan: 2},
+    { label: 'Communication system type', colspan: 6},
+    { label: 'Replacement possibility', colspan: 4},
+
+  ];
+
   const dispatch = useDispatch();
   const [rows, setRows] = useState([]);
 
@@ -198,12 +208,24 @@ const SecurityPosts = (props) => {
                 top: 0,
                 zIndex: 1,
             }}>
+            
+              <TableRow sx={{ "& th": { color: "black", padding:0, textAlign: 'center' } }}>
+                {columns0.map((column, i) => (
+                  column.label &&
+                  <TableCell sx={{background: tableHeaderBgColor, verticalAlign:'top'}}
+                    key={column.id} colSpan={column.colspan}
+                    style={{ minWidth: column.minWidth, border: '1px solid silver' }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
               <TableRow sx={{ "& th": { color: "black", padding:0, textAlign: 'center' } }}>
                 {columns.map((column, i) => (
                   column.label &&
                   <TableCell sx={{background: tableHeaderBgColor, verticalAlign:'top'}}
                     key={column.id}
-                    style={{ minWidth: column.minWidth, border: '1px solid white' }}
+                    style={{ minWidth: column.minWidth, border: '1px solid silver' }}
                   >
                     {column.label}
                   </TableCell>
