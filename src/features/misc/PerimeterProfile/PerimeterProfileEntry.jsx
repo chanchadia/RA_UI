@@ -46,43 +46,43 @@ const PerimeterProfileEntry = () => {
           }
       });
 
- const columns = [
-        { id: 'segment_from', label: 'segment_from', minWidth: 170 },
-        { id: 'segment_to', label: 'segment_to', minWidth: 170 },
-        { id: 'len_mtr', label: 'len_mtr', minWidth: 30 },
-        { id: 'peri_type', label: 'peri_type', minWidth: 170 },
-        { id: 'height_out_mtr_from', label: 'height_out_mtr_from', minWidth: 30 },
-        { id: 'height_out_mtr_to', label: 'height_out_mtr_to', minWidth: 30 },
-        { id: 'anti_climb_type', label: 'anti_climb_type', minWidth: 170 },
-        { id: 'petrol_track', label: 'petrol_track', minWidth: 30 },
-        { id: 'obs_posts_count', label: 'obs_posts_count', minWidth: 30 },
-        { id: 'std_light_mtr', label: 'std_light_mtr', minWidth: 30 },
-        { id: 'veg_status_mtr', label: 'veg_status_mtr', minWidth: 30 },
-        { id: 'proxi_mtr', label: 'proxi_mtr', minWidth: 30 },
-        { id: 'instruct_cnt', label: 'instruct_cnt', minWidth: 30 },
-        { id: 'fix_cctv_mtr', label: 'fix_cctv_mtr', minWidth: 30 },
-        { id: 'ptz_cctv_mtr', label: 'ptz_cctv_mtr', minWidth: 30 },
+//  const columns = [
+//         { id: 'segment_from', label: 'segment_from', minWidth: 170 },
+//         { id: 'segment_to', label: 'segment_to', minWidth: 170 },
+//         { id: 'len_mtr', label: 'len_mtr', minWidth: 30 },
+//         { id: 'peri_type', label: 'peri_type', minWidth: 170 },
+//         { id: 'height_out_mtr_from', label: 'height_out_mtr_from', minWidth: 30 },
+//         { id: 'height_out_mtr_to', label: 'height_out_mtr_to', minWidth: 30 },
+//         { id: 'anti_climb_type', label: 'anti_climb_type', minWidth: 170 },
+//         { id: 'petrol_track', label: 'petrol_track', minWidth: 30 },
+//         { id: 'obs_posts_count', label: 'obs_posts_count', minWidth: 30 },
+//         { id: 'std_light_mtr', label: 'std_light_mtr', minWidth: 30 },
+//         { id: 'veg_status_mtr', label: 'veg_status_mtr', minWidth: 30 },
+//         { id: 'proxi_mtr', label: 'proxi_mtr', minWidth: 30 },
+//         { id: 'instruct_cnt', label: 'instruct_cnt', minWidth: 30 },
+//         { id: 'fix_cctv_mtr', label: 'fix_cctv_mtr', minWidth: 30 },
+//         { id: 'ptz_cctv_mtr', label: 'ptz_cctv_mtr', minWidth: 30 },
+    
+//       ];
+
+       const columns = [
+        { id: 'segment_from', label: 'Perimeter Segment From (ground marking)', minWidth: 300 },
+        { id: 'segment_to', label: 'Perimeter Segment To (ground marking)', minWidth: 120 },
+        { id: 'len_mtr', label: 'Length in Mtrs', minWidth: 30 },
+        { id: 'peri_type', label: 'Perimeter barrier type RR/Slab-wall / brick M./Chain link', minWidth: 170 },
+        { id: 'height_out_mtr_from', label: 'Height from outside in mtrs', minWidth: 50 },
+        { id: 'height_out_mtr_to', label: 'Height from inside in mtrs', minWidth: 100 },
+        { id: 'anti_climb_type', label: 'Anti-climb infra type Concertina coil / barbed wire etc.', minWidth: 170 },
+        { id: 'petrol_track', label: 'Patrol Track along the length available or not? (to respond)', minWidth: 170 },
+        { id: 'obs_posts_count', label: 'Only Standard Observation posts - count in this segment', minWidth: 170 },
+        { id: 'std_light_mtr', label: 'Standard light (5 to 10Lux) available along the wall? (In mtrs)', minWidth: 170 },
+        { id: 'veg_status_mtr', label: 'Vegetation status Length in mtrs along the segment where perimeter is not visible due to vegetation, hindrance to physical or electronic surveillance?', minWidth: 250 },
+        { id: 'proxi_mtr', label: 'Proximity of vital installation near the wall for the segment.(nearest point in mtrs)', minWidth: 200 },
+        { id: 'instruct_cnt', label: 'Number Instrusions in last 1 year', minWidth: 30 },
+        { id: 'fix_cctv_mtr', label: 'Fix CCTV coverage in meters How much length (in mtrs) is covered with fix cameras along the wall? In night', minWidth: 200 },
+        { id: 'ptz_cctv_mtr', label: 'PTZ CCTV coverage in meters How much length (in mtrs) is covered with PTZ cameras along the wall? In night', minWidth: 200 },
     
       ];
-
-      //  const columns = [
-      //   { id: 'segment_from', label: 'Perimeter Segment From (ground marking)', minWidth: 170 },
-      //   { id: 'segment_to', label: 'Perimeter Segment To (ground marking)', minWidth: 170 },
-      //   { id: 'len_mtr', label: 'Length in Mtrs', minWidth: 30 },
-      //   { id: 'peri_type', label: 'Perimeter barrier type RR/Slab-wall / brick M./Chain link', minWidth: 170 },
-      //   { id: 'height_out_mtr_from', label: 'Height from outside in mtrs', minWidth: 30 },
-      //   { id: 'height_out_mtr_to', label: 'Height from inside in mtrs', minWidth: 30 },
-      //   { id: 'anti_climb_type', label: 'Anti-climb infra type Concertina coil / barbed wire etc.', minWidth: 170 },
-      //   { id: 'petrol_track', label: 'Patrol Track along the length available or not? (to respond)', minWidth: 30 },
-      //   { id: 'obs_posts_count', label: 'Only Standard Observation posts - count in this segment', minWidth: 30 },
-      //   { id: 'std_light_mtr', label: 'Standard light (5 to 10Lux) available along the wall? (In mtrs)', minWidth: 30 },
-      //   { id: 'veg_status_mtr', label: 'Vegetation status Length in mtrs along the segment where perimeter is not visible due to vegetation, hindrance to physical or electronic surveillance?', minWidth: 30 },
-      //   { id: 'proxi_mtr', label: 'Proximity of vital installation near the wall for the segment.(nearest point in mtrs)', minWidth: 30 },
-      //   { id: 'instruct_cnt', label: 'Number Instrusions in last 1 year', minWidth: 30 },
-      //   { id: 'fix_cctv_mtr', label: 'Fix CCTV coverage in meters How much length (in mtrs) is covered with fix cameras along the wall? In night', minWidth: 30 },
-      //   { id: 'ptz_cctv_mtr', label: 'PTZ CCTV coverage in meters How much length (in mtrs) is covered with PTZ cameras along the wall? In night', minWidth: 30 },
-    
-      // ];
   const DDOnChange = (event,newValue,row_index) => {
       let v_rows = [...rows];
       v_rows[row_index].petrol_track = newValue;
@@ -267,7 +267,7 @@ debugger
                           {columns.map((column) => {
                             const value = row[column.id];
                             return (
-                              <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, }}
+                              <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, width: column.minWidth}}
                               >
                                 {column.id==='petrol_track' ?
                               <Autocomplete 
@@ -282,7 +282,7 @@ debugger
                                       )}
                                   />
                                 :
-                                <TextField placeholder='Numeric Value'
+                                <TextField 
                                         variant="standard"
                                         fullWidth
                                         multiline={true}
