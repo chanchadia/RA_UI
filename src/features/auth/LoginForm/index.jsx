@@ -29,7 +29,7 @@ import { StyledTextField as CustomTextField } from "../StyledLoginComponents/sty
 import { StyledButton as StyledLoginButton } from "../StyledLoginComponents/styledButton";
 import { StyledLink as StyledForgotPwdButton } from "../StyledLoginComponents/styledLink";
 import StyledTooltipError from "../StyledLoginComponents/styledTooltipError";
-import { loginUser, setLogin, setMyRa, setMySite } from "../../../slice/AuthSlice";
+import { loginUser, setLogin, setMyRa, setMyRaName, setMySite, setMySiteBusiness, setMySiteName } from "../../../slice/AuthSlice";
 //IMPORT FROM React-redux
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
@@ -148,6 +148,9 @@ function LoginForm(props) {
         sessionStorage.setItem('login_name', originalPromiseResult.data.login_name);
         dispatch(setMySite(null));
         dispatch(setMyRa(null));
+        dispatch(setMySiteName(null));
+        dispatch(setMySiteBusiness(null));
+        dispatch(setMyRaName(null));
         navigate('/site');
       } 
     })

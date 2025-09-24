@@ -19,7 +19,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import { Backdrop, CircularProgress, IconButton, Link, Skeleton } from '@mui/material';
-import { setMyRa, setMySite } from '../../slice/AuthSlice';
+import { setMyRa, setMyRaName, setMySite, setMySiteBusiness, setMySiteName } from '../../slice/AuthSlice';
 import { tableHeaderBgColor } from '../ra/colorCodes';
 import LoadingError from '../../ui-component/LoadingError';
 import TableDataLoading from '../../ui-component/TableDataLoading';
@@ -85,7 +85,10 @@ const SiteMaster = () => {
   useEffect(() => {
     dispatch(setMySite(null));
     dispatch(setMyRa(null));
-    
+    dispatch(setMySiteName(null));
+    dispatch(setMySiteBusiness(null));
+    dispatch(setMyRaName(null));
+
     fetchList();
   }, []);
 
@@ -153,6 +156,10 @@ const SiteMaster = () => {
                                    <Link href='javascript:void' onClick={()=>
                                    {
                                       dispatch(setMySite(row.id));
+                                      dispatch(setMySiteName(row.name));
+                                      dispatch(setMySiteBusiness(row.business));
+
+                                      dispatch(setMyRaName(null));
                                       dispatch(setMyRa(null));
                                       navigate(`/site/tran`);
                                    }

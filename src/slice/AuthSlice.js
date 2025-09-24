@@ -68,6 +68,9 @@ export const AuthSlice = createSlice({
 
       mySite: null,
       myRa: null,
+      mySiteName: null,
+      mySiteBusiness: null,
+      myRaName: null,
 
       isLogout: true
 
@@ -91,6 +94,18 @@ reducers:{
       state.myRa = payload;
       sessionStorage.setItem("ra", payload);
     },
+    setMySiteName: (state, { payload }) => {
+      state.mySiteName = payload;
+      sessionStorage.setItem("sitename", payload);
+    },
+    setMySiteBusiness: (state, { payload }) => {
+      state.mySiteBusiness = payload;
+      sessionStorage.setItem("sitebusiness", payload);
+    },
+    setMyRaName: (state, { payload }) => {
+      state.myRaName = payload;
+      sessionStorage.setItem("raname", payload);
+    },
   },
     extraReducers: (builder) => {
         builder.addCase(loginUser.pending, (state) =>{
@@ -111,6 +126,9 @@ export const {
   checkLogin,
   setLogin,
   setMySite,
-  setMyRa
+  setMyRa,
+  setMySiteName,
+  setMySiteBusiness,
+  setMyRaName
 } = AuthSlice.actions;
 export default AuthSlice.reducer;

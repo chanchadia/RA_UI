@@ -13,7 +13,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import { Backdrop, Box, CircularProgress, IconButton, Link } from '@mui/material';
-import { setMyRa, setMySite } from '../../../slice/AuthSlice';
 import { getRiskRatingColor, tableHeaderBgColor } from '../../ra/colorCodes';
 import LoadingError from '../../../ui-component/LoadingError';
 import { getRaDetails, getRaSummary } from '../../../slice/RADashboardSlice';

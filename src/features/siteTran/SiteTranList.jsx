@@ -21,7 +21,7 @@ import { Navigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import { Backdrop, CircularProgress, IconButton, Link } from '@mui/material';
 import { getSiteWiseSA } from '../../slice/SurveAssessmentSlice';
-import { setMyRa, setMySite } from '../../slice/AuthSlice';
+import { setMyRa, setMyRaName, setMySite } from '../../slice/AuthSlice';
 import { tableHeaderBgColor } from '../ra/colorCodes';
 import LoadingError from '../../ui-component/LoadingError';
 import TableDataLoading from '../../ui-component/TableDataLoading';
@@ -77,8 +77,8 @@ const handleEdit = (rowid) => {
         });
 }
 useEffect(() => {
-     dispatch(setMySite(id));
      dispatch(setMyRa(null));
+     dispatch(setMyRaName(null));
     
      fetchList();
    
@@ -142,6 +142,8 @@ useEffect(() => {
                                    <Link href='javascript:void' onClick={()=>
                                    {
                                       dispatch(setMyRa(row.id));
+                                      dispatch(setMyRaName(row.name));
+
                                       navigate(`/sa`);
                                    }
                                    } >{value}</Link> 

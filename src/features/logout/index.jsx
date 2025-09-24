@@ -19,7 +19,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import { Card, CardActions, CardContent, IconButton, Link, Typography } from '@mui/material';
-import { logoutUser, setMyRa, setMySite } from '../../slice/AuthSlice';
+import { logoutUser, setMyRa, setMyRaName, setMySite, setMySiteBusiness, setMySiteName } from '../../slice/AuthSlice';
 import { tableHeaderBgColor } from '../ra/colorCodes';
 
 
@@ -32,6 +32,9 @@ const Logout = () => {
   const signOut = () => {
     dispatch(setMyRa(null));
     dispatch(setMySite(null));
+    dispatch(setMySiteName(null));
+    dispatch(setMySiteBusiness(null));
+    dispatch(setMyRaName(null));
 
     dispatch(logoutUser(null)).unwrap()
       .then((res) => {

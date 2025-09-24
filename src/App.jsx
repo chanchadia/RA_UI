@@ -4,7 +4,7 @@ import Routes from './routes'
 import { CssBaseline, StyledEngineProvider } from '@mui/material'
 import { ThemeProvider } from "@mui/material/styles";
 import { useDispatch } from 'react-redux';
-import { setLogin, setMyRa, setMySite } from './slice/AuthSlice';
+import { setLogin, setMyRa, setMySite,   setMySiteName, setMySiteBusiness, setMyRaName } from './slice/AuthSlice';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,8 +15,16 @@ function App() {
       const ra = sessionStorage.getItem("ra") || '';
       const token = sessionStorage.getItem("token") || '';
 
+      const sitename = sessionStorage.getItem("sitename") || '';
+      const sitebusiness = sessionStorage.getItem("sitebusiness") || '';
+      const raname = sessionStorage.getItem("raname") || '';
+
       site !== '' && dispatch(setMySite(site));
       ra !== '' && dispatch(setMyRa(ra));
+
+      sitename !== '' && dispatch(setMySiteName(sitename));
+      sitebusiness !== '' && dispatch(setMySiteBusiness(sitebusiness));
+      raname !== '' && dispatch(setMyRaName(raname));
 
       token !== '' && dispatch(setLogin(true));
 
