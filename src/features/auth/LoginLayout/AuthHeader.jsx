@@ -19,10 +19,18 @@ const CustomizedToolbar = styled(Toolbar)`
 `;
 //Header and logo for login screens
 export default function AuthHeader() {
+  const AppName = () =>{
+    return <div style={{color:'black', fontSize:25}}>{document.getElementById('appName').innerText}</div>;
+  }
   return (
     <AppBar position="static">
       <CustomizedToolbar>
-        <Logo />
+        <div style={{display:'flex', flexGrow:1}}>
+        <Logo /> 
+        <div style={{flexGrow:1, display:'flex'}}></div>
+        <AppName/>
+
+        </div>
       </CustomizedToolbar>
     </AppBar>
   );
