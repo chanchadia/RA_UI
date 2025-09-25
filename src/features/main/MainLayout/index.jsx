@@ -110,9 +110,9 @@ const MainLayout = () => {
     {
       if(myRaName)
       {
-        return (<>{mySiteName}, {mySiteBusiness}, {myRaName}</>);
+        return (<>{mySiteName} / {mySiteBusiness} / {myRaName}</>);
       }
-      return (<>{mySiteName}, {mySiteBusiness}</>);
+      return (<>{mySiteName} / {mySiteBusiness}</>);
     }
     return <>&nbsp;</>;
   }
@@ -517,7 +517,7 @@ const MainLayout = () => {
         </div>
 
         <Box component="main" sx={{ flexGrow: 1, py: 0, px:2, overflowX: "auto" }}>
-          <div style={{fontSize:14}}><MainDetail/></div>
+          <div style={{fontSize:15, paddingTop:5}}><MainDetail/></div>
           <Outlet />
         </Box>
         <Footer />
