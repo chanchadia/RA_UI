@@ -154,7 +154,7 @@ const RAG = (props) => {
 
       {!fetchError && 
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        Total manpower : {totalManpower}<br/>
+        Total manpower : {totalManpower ? totalManpower : 0}<br/>
         <div style={{fontSize: 12, color: '#403f3fff'}}>(As per Security Posts - Available)</div>
         <TableContainer sx={{ height: '65vh', pt:1 }}>
           <Table>
