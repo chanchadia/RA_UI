@@ -192,7 +192,7 @@ export default function AppMenu()
                         <ListItemText primary='Reports and KPI' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
-                <Link style={{ textDecoration: 'none', color: 'black'}}>
+                <Link to='/site/ra/action_tracking' style={{ textDecoration: 'none', color: 'black'}}>
                     <ListItemButton sx={{ color: 'white' }}>
                         <AutoGraphIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Action Tracking' sx={{paddingLeft:1.5}} />

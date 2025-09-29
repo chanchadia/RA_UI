@@ -23,6 +23,7 @@ import ThreatActor from '../features/misc/ThreatActor';
 import ReportsKPI from '../features/misc/ReportsKPI';
 import GateDetails from '../features/misc/GateDetails';
 import SecurityPosts from '../features/misc/SecurityPosts';
+import ActionTracking from '../features/ActionTracking';
 
 const mainRoutes = {
     path: '/',
@@ -122,6 +123,11 @@ const mainRoutes = {
         {
             path: '/site/ra/misc/reports_kpi',
             element: <ReportsKPI></ReportsKPI>
+        },
+
+        {
+            path: '/site/ra/action_tracking',
+            element: <ActionTracking></ActionTracking>
         },
         
         
