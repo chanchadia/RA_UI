@@ -50,7 +50,7 @@ const AlarmPanel = (props) => {
 
   const columns = [		
     { id: 'descr', label: 'Access control/CCTV/PIDS', minWidth: 120, readonly: true },
-    { id: 'resp', label: 'Response', minWidth: 50, options: ['Yes', 'No'] },
+    { id: 'resp', label: 'Response', minWidth: 50, options: ['Yes', 'No', 'NA'] },
     { id: 'remarks', label: 'Remarks', minWidth: 120},
   ];
 

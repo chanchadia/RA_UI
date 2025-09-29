@@ -50,7 +50,7 @@ const VitalPoints = (props) => {
 
   const columns = [
     { id: 'vital_point', label: 'Vital Point', minWidth: 120,  },
-    { id: 'cctv_ap', label: <>CCTV Coverage of<br/>access point</>, minWidth: 50},
+    { id: 'cctv_ap', label: <>CCTV Coverage of<br/>access point</>, minWidth: 50, options: ['Yes', 'No']},
     { id: 'cctv_ip', label: <>CCTV coverage of<br/>important point</>, minWidth: 50, options: ['Yes', 'No']  },
     { id: 'access_ctl', label: 'Access control', minWidth: 120, options: ['Smart Card/Magnetic Strip','No Access Control','Biometric','Bar code' ]  },
     { id: 'alerts', label: <>Analytics or sensor<br/>based alert</>, minWidth: 50, options: ['Yes', 'No']  },

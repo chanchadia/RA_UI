@@ -14,7 +14,7 @@ import { StyledButton as StyledLoginButton } from "../../auth/StyledLoginCompone
 import CustomH2 from '../../../ui-component/Headings/CustomH2';
 import Grid from '@mui/material/GridLegacy';
 import CustomDashedBorder from '../../../ui-component/CustomDashedBorder';
-import { Autocomplete, Backdrop, CircularProgress, Fab, InputAdornment, TextField } from '@mui/material';
+import { Autocomplete, Backdrop, CircularProgress, Fab, InputAdornment, TextField, Tooltip } from '@mui/material';
 import Button  from '../../../ui-component/Controls/Button';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Navigate,useParams } from "react-router-dom";
@@ -66,14 +66,14 @@ const PerimeterProfileEntry = () => {
 //       ];
 
        const columns = [
-        { id: 'segment_from', label: 'Perimeter Segment From (ground marking)', minWidth: 300 },
+        { id: 'segment_from', label: 'Perimeter Segment From (ground marking)', minWidth: 300, tooltip:'Check data' },
         { id: 'segment_to', label: 'Perimeter Segment To (ground marking)', minWidth: 120 },
-        { id: 'len_mtr', label: 'Length in Mtrs', minWidth: 30 },
-        { id: 'peri_type', label: 'Perimeter barrier type RR/Slab-wall / brick M./Chain link', minWidth: 170 },
+        { id: 'len_mtr', label: 'Segment length in mtrs', minWidth: 30 },
+        { id: 'peri_type', label: 'Perimeter barrier type', minWidth: 180, options: ['RR', 'Concrete Slab', 'Brick Masonry', 'Concrete-block', 'Chain link'] },
         { id: 'height_out_mtr_from', label: 'Height from outside in mtrs', minWidth: 50 },
         { id: 'height_out_mtr_to', label: 'Height from inside in mtrs', minWidth: 100 },
-        { id: 'anti_climb_type', label: 'Anti-climb infra type Concertina coil / barbed wire etc.', minWidth: 170 },
-        { id: 'petrol_track', label: 'Patrol Track along the length available or not? (to respond)', minWidth: 170 },
+        { id: 'anti_climb_type', label: 'Anti-climb infra type Concertina coil / barbed wire etc.', minWidth: 180, options:['None', 'Concertina Coil', 'Barbed wire', 'Buried glasses', 'Other'] },
+        { id: 'petrol_track', label: 'Patrol Track along the length available or not? (to respond)', minWidth: 170, options:['Yes', 'No'] },
         { id: 'obs_posts_count', label: 'Only Standard Observation posts - count in this segment', minWidth: 170 },
         { id: 'std_light_mtr', label: 'Standard light (5 to 10Lux) available along the wall? (In mtrs)', minWidth: 170 },
         { id: 'veg_status_mtr', label: 'Vegetation status Length in mtrs along the segment where perimeter is not visible due to vegetation, hindrance to physical or electronic surveillance?', minWidth: 250 },
@@ -83,9 +83,9 @@ const PerimeterProfileEntry = () => {
         { id: 'ptz_cctv_mtr', label: 'PTZ CCTV coverage in meters How much length (in mtrs) is covered with PTZ cameras along the wall? In night', minWidth: 200 },
     
       ];
-  const DDOnChange = (event,newValue,row_index) => {
+  const DDOnChange = (event,newValue,row_index, column) => {
       let v_rows = [...rows];
-      v_rows[row_index].petrol_track = newValue;
+      v_rows[row_index][column.id] = newValue;
       setRows(v_rows); 
   }
   
@@ -114,7 +114,7 @@ const handleChange = (e, columnId,rowID) => {
 
         // Convert to a number for range validation
         const num = parseFloat(value, 10);
-        if (value === '' || (!isNaN(num) && num >= 1 && num.toString().length <= 9)) {
+        if (value === '' || (!isNaN(num) && num >= 1 && num <= 15)) {
         }
         else {
             return;
@@ -248,12 +248,14 @@ debugger
                 <TableHead>
                   <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black" } }}>
                     {columns.map((column) => (
-                      <TableCell
+                      <TableCell 
                         key={column.id}
                         align={column.align}
-                        style={{ minWidth: column.minWidth }}
+                        style={{ minWidth: column.minWidth, verticalAlign:'top' }}
                       >
-                        {column.label}
+                        {
+                        column.tooltip ? <Tooltip title={column.tooltip}>{column.label}</Tooltip> : column.label
+                        }
                       </TableCell>
                     ))}
                   </TableRow>
@@ -269,19 +271,20 @@ debugger
                             return (
                               <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, width: column.minWidth}}
                               >
-                                {column.id==='petrol_track' ?
+                                {column.options ?
                               <Autocomplete 
                                       disableClearable={true}
-                                      options =  {ddPetrol_track}
+                                      options =  {column.options}
                                       fullWidth
-                                      value={row.petrol_track || ''}   
+                                      value={value || ''}   
                                       //getOptionLabel={(option) => option || ""}
-                                      onChange={(event, newValue) => {DDOnChange(event,newValue,index)}}
+                                      onChange={(event, newValue) => {DDOnChange(event,newValue,index, column)}}
                                       renderInput={(params) => (
                                       <TextField {...params}  variant="standard" />
                                       )}
                                   />
                                 :
+                                <Tooltip title={column.tooltip}>
                                 <TextField 
                                         variant="standard"
                                         fullWidth
@@ -289,7 +292,7 @@ debugger
                                         value={value || ''}
                                         onChange={(e) => handleChange(e, column.id,index)}
                                       />
-                                
+                                </Tooltip>
                                 }
                               </TableCell>
                             );

@@ -68,7 +68,7 @@ const SecurityPosts = (props) => {
     { id: 'rep_possib_p', label: 'Process', minWidth: 250, isString: true},
     { id: 'rep_possib_i', label: 'Infrastructure', minWidth: 250, isString: true},
     { id: 'rep_possib_a', label: 'Automation', minWidth: 250, isString: true},
-    { id: 'rev_num', label: 'Revised reduced number after adding measures.', minWidth: 150},
+    { id: 'rev_num', label: 'Revised number after adding measures', minWidth: 110},
 
     // { id: 'vital_point', label: 'Vital Point', minWidth: 120,  },
     // { id: 'cctv_ap', label: <>CCTV Coverage of<br/>access point</>, minWidth: 50},

@@ -58,6 +58,7 @@ const RAG = (props) => {
 
   const dispatch = useDispatch();
   const [rows, setRows] = useState([]);
+  const [totalManpower, setTotalManpower] = useState(0); // As per Security Posts
 
 
   const handleChange = (e, column, rowID) => {
@@ -89,7 +90,9 @@ const RAG = (props) => {
       dispatch(getRAG(raid)).unwrap()
       .then((resp) => {
         if (resp && resp.data && resp.data.length > 0) {
-          setRows([...resp.data])
+          setRows([...resp.data[0]])
+          const totMp = resp.data[1] && resp.data[1].length > 0 ? resp.data[1][0]["m_total"] : 0;
+          setTotalManpower(totMp);
         }
         else {
            setFetchError('Something went wrong');
@@ -151,7 +154,9 @@ const RAG = (props) => {
 
       {!fetchError && 
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ height: '65vh' }}>
+        Total manpower : {totalManpower}<br/>
+        <div style={{fontSize: 12, color: '#403f3fff'}}>(As per Security Posts - Available)</div>
+        <TableContainer sx={{ height: '65vh', pt:1 }}>
           <Table>
             <TableHead sx={{
                 position: "sticky",
