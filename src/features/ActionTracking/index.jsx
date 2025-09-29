@@ -26,6 +26,10 @@ import AddIcon from '@mui/icons-material/Add';
 import LoadingError from '../../ui-component/LoadingError';
 import TableDataLoading from '../../ui-component/TableDataLoading';
 import { getActionTracking, saveActionTracking } from '../../slice/ActionTrackingSlice';
+import CustomDatePicker from '../../ui-component/CustomDueDatePicker';
+
+import dayjs from 'dayjs';
+
 
 const ActionTracking = (props) => {
 
@@ -51,15 +55,19 @@ const ActionTracking = (props) => {
   });
 
   const columns = [
-    { id: 'vital_point', label: 'Vital Point', minWidth: 120,  },
-    { id: 'cctv_ap', label: <>CCTV Coverage of<br/>access point</>, minWidth: 50, options: ['Yes', 'No']},
-    { id: 'cctv_ip', label: <>CCTV coverage of<br/>important point</>, minWidth: 50, options: ['Yes', 'No']  },
-    { id: 'access_ctl', label: 'Access control', minWidth: 120, options: ['Smart Card/Magnetic Strip','No Access Control','Biometric','Bar code' ]  },
-    { id: 'alerts', label: <>Analytics or sensor<br/>based alert</>, minWidth: 50, options: ['Yes', 'No']  },
+    { id: 'layer', label: 'Security layer', minWidth: 80, isString: true },
+    { id: 'addlm', label: 'Additional measures', minWidth: 200,  isString: true },
+    { id: 'person_resp', label: 'Person Responsible', minWidth: 200,  },
+    { id: 'target_dt', label: 'Target date', minWidth: 120, isDate: true },
+    { id: 'forcast_dt', label: 'Forcast Date', minWidth: 120, isDate: true },
+    { id: 'dt_change_count', label: '#of Change of Dates', minWidth: 100, readonly: true  },
+    { id: 'status', label: 'Status', minWidth: 130, options:['Open','Close','Hold','Rejected'] },
+    { id: 'close_dt', label: 'Close date', minWidth: 120, readonly: true }
   ];
 
   const dispatch = useDispatch();
   const [rows, setRows] = useState([]);
+  const [prevRows, setPrevRows] = useState([]);
 
 
   const handleChange = (e, column, rowID) => {
@@ -83,6 +91,11 @@ const ActionTracking = (props) => {
     const v_rows = [...rows];
     v_rows[rowID][column.id] = value;
 
+    if(column.id === 'target_dt')
+    {
+      v_rows[rowID]['forcast_dt'] = value;
+    }
+
     setRows(v_rows);
   }
 
@@ -92,10 +105,11 @@ const ActionTracking = (props) => {
       .then((resp) => {
         if (resp && resp.data && resp.data.length > 0) {
           setRows([...resp.data])
+          const data = [...resp.data];
+          const jsData = JSON.stringify(data);
+          setPrevRows(JSON.parse(jsData));
         }
-        else {
-          setRows([{ active: 'Y' }]);
-        }
+        
          setFetchError(false);
           setIsFetching(false);
       })
@@ -131,6 +145,7 @@ const ActionTracking = (props) => {
           ...successAlert, open: true, message: res.message, isError: false
         });
         setRows([]);
+        setPrevRows([]);
         fetchList();
       })
       .catch((err) => {
@@ -139,6 +154,35 @@ const ActionTracking = (props) => {
       });
   }
 
+  const getDateField = (row, column, index) =>
+  {
+    if(column.id === 'forcast_dt')
+    {
+      if(prevRows[index]['target_dt'] === null)
+      {
+        return row[column.id];
+      }
+    }
+    if(column.id === 'target_dt')
+    {
+      if(prevRows[index]['target_dt'] !== null)
+      {
+        return row[column.id];
+      }
+    }
+    return (                      
+        <CustomDatePicker
+          onChange={(date) => {
+              if (date === null) {
+                handleChange({target:{value:null}}, column,index);
+              } else {
+                dayjs(date).format('DD-MM-YYYY') !== 'Invalid Date' && handleChange({target:{value:dayjs(date).format('DD-MM-YYYY')}}, column,index);
+              }
+          }}
+          valuedata={ row[column.id] ? dayjs( row[column.id], 'DD-MM-YYYY') : null}
+      />
+    );
+  }
 
   return (
     <>
@@ -167,7 +211,7 @@ const ActionTracking = (props) => {
                 top: 0,
                 zIndex: 1,
             }}>
-              <TableRow sx={{ "& th": { color: "black", padding:0, textAlign: 'center' } }}>
+              <TableRow sx={{ "& th": { color: "black", padding:1, textAlign: 'center' } }}>
                 {columns.map((column, i) => (
                   column.label &&
                   <TableCell sx={{background: tableHeaderBgColor, verticalAlign:'top'}}
@@ -186,7 +230,7 @@ const ActionTracking = (props) => {
                   return (
                     <TableRow hover tabIndex={-1} key={row.code} sx={{ height: '40px' }}>
                       {columns.map((column) => {
-                        const value = row[column.id];
+                        const value = row[column.id] || '';
                         return (
                               <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, width: column.minWidth }}
                               >
@@ -202,8 +246,9 @@ const ActionTracking = (props) => {
                                       <TextField {...params}  variant="standard" />
                                       )}
                                   />
-                                :
-                                <TextField 
+                                : column.isString || column.readonly ? value
+                                : column.isDate ? getDateField(row, column, index)
+                                : <TextField 
                                         variant="standard"
                                         fullWidth
                                         // multiline={true}
