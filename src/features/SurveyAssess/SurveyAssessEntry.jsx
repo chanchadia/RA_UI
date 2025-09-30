@@ -66,6 +66,26 @@ const SurveyAssessEntry = (props) => {
       ];
 
       const onSubmit = () =>{
+            const data = [...rows];
+            const errData = data.filter((item)=>
+              {
+                if(item.obs_score === 'Scoring' && item.a_or_na === 'Applicable')
+                {
+                  if(item.observation == '')
+                  {
+                    return true;
+                  }
+                }
+                  
+                return false;
+
+              });
+
+                if(errData.length > 0)
+                {
+                  setsuccessAlert({ ...successAlert, open: true, message: 'Please provide Weightage for all the Scoring checklist', isError: true });
+                  return;
+                }
               setIsSubmitting(true)
               dispatch(saveSurveyAssessment({data:rows,raid})).unwrap()
               .then((res)=>{
