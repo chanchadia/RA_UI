@@ -18,6 +18,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { createSiteTran, getSingleSiteTran, modifySiteTran } from '../../slice/SurveAssessmentSlice';
 import CustomDatePicker from '../../ui-component/CustomDueDatePicker';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
 
 const CreateSiteTran = () => {
 

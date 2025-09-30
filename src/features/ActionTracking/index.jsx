@@ -29,6 +29,9 @@ import { getActionTracking, saveActionTracking } from '../../slice/ActionTrackin
 import CustomDatePicker from '../../ui-component/CustomDueDatePicker';
 
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
 
 
 const ActionTracking = (props) => {
@@ -104,10 +107,10 @@ const ActionTracking = (props) => {
       dispatch(getActionTracking(raid)).unwrap()
       .then((resp) => {
         if (resp && resp.data && resp.data.length > 0) {
-          setRows([...resp.data])
           const data = [...resp.data];
           const jsData = JSON.stringify(data);
           setPrevRows(JSON.parse(jsData));
+          setRows([...resp.data])
         }
         
          setFetchError(false);
@@ -162,6 +165,7 @@ const ActionTracking = (props) => {
         return row[column.id];
       }
     }
+    
     return (                      
         <CustomDatePicker
           onChange={(date) => {
