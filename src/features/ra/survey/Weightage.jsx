@@ -110,6 +110,35 @@ useEffect(() => {
 
 
 const onSubmit = () =>{
+
+    const data = [...rows];
+    const errData = data.filter((item)=>
+      {
+        if(item.obs_score === 'Scoring')
+        {
+          if(item.weightage && item.weightage != '')
+          {
+            if(parseInt(item.weightage) <= 0)
+            {
+              return true;
+            }
+          }
+          else
+          {
+            return true;
+          }
+        }
+          
+        return false;
+
+      });
+
+        if(errData.length > 0)
+        {
+          setsuccessAlert({ ...successAlert, open: true, message: 'Please provide Weightage for all the Scoring checklist', isError: true });
+          return;
+        }
+
         setIsSubmitting(true)
         dispatch(saveWeightage(rows)).unwrap()
         .then((res)=>{
