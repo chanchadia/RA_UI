@@ -43,7 +43,7 @@ import { checkLogin } from "./AuthSlice";
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
-            body: JSON.stringify(args.rows)
+            body: JSON.stringify(args.data)
         };
         const response = await fetch(config.API_URL + 'ActionTracking/' + args.raid, requestOptions);
         if (response.ok) 
