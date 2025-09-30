@@ -272,6 +272,20 @@ const SecurityPosts = (props) => {
                     </TableRow>
                   );
                 })}
+                <TableRow hover tabIndex={-1} sx={{ height: '40px' }}>
+                  {columns.map((column) => {
+                      return (
+                              <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 1, background: tableHeaderBgColor, fontWeight:'bold' }}>
+                                {
+                                  column.id === 'm_total' ? 
+                                  rows.reduce((acc, obj) => acc + (parseFloat(obj.m_total) || 0), 0)
+                                  : column.id === 'secu_post_name'? 'Total' : ''
+                                }
+                              </TableCell>
+                      );
+                  })
+                  }
+                </TableRow>
             </TableBody>
           </Table>
         </TableContainer>

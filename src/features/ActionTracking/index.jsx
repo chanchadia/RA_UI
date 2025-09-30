@@ -58,6 +58,7 @@ const ActionTracking = (props) => {
   });
 
   const columns = [
+    { id: 'sr', label: 'Sr.', minWidth: 25, isString: true },
     { id: 'layer', label: 'Security layer', minWidth: 80, isString: true },
     { id: 'addlm', label: 'Additional measures', minWidth: 200,  isString: true },
     { id: 'person_resp', label: 'Person Responsible', minWidth: 200,  },
@@ -151,6 +152,11 @@ const ActionTracking = (props) => {
 
   const getDateField = (row, column, index) =>
   {
+    if(prevRows[index]['status'] !== 'Open')
+    {
+      return row[column.id];
+    }
+
     if(column.id === 'forcast_dt')
     {
       if(prevRows[index]['target_dt'] === null)
@@ -224,13 +230,14 @@ const ActionTracking = (props) => {
                 :rows
                 .map((row, index) => {
                   return (
-                    <TableRow hover tabIndex={-1} key={row.code} sx={{ height: '40px' }}>
+                    <TableRow tabIndex={-1} key={row.code} sx={{ height: '40px', background: row.color }}>
                       {columns.map((column) => {
                         const value = row[column.id] || '';
                         return (
                               <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0, width: column.minWidth }}
                               >
-                                {column.options ?
+                                {column.id === 'sr' ? index + 1
+                                :column.options ?
                               <Autocomplete 
                                       disableClearable={true}
                                       options =  {column.options}
@@ -244,6 +251,7 @@ const ActionTracking = (props) => {
                                   />
                                 : column.isString || column.readonly ? value
                                 : column.isDate ? getDateField(row, column, index)
+                                : prevRows[index]['status'] !== 'Open' ? value 
                                 : <TextField 
                                         variant="standard"
                                         fullWidth

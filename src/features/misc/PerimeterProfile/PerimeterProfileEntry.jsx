@@ -66,7 +66,7 @@ const PerimeterProfileEntry = () => {
 //       ];
 
        const columns = [
-        { id: 'segment_from', label: 'Perimeter Segment From (ground marking)', minWidth: 300, tooltip:'Check data' },
+        { id: 'segment_from', label: 'Perimeter Segment From (ground marking)', minWidth: 300 },
         { id: 'segment_to', label: 'Perimeter Segment To (ground marking)', minWidth: 120 },
         { id: 'len_mtr', label: 'Segment length in mtrs', minWidth: 30 },
         { id: 'peri_type', label: 'Perimeter barrier type', minWidth: 180, options: ['RR', 'Concrete Slab', 'Brick Masonry', 'Concrete-block', 'Chain link'] },
@@ -75,14 +75,16 @@ const PerimeterProfileEntry = () => {
         { id: 'anti_climb_type', label: 'Anti-climb infra type Concertina coil / barbed wire etc.', minWidth: 180, options:['None', 'Concertina Coil', 'Barbed wire', 'Buried glasses', 'Other'] },
         { id: 'petrol_track', label: 'Patrol Track along the length available or not? (to respond)', minWidth: 170, options:['Yes', 'No'] },
         { id: 'obs_posts_count', label: 'Only Standard Observation posts - count in this segment', minWidth: 170 },
-        { id: 'std_light_mtr', label: 'Standard light (5 to 10Lux) available along the wall? (In mtrs)', minWidth: 170 },
-        { id: 'veg_status_mtr', label: 'Vegetation status Length in mtrs along the segment where perimeter is not visible due to vegetation, hindrance to physical or electronic surveillance?', minWidth: 250 },
+        { id: 'std_light_mtr', label: 'Standard light (5 to 10Lux) available along the wall? (In mtrs)', minWidth: 170, tooltip: 'Value cannot be more than Segment Length in Mtrs' },
+        { id: 'veg_status_mtr', label: 'Vegetation status Length in mtrs along the segment where perimeter is not visible due to vegetation, hindrance to physical or electronic surveillance?', minWidth: 250 , tooltip: 'Value cannot be more than Segment Length in Mtrs'},
         { id: 'proxi_mtr', label: 'Proximity of vital installation near the wall for the segment.(nearest point in mtrs)', minWidth: 200 },
         { id: 'instruct_cnt', label: 'Number Instrusions in last 1 year', minWidth: 30 },
-        { id: 'fix_cctv_mtr', label: 'Fix CCTV coverage in meters How much length (in mtrs) is covered with fix cameras along the wall? In night', minWidth: 200 },
-        { id: 'ptz_cctv_mtr', label: 'PTZ CCTV coverage in meters How much length (in mtrs) is covered with PTZ cameras along the wall? In night', minWidth: 200 },
+        { id: 'fix_cctv_mtr', label: 'Fix CCTV coverage in meters How much length (in mtrs) is covered with fix cameras along the wall? In night', minWidth: 200 , tooltip: 'Value cannot be more than Segment Length in Mtrs'},
+        { id: 'ptz_cctv_mtr', label: 'PTZ CCTV coverage in meters How much length (in mtrs) is covered with PTZ cameras along the wall? In night', minWidth: 200 , tooltip: 'Value cannot be more than Segment Length in Mtrs'},
     
       ];
+
+
   const DDOnChange = (event,newValue,row_index, column) => {
       let v_rows = [...rows];
       v_rows[row_index][column.id] = newValue;
@@ -133,28 +135,28 @@ const handleChange = (e, columnId,rowID) => {
       if(!varValidation && parseFloat(row.std_light_mtr)>parseFloat(row.len_mtr))
       {
         setsuccessAlert({
-          ...successAlert, open: true, message: `Row ${index+1}: Standard light (5 to 10Lux) available along the wall cannot be more than Length in Mtrs`, isError: true
+          ...successAlert, open: true, message: `Row ${index+1}: Standard light (5 to 10Lux) available along the wall cannot be more than Segment Length in Mtrs`, isError: true
         });
         varValidation=true;
       }
       if(!varValidation && parseFloat(row.veg_status_mtr)>parseFloat(row.len_mtr))
       {
         setsuccessAlert({
-          ...successAlert, open: true, message: `Row ${index+1}: Vegetation status Length in mtrs along the segment where perimeter is not visible due to vegetation, hindrance to physical or electronic surveillance cannot be more than Length in Mtrs`, isError: true
+          ...successAlert, open: true, message: `Row ${index+1}: Vegetation status Length in mtrs along the segment where perimeter is not visible due to vegetation, hindrance to physical or electronic surveillance cannot be more than Segment Length in Mtrs`, isError: true
         });
         varValidation=true;
       }
       if(!varValidation && parseFloat(row.fix_cctv_mtr)>parseFloat(row.len_mtr))
       {
         setsuccessAlert({
-          ...successAlert, open: true, message: `Row ${index+1}: Fix CCTV coverage in meters How much length (in mtrs) is covered with fix cameras along the wall? In night cannot be more than Length in Mtrs`, isError: true
+          ...successAlert, open: true, message: `Row ${index+1}: Fix CCTV coverage in meters How much length (in mtrs) is covered with fix cameras along the wall? In night cannot be more than Segment Length in Mtrs`, isError: true
         });
         varValidation=true;
       }
       if(!varValidation && parseFloat(row.ptz_cctv_mtr)>parseFloat(row.len_mtr))
       {
         setsuccessAlert({
-          ...successAlert, open: true, message: `Row ${index+1}: PTZ CCTV coverage in meters How much length (in mtrs) is covered with PTZ cameras along the wall? In night cannot be more than Length in Mtrs`, isError: true
+          ...successAlert, open: true, message: `Row ${index+1}: PTZ CCTV coverage in meters How much length (in mtrs) is covered with PTZ cameras along the wall? In night cannot be more than Segment Length in Mtrs`, isError: true
         });
         varValidation=true;
       }
