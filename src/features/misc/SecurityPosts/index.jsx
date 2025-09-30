@@ -25,6 +25,7 @@ import LoadingError from '../../../ui-component/LoadingError';
 import TableDataLoading from '../../../ui-component/TableDataLoading';
 import { getSecurityPosts, saveSecurityPosts } from '../../../slice/SecurityPostsSlice';
 import { isString } from 'formik';
+import parseErr from '../../../util/parseErr';
 
 const SecurityPosts = (props) => {
 
@@ -175,7 +176,7 @@ const SecurityPosts = (props) => {
         fetchList();
       })
       .catch((err) => {
-        setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+        setsuccessAlert({ ...successAlert, open: true, message: parseErr(err, columns), isError: true });
         setIsSubmitting(false)
       });
   }

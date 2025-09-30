@@ -30,6 +30,7 @@ import CustomDatePicker from '../../ui-component/CustomDueDatePicker';
 
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import parseErr from '../../util/parseErr';
 
 dayjs.extend(customParseFormat);
 
@@ -145,7 +146,7 @@ const ActionTracking = (props) => {
         fetchList();
       })
       .catch((err) => {
-        setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+        setsuccessAlert({ ...successAlert, open: true, message: parseErr(err, columns), isError: true });
         setIsSubmitting(false)
       });
   }

@@ -24,6 +24,7 @@ import AddIcon from '@mui/icons-material/Add';
 import LoadingError from '../../../ui-component/LoadingError';
 import TableDataLoading from '../../../ui-component/TableDataLoading';
 import { getAlarmPanel, saveAlarmPanel } from '../../../slice/AlarmPanelSlice';
+import parseErr from '../../../util/parseErr';
 
 const AlarmPanel = (props) => {
 
@@ -135,7 +136,7 @@ const AlarmPanel = (props) => {
         fetchList();
       })
       .catch((err) => {
-        setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+        setsuccessAlert({ ...successAlert, open: true, message: parseErr(err, columns), isError: true });
         setIsSubmitting(false)
       });
   }

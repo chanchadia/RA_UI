@@ -25,6 +25,7 @@ import LoadingError from '../../../ui-component/LoadingError';
 import TableDataLoading from '../../../ui-component/TableDataLoading';
 import { getGateDetails, saveGateDetails } from '../../../slice/GateDetailsSlice';
 import { isString } from 'formik';
+import parseErr from '../../../util/parseErr';
 
 const GateDetails = (props) => {
 
@@ -165,7 +166,7 @@ const GateDetails = (props) => {
         fetchList();
       })
       .catch((err) => {
-        setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+        setsuccessAlert({ ...successAlert, open: true, message: parseErr(err, columns), isError: true });
         setIsSubmitting(false)
       });
   }

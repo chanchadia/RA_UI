@@ -24,6 +24,7 @@ import AddIcon from '@mui/icons-material/Add';
 import LoadingError from '../../../ui-component/LoadingError';
 import TableDataLoading from '../../../ui-component/TableDataLoading';
 import { getVitalPoints, saveVitalPoints } from '../../../slice/VitalPointsSlice';
+import parseErr from '../../../util/parseErr';
 
 const VitalPoints = (props) => {
 
@@ -50,10 +51,10 @@ const VitalPoints = (props) => {
 
   const columns = [
     { id: 'vital_point', label: 'Vital Point', minWidth: 120,  },
-    { id: 'cctv_ap', label: <>CCTV Coverage of<br/>access point</>, minWidth: 50, options: ['Yes', 'No']},
-    { id: 'cctv_ip', label: <>CCTV coverage of<br/>important point</>, minWidth: 50, options: ['Yes', 'No']  },
+    { id: 'cctv_ap', label: <>CCTV Coverage of<br/>access point</>, minWidth: 50, options: ['Yes', 'No'], err: 'CCTV Coverage of access point'},
+    { id: 'cctv_ip', label: <>CCTV coverage of<br/>important point</>, minWidth: 50, options: ['Yes', 'No'], err: 'CCTV coverage of important point'  },
     { id: 'access_ctl', label: 'Access control', minWidth: 120, options: ['Smart Card/Magnetic Strip','No Access Control','Biometric','Bar code' ]  },
-    { id: 'alerts', label: <>Analytics or sensor<br/>based alert</>, minWidth: 50, options: ['Yes', 'No']  },
+    { id: 'alerts', label: <>Analytics or sensor<br/>based alert</>, minWidth: 50, options: ['Yes', 'No'], err: 'Analytics or sensor based alert'  },
   ];
 
   const dispatch = useDispatch();
@@ -132,7 +133,7 @@ const VitalPoints = (props) => {
         fetchList();
       })
       .catch((err) => {
-        setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+        setsuccessAlert({ ...successAlert, open: true, message: parseErr(err, columns), isError: true });
         setIsSubmitting(false)
       });
   }

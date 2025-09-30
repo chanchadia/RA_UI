@@ -27,6 +27,7 @@ import LoadingError from '../../../ui-component/LoadingError';
 import TableDataLoading from '../../../ui-component/TableDataLoading';
 import { getPerimeterProfile, savePerimeterProfile } from '../../../slice/PerimeterProfileSlice';
 import MultipleSelect from '../../../ui-component/CustomMultiSelectDD/MultipleSelect';
+import parseErr from '../../../util/parseErr';
 
 const PerimeterProfileEntry = () => {
   const { mySite, myRa: raid } = useSelector((state) => state.auth);
@@ -193,7 +194,7 @@ const handleChange = (e, columnId,rowID) => {
             fetchList();
           })
           .catch((err) => {
-            setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+            setsuccessAlert({ ...successAlert, open: true, message: parseErr(err, columns), isError: true });
             setIsSubmitting(false)
           });
   }

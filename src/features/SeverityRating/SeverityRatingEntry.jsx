@@ -26,6 +26,8 @@ import getColor, { tableHeaderBgColor } from '../ra/colorCodes';
 import LoadingError from '../../ui-component/LoadingError';
 import TableDataLoading from '../../ui-component/TableDataLoading';
 
+import parseErr from '../../util/parseErr';
+
 const SeverityRatingEntry = (props) => {
   const { mySite, myRa: raid } = useSelector((state) => state.auth);
   const [fetchError, setFetchError] = useState(false);    
@@ -78,11 +80,14 @@ const handleSave = () => {
                  });
             })
             .catch((err) => {
-                setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+                setsuccessAlert({ ...successAlert, open: true, message: parseErr(err, columns), isError: true });
                 setIsSubmitting(false)
             });
 
 }
+
+
+
 const handleChange = (e, columnId,rowID) => {
     const v_rows = [...rows];
     v_rows[rowID][columnId] = e.target.value;

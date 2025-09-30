@@ -28,6 +28,7 @@ import getColor, { tableHeaderBgColor } from '../colorCodes';
 import MultipleSelect from '../../../ui-component/CustomMultiSelectDD/MultipleSelect';
 import LoadingError from '../../../ui-component/LoadingError';
 import TableDataLoading from '../../../ui-component/TableDataLoading';
+import parseErr from '../../../util/parseErr';
 const RiskAssessment = (props) => {
 
     const { mySite, myRa: raid } = useSelector((state) => state.auth);
@@ -56,26 +57,26 @@ const [am_mp, setAmMP] = React.useState([]);
   });
 
   const columns = [
-    { id: 'id', label: null, minWidth: 120, readonly: true },
+    { id: 'id', label: null, minWidth: 120, readonly: true},
     { id: 'scenarios', label: null, minWidth: 120, isString: true },
-    { id: 'attack_p', label: 'P', minWidth: 120 },
-    { id: 'attack_e', label: 'E', minWidth: 120 },
-    { id: 'attack_a', label: 'A', minWidth: 120 },
-    { id: 'attack_r', label: 'R', minWidth: 120 },
-    { id: 'attack_s', label: 'S', minWidth: 120, readonly: true },
-    { id: 'tr_tac', label: 'TAc', minWidth: 120 },
-    { id: 'tr_tai', label: 'TAi', minWidth: 120 },
-    { id: 'tr_t', label: 'T', minWidth: 120, readonly: true },
-    { id: 'vulnerability', label: 'V', minWidth: 120 },
-    { id: 'likelihood', label: 'L', minWidth: 120, readonly: true },
-    { id: 'risk', label: 'R', minWidth: 120, readonly: true },
-    { id: 'am_i', label: 'Infrastructure', minWidth: 120, isString: true },
+    { id: 'attack_p', label: 'P', minWidth: 120, err:'People Loss'  },
+    { id: 'attack_e', label: 'E', minWidth: 120, err:'Environment Loss'  },
+    { id: 'attack_a', label: 'A', minWidth: 120, err:'Asset Loss'  },
+    { id: 'attack_r', label: 'R', minWidth: 120, err:'Reputation Loss'  },
+    { id: 'attack_s', label: 'S', minWidth: 120, readonly: true, err:'Severity'  },
+    { id: 'tr_tac', label: 'TAc', minWidth: 120, err:'Threat Actor Capability'  },
+    { id: 'tr_tai', label: 'TAi', minWidth: 120, err:'Threat Actor Intent'  },
+    { id: 'tr_t', label: 'T', minWidth: 120, readonly: true, err:'Threat Rank in (Capability x Intent)'  },
+    { id: 'vulnerability', label: 'V', minWidth: 120, err:'Vulnerability'  },
+    { id: 'likelihood', label: 'L', minWidth: 120, readonly: true, err:'Likelihood'  },
+    { id: 'risk', label: 'R', minWidth: 120, readonly: true, err:'Risk'  },
+    { id: 'am_i', label: 'Infrastructure', minWidth: 120, isString: true  },
     { id: 'am_a', label: 'Automation', minWidth: 120, isString: true },
-    { id: 'am_p', label: 'Process', minWidth: 120, isString: true },
+    { id: 'am_p', label: 'Process', minWidth: 120, isString: true  },
     { id: 'am_m', label: 'Manpower', minWidth: 120, isString: true },
-    { id: 'vulnerability_r', label: 'Vr', minWidth: 120 },
-    { id: 'likelihood_r', label: 'Lr', minWidth: 120, readonly: true },
-    { id: 'risk_r', label: 'Rr', minWidth: 120, readonly: true },
+    { id: 'vulnerability_r', label: 'Vr', minWidth: 120, err:'Vulnerability(Vr)'  },
+    { id: 'likelihood_r', label: 'Lr', minWidth: 120, readonly: true, err:'Revised Likelihood'  },
+    { id: 'risk_r', label: 'Rr', minWidth: 120, readonly: true, err:'Risk(Rr)'  },
   ];
 
   const columns1 = [
@@ -437,7 +438,7 @@ const [am_mp, setAmMP] = React.useState([]);
         fetchList();
       })
       .catch((err) => {
-        setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+        setsuccessAlert({ ...successAlert, open: true, message: parseErr(err, columns), isError: true });
         setIsSubmitting(false)
       });
   }

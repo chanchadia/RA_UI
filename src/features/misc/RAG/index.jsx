@@ -24,6 +24,7 @@ import AddIcon from '@mui/icons-material/Add';
 import LoadingError from '../../../ui-component/LoadingError';
 import TableDataLoading from '../../../ui-component/TableDataLoading';
 import { getRAG, saveRAG } from '../../../slice/RAGSlice';
+import parseErr from '../../../util/parseErr';
 
 
 const RAG = (props) => {
@@ -128,7 +129,7 @@ const RAG = (props) => {
         fetchList();
       })
       .catch((err) => {
-        setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+        setsuccessAlert({ ...successAlert, open: true, message: parseErr(err, columns), isError: true });
         setIsSubmitting(false)
       });
   }
