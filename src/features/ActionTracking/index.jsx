@@ -61,7 +61,7 @@ const ActionTracking = (props) => {
   const columns = [
     { id: 'sr', label: 'Sr.', minWidth: 25, isString: true },
     { id: 'layer', label: 'Security layer', minWidth: 80, isString: true },
-    { id: 'addlm', label: 'Additional measures', minWidth: 200,  isString: true },
+    { id: 'addlm', label: 'Risk Reduction Action', minWidth: 200,  isString: true },
     { id: 'person_resp', label: 'Person Responsible', minWidth: 200,  },
     { id: 'target_dt', label: 'Target date', minWidth: 120, isDate: true },
     { id: 'forcast_dt', label: 'Forcast Date', minWidth: 120, isDate: true },
