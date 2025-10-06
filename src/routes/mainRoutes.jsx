@@ -24,6 +24,8 @@ import ReportsKPI from '../features/misc/ReportsKPI';
 import GateDetails from '../features/misc/GateDetails';
 import SecurityPosts from '../features/misc/SecurityPosts';
 import ActionTracking from '../features/ActionTracking';
+import UsersList from '../features/users/UsersList';
+import CreateUser from '../features/users/CreateUser';
 
 const mainRoutes = {
     path: '/',
@@ -92,19 +94,7 @@ const mainRoutes = {
         {
             path: '/site/ra/misc/rag',
             element: <RAG></RAG>
-        },
-
-
-
-
-
-
-
-
-
-
-
-        
+        },        
         {
             path: '/site/ra/misc/threat_actor',
             element: <ThreatActor></ThreatActor>
@@ -128,6 +118,15 @@ const mainRoutes = {
         {
             path: '/site/ra/action_tracking',
             element: <ActionTracking></ActionTracking>
+        },
+
+        {
+            path: '/users',
+            element: <UsersList></UsersList>
+        },
+        {
+            path: '/users/create',
+            element: <CreateUser>Create User</CreateUser>
         },
         
         

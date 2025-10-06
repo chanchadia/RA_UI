@@ -1,0 +1,165 @@
+
+import React from 'react'
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getSite } from '../../slice/SiteSlice';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import { StyledButton as StyledLoginButton } from "../auth/StyledLoginComponents/styledButton";
+import CustomH2 from '../../ui-component/Headings/CustomH2';
+import Grid from '@mui/material/GridLegacy';
+import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
+import Button  from '../../ui-component/Controls/Button';
+import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import EditIcon from '@mui/icons-material/Edit';
+import { Backdrop, CircularProgress, IconButton, Link, Skeleton } from '@mui/material';
+import { getAllUsers, setMyRa, setMyRaName, setMySite, setMySiteBusiness, setMySiteName } from '../../slice/AuthSlice';
+import { tableHeaderBgColor } from '../ra/colorCodes';
+import LoadingError from '../../ui-component/LoadingError';
+import TableDataLoading from '../../ui-component/TableDataLoading';
+
+
+const UsersList = () => {
+  const navigate = useNavigate();
+  const columns = [
+    { id: 'name', label: 'User', minWidth: 170 },
+    { id: 'login_id', label: 'Lodin ID', minWidth: 170 },
+    { id: 'email', label: 'Email ID', minWidth: 170 },
+
+  ];
+
+
+  const [fetchError, setFetchError] = useState(false);    
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const dispatch = useDispatch();
+  const [rows, setRows] = useState([]);
+  const [headers, setHeaders] = useState([]);
+
+  const fetchList = () =>{
+    setIsSubmitting(true);
+    dispatch(getAllUsers("")).unwrap().then((action) => {
+      if (action.data.length > 0) {
+        setRows(action.data)
+        setHeaders(Object.keys(action.data[0]));
+      }
+      setFetchError(false);
+      setIsSubmitting(false);
+    }).catch((err) => {
+        setFetchError(err.message);
+        setIsSubmitting(false);
+    });
+  }
+
+  useEffect(() => {
+    fetchList();
+  }, []);
+
+
+
+  return (
+    <>
+
+      <Grid container flexDirection={'column'}>
+        <Grid item container display={'flex'} justifyContent={'space-between'}>
+
+          <CustomH2 headingName='Users'></CustomH2>
+       <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
+       onClick={()=>{
+          navigate('/users/create/');
+       }}
+       >Create New User</Button>
+
+        </Grid>
+        <Grid item flexGrow={1}>
+          <CustomDashedBorder />
+        </Grid>
+      </Grid>
+
+      {!fetchError && 
+      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow sx={{ "& th": { backgroundColor: tableHeaderBgColor, color: "black" } }}>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {
+                isSubmitting ? <TableDataLoading cols={columns.length} />
+                :rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return (
+                    <TableRow hover tabIndex={-1} key={row.code} sx={{ height: '40px' }}>
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align} sx={{ paddingTop: 0.8, paddingBottom: 0 }}>
+                            {/* {column.format && typeof value === 'number'
+                            ? column.format(value)
+                            : value} */}
+                            {value}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {/* <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      /> */}
+      </Paper>
+      }
+      {fetchError && <LoadingError err={fetchError} onClick={fetchList} />}
+
+      {/* <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={isSubmitting}
+          //onClick={handleClose}
+      >
+          <CircularProgress sx={{ color: "white" }} />
+      </Backdrop> */}
+    </>
+  )
+}
+
+export default UsersList

@@ -59,6 +59,68 @@ export const logoutUser = createAsyncThunk(
     }
   );
 
+  export const getAllUsers = createAsyncThunk(
+    "getAllUsers",
+    async(args, { rejectWithValue }) => { 
+      try
+      {
+
+        const token = sessionStorage.getItem('token');
+
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
+            //body: JSON.stringify(args)
+        };
+        const response = await fetch(config.API_URL + 'User', requestOptions);
+        if (response.ok) 
+        {
+          return await response.json();
+        } 
+        else 
+        {
+          return rejectWithValue(await response.json());
+        }
+      }
+      catch (error)
+      {
+        return rejectWithValue(error);
+      }
+    }
+  );
+
+export const createUser = createAsyncThunk(
+    "createUser",
+    async(args, { rejectWithValue }) => { 
+      try
+      {
+
+        const token = sessionStorage.getItem('token');
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: "Bearer " + token },
+            body: JSON.stringify(args)
+        };
+        const response = await fetch(config.API_URL + 'User', requestOptions);
+        if (response.ok) 
+        {
+          return await response.json();
+        } 
+        else 
+        {
+          return rejectWithValue(await response.json());
+        }
+      }
+      catch (error)
+      {
+        return rejectWithValue(error);
+      }
+    }
+  );
+
+
+
 export const AuthSlice = createSlice({
   name: "AuthSlice",
   initialState: {
@@ -129,6 +191,6 @@ export const {
   setMyRa,
   setMySiteName,
   setMySiteBusiness,
-  setMyRaName
+  setMyRaName,
 } = AuthSlice.actions;
 export default AuthSlice.reducer;

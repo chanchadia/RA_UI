@@ -16,9 +16,15 @@ import CustomDashedBorder from '../../ui-component/CustomDashedBorder';
 import { createSite, getSingleSite, modifySite } from '../../slice/SiteSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const CreateSite = () => {
+import YupPassword from 'yup-password';
+import { createUser } from '../../slice/AuthSlice';
 
-    const {id} = useParams();
+YupPassword(Yup); // Extend Yup with password methods
+
+const CreateUser = () => {
+
+    //const {id} = useParams();
+    const id = null;
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -40,24 +46,30 @@ const CreateSite = () => {
     const initialValues = {
         id: "0",
         name: "",
-        business: "",
-        address: "",
-        spoc_name: "",
-        spoc_email: "",
+        login_id: "",
+        pwd: "",
+        email: "",
         active: "Y"
     };
 
+    const advancedPasswordSchema = Yup.string()
+  .required('Password is required')
+  .min(8, 'Password must contain 8 or more characters with at least one of each: uppercase, lowercase, number and special')
+  .minLowercase(1, 'Password must contain at least 1 lowercase letter')
+  .minUppercase(1, 'Password must contain at least 1 uppercase letter')
+  .minNumbers(1, 'Password must contain at least 1 number')
+  .minSymbols(1, 'Password must contain at least 1 special character');
+
     const validationSchema = Yup.object({
-        name: Yup.string().max(255, "Must be 255 characters or less").required("Site Name is mandatory."),
-        business: Yup.string().max(255, "Must be 255 characters or less").required("Business is mandatory."),
-        address: Yup.string().max(255, "Must be 255 characters or less").required("Address is mandatory."),
-        spoc_name: Yup.string().max(255, "Must be 255 characters or less").required("SPOC Name is mandatory."),
-        spoc_email: Yup.string().max(255, "Must be 255 characters or less").required("SPOC E-Mail is mandatory. *").email('Invalid email address'),
+        name: Yup.string().max(255, "Must be 255 characters or less").required("Name is mandatory."),
+        login_id: Yup.string().max(255, "Must be 255 characters or less").required("Login ID is mandatory."),
+        pwd: advancedPasswordSchema,
+        email: Yup.string().max(255, "Must be 255 characters or less").required("E-Mail is mandatory. *").email('Invalid email address'),
     });
 
     const onSubmit = (values) => {
         setIsSubmitting(true)
-        dispatch(id ? modifySite(values) : createSite(values)).unwrap()
+        dispatch(createUser(values)).unwrap()
         .then((res)=>{
             setIsSubmitting(false)
             setIsDisabled(true);
@@ -65,7 +77,7 @@ const CreateSite = () => {
                 handleClose: () => {
                     //setTimeout(() => {
                     setIsDisabled(false);
-                        navigate('/site');
+                        navigate('/users');
                     //}, 1000);
                 }
              });
@@ -96,7 +108,7 @@ const CreateSite = () => {
         <>
             <Grid container flexDirection={'column'}>
                 <Grid item flexGrow={1}>
-                    <CustomH2 headingName={id ? 'Modify User' : 'Create User'}></CustomH2>
+                    <CustomH2 headingName={id ? 'Modify Site' : 'Create Site'}></CustomH2>
                 </Grid>
                 <Grid item flexGrow={1}>
                     <CustomDashedBorder />
@@ -116,11 +128,10 @@ const CreateSite = () => {
                     <Form>
 
                         <Grid container spacing={2}>
-                            <Grid item xs={6}>   <CustomTextInput label="Site Name *" name="name" type="text" /></Grid>
-                            <Grid item xs={6}>   <CustomTextInput label="Nature Of Business *" name="business" type="text" /></Grid>
-                            <Grid item xs={6}>   <CustomTextInput label="SPOC Name *" name="spoc_name" type="text" /></Grid>
-                            <Grid item xs={6}>   <CustomTextInput label="SPOC E-Mail ID *" name="spoc_email" type="text" /></Grid>
-                            <Grid item xs={6}>   <CustomTextInput label="Address *" name="address" type="text" multiline /></Grid>
+                            <Grid item xs={6}>   <CustomTextInput label="Login ID *" name="login_id" type="text" /></Grid>
+                            <Grid item xs={6}>   <CustomTextInput label="Name *" name="name" type="text" /></Grid>
+                            <Grid item xs={6}>   <CustomTextInput label="Password *" name="pwd" type="password" /></Grid>
+                            <Grid item xs={6}>   <CustomTextInput label="E-Mail ID *" name="email" type="text" /></Grid>
                         </Grid>
 
                         {/* <Controls.Button
@@ -134,7 +145,7 @@ const CreateSite = () => {
                             <Button variant="contained" type='submit' sx={{ m: 2, minWidth: 150 }}>Save</Button>
                             <CancelButton sx={{ m: 2, minWidth: 150 }}
                             onClick={()=>{
-                                navigate('/site');
+                                navigate('/users');
                             }}>Cancel</CancelButton>
 
                         </center>
@@ -171,4 +182,4 @@ const CreateSite = () => {
     )
 }
 
-export default CreateSite
+export default CreateUser

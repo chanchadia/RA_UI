@@ -33,6 +33,7 @@ import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlin
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SickOutlinedIcon from '@mui/icons-material/SickOutlined';
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 
     const Link = styled(RawLink)`
       height: 40px;
@@ -65,6 +66,12 @@ export default function AppMenu()
                         <ListItemText primary='Site List' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
+                <Link to='/users' style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <PeopleOutlineIcon sx={{ color: 'white' }} />
+                        <ListItemText primary='Manage Users' sx={{paddingLeft:1.5}} />
+                    </ListItemButton>
+                </Link>
             </>);
         }
         else if(myRa === null)
@@ -74,6 +81,12 @@ export default function AppMenu()
                     <ListItemButton sx={{ color: 'white' }}>
                         <TocIcon sx={{ color: 'white' }} />
                         <ListItemText primary='Site List' sx={{paddingLeft:1.5}} />
+                    </ListItemButton>
+                </Link>
+                <Link to='/users' style={{ textDecoration: 'none', color: 'black'}}>
+                    <ListItemButton sx={{ color: 'white' }}>
+                        <PeopleOutlineIcon sx={{ color: 'white' }} />
+                        <ListItemText primary='Manage Users' sx={{paddingLeft:1.5}} />
                     </ListItemButton>
                 </Link>
                 <Link to='/site/weightage' style={{ textDecoration: 'none', color: 'black'}}>
