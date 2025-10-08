@@ -6,6 +6,11 @@ import { ThemeProvider } from "@mui/material/styles";
 import { useDispatch } from 'react-redux';
 import { setLogin, setMyRa, setMySite,   setMySiteName, setMySiteBusiness, setMyRaName } from './slice/AuthSlice';
 
+function setVal(myVal)
+{
+  return myVal !== '' && myVal !== 'null' ? myVal : null;
+}
+
 function App() {
   const [count, setCount] = useState(0)
       const dispatch = useDispatch();
@@ -19,12 +24,12 @@ function App() {
       const sitebusiness = sessionStorage.getItem("sitebusiness") || '';
       const raname = sessionStorage.getItem("raname") || '';
 
-      site !== '' && dispatch(setMySite(site));
-      ra !== '' && dispatch(setMyRa(ra));
+      dispatch(setMySite(setVal(site)));
+      dispatch(setMyRa(setVal(ra)));
 
-      sitename !== '' && dispatch(setMySiteName(sitename));
-      sitebusiness !== '' && dispatch(setMySiteBusiness(sitebusiness));
-      raname !== '' && dispatch(setMyRaName(raname));
+      dispatch(setMySiteName(setVal(sitename)));
+      dispatch(setMySiteBusiness(setVal(sitebusiness)));
+      dispatch(setMyRaName(setVal(raname)));
 
       token !== '' && dispatch(setLogin(true));
 

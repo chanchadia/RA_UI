@@ -90,17 +90,17 @@ const CreateUser = () => {
 
     useEffect(()=>
     {
-        id && dispatch(getSingleSite(id)).unwrap()
-            .then((resp)=>{
-              if(resp)
-              {
-                setSingleSiteData({...resp.data[0]});
-              } 
-            })
-            .catch((err) => {
-                setSingleSiteData(true); // to disable form
-                setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
-            });
+        // id && dispatch(getSingleSite(id)).unwrap()
+        //     .then((resp)=>{
+        //       if(resp)
+        //       {
+        //         setSingleSiteData({...resp.data[0]});
+        //       } 
+        //     })
+        //     .catch((err) => {
+        //         setSingleSiteData(true); // to disable form
+        //         setsuccessAlert({ ...successAlert, open: true, message: err.message, isError: true });
+        //     });
 
     }, [id]);
 
