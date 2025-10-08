@@ -42,7 +42,7 @@ const Weightage = (props) => {
         message: "",
         isError: false,
         handleClose: () => {
-            setsuccessAlert({ ...successAlert, open: false, message: "", isError: false });
+      setsuccessAlert({ ...successAlert,  open: false, message: "" });
             setIsDisabled(false);
         }
     });

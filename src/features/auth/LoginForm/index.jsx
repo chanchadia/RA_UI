@@ -106,7 +106,7 @@ function LoginForm(props) {
   });
   //Handling close the alert
   const handleClose = () => {
-    setsuccessAlert({ ...successAlert, open: false, message: "" });
+    setsuccessAlert({ ...successAlert,  open: false, message: "" });
   };
 
   //Initial alues for the form

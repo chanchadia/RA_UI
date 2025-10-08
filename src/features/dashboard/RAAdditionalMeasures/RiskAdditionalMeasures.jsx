@@ -47,7 +47,7 @@ export default function RiskAdditionalMeasures()
           message: "",
           isError: false,
           handleClose: () => {
-            setsuccessAlert({ ...successAlert, open: false, message: "", isError: false });
+            setsuccessAlert({ ...successAlert,  open: false, message: "" });
             setIsDisabled(false);
           }
         });
@@ -127,6 +127,10 @@ export default function RiskAdditionalMeasures()
     setRows([...v_rows]);
 }
 
+const onDownload = () =>{
+  setsuccessAlert({ ...successAlert, open: true, message: 'Download option is not activated.', isError: true });
+}
+
 const onSubmit = () => {
             setIsSubmitting(true)
             const payload = {rows, raid: raid}
@@ -201,7 +205,7 @@ useEffect(()=>
           <div></div>
           <div>
             <CancelButton variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
-            >Download</CancelButton>
+            onClick={onDownload}>Download</CancelButton>
           <Button variant="contained" type='submit' sx={{ m: 1, minWidth: 150 }}
             onClick={onSubmit}>Save</Button>
 

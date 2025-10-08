@@ -30,7 +30,7 @@ const UsersList = () => {
   const navigate = useNavigate();
   const columns = [
     { id: 'name', label: 'User', minWidth: 170 },
-    { id: 'login_id', label: 'Lodin ID', minWidth: 170 },
+    { id: 'login_id', label: 'Login ID', minWidth: 170 },
     { id: 'email', label: 'Email ID', minWidth: 170 },
 
   ];
